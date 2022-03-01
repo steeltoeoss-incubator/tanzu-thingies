@@ -2,9 +2,9 @@ set -ueo pipefail
 
 source $(dirname $0)/../../etc/profile.sh
 
-ensure cluster-essentials
+ensure tanzu-cli
 
-msg "installing Tanzu Application Platform"
+msg "preparing Tanzu Application Platform"
 
 distfile=$DISTFILE_DIR/tanzu-framework-$OS-$ARCH.tar
 if [ ! -f $distfile ]; then
@@ -14,15 +14,7 @@ if [ ! -f $distfile ]; then
   die
 fi
 
-set -x
-catalog_reset application-platform
-git clean -fdx $WORK_DIR
-tar xvf $distfile -C $WORK_DIR
-cd $WORK_DIR
-install cli/core/v${TANZU_CLI_TAP_VERSION}/tanzu-core-${OS}_${ARCH} $LOCAL_DIR/bin/tanzu
-tanzu version
-tanzu plugin install --local cli all
-tanzu plugin list
+catalog_reset application-platform-prepare
 if ! kubectl get namespace tap-install >/dev/null 2>&1; then
   kubectl create ns tap-install
 fi
@@ -34,14 +26,11 @@ tanzu secret registry add tap-registry \
 tanzu package repository add tanzu-tap-repository \
   --url registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:${TAP_VERSION} \
   --namespace tap-install
-tanzu package repository get tanzu-tap-repository --namespace tap-install
+while true; do
+  status=$(echo $(tanzu package repository get tanzu-tap-repository --namespace tap-install | grep '^STATUS:' | cut -d: -f2))
+  [ "$status" == "Reconcile succeeded" ] && break
+  echo "waiting for reconcile to complete ..."
+  sleep 1
+done
 tanzu package available list --namespace tap-install
-ytt -f $DATA_DIR/tap-values.yaml \
-  -v tanzunet_username=${TANZUNET_USERNAME} \
-  -v tanzunet_password=${TANZUNET_PASSWORD} \
-  -v docker_username=${DOCKER_USERNAME} \
-  -v docker_password=${DOCKER_PASSWORD} \
-  --output-files $CONFIG_DIR
-chmod u=rw,go=r $CONFIG_DIR/tap-values.yaml
-tanzu package install tap -p tap.tanzu.vmware.com -v $TAP_VERSION --values-file $CONFIG_DIR/tap-values.yaml -n tap-install
-catalog application-platform
+catalog application-platform-prepare

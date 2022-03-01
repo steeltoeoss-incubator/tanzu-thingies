@@ -12,13 +12,12 @@ if [ ! -f $distfile ]; then
   die
 fi
 
-
 export INSTALL_REGISTRY_HOSTNAME=$TANZUNET_HOSTNAME
 export INSTALL_REGISTRY_USERNAME=$TANZUNET_USERNAME
 export INSTALL_REGISTRY_PASSWORD=$TANZUNET_PASSWORD
 export INSTALL_BUNDLE=$CLUSTER_ESSENTIALS_BUNDLE
 export TANZU_CLI_NO_INIT=true
-set -x
+
 catalog_reset cluster-essentials
 git clean -fdx $WORK_DIR
 tar xvf $distfile -C $WORK_DIR

@@ -24,7 +24,7 @@ Run `bin/setup.sh -l` to see available tools.
 
 ```
 $ bin/setup.sh -l
-application-platform     Tanzu Application Platform
+application-platform-configure   Tanzu Application Platform (Configure
 ...
 ```
 

@@ -14,6 +14,10 @@ buildservice:
 
 supply_chain: basic
 
+cnrs:
+  provider: local
+  domain_name: minikube
+
 ootb_supply_chain_basic:
   registry:
     server: index.docker.io
@@ -24,11 +28,18 @@ ootb_supply_chain_basic:
 tap_gui:
   service_type: ClusterIP
   ingressEnabled: "true"
+  ingressDomain: "minikube"
+  app_config:
+    app:
+      baseUrl: http://tap-gui.minikube
+    catalog:
+      locations:
+        - type: url
+          target: https://github.com/ccheetham/sandbox/blob/tap-gui-catalog/catalog-info.yaml
+    backend:
+      baseUrl: http://tap-gui.minikube
+      cors:
+        origin: http://tap-gui.minikube
 
 metadata_store:
   app_service_type: NodePort
-
-contour:
-  envoy:
-    service:
-      type: NodePort

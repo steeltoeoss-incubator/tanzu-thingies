@@ -28,7 +28,7 @@ list_tools() {
     tool=$(basename $tool)
     local about=
     [ -f $TOOL_DIR/$tool/about ] && about=$(cat $TOOL_DIR/$tool/about)
-    printf "%-24s %s\n" "$(basename $tool)" "$about"
+    printf "%-32s %s\n" "$(basename $tool)" "$about"
   done
 }
 

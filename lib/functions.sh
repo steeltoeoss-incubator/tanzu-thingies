@@ -43,6 +43,15 @@ c() {
   tput sgr0
 }
 
+init_workdir() {
+  git clean -fdx $WORK_DIR
+}
+
+local_install() {
+  mkdir -p $LOCAL_DIR/$(dirname $2)
+  install $1 $LOCAL_DIR/$2
+}
+
 catalog() {
   mkdir -p $LOCAL_DIR/catalog
   touch $LOCAL_DIR/catalog/$1
