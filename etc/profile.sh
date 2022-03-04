@@ -8,10 +8,26 @@ DISTFILE_DIR=${DISTFILE_DIR:=$BASE_DIR/distfiles}
 LOCAL_DIR=${LOCAL_DIR:=$BASE_DIR/local}
 WORK_DIR=${WORK_DIR:=$BASE_DIR/work}
 
-OS=darwin
-ARCH=amd64
-
 source $LIB_DIR/functions.sh
+
+case $OSTYPE in
+  darwin*)
+    OS=darwin
+    ;;
+  *)
+    die "unsupported OS: $OSTYPE"
+    ;;
+esac
+machine=$(uname -m)
+case $machine in
+  x86_64)
+    ARCH=amd64
+    ;;
+  *)
+    die "unsupported architecture: $machine"
+    ;;
+esac
+
 source $CONFIG_DIR/tanzu.sh
 source $CONFIG_DIR/versions.sh
 source $CONFIG_DIR/credentials.sh
