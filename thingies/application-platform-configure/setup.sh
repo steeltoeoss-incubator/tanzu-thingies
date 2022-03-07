@@ -21,6 +21,7 @@ ytt -f $DATA_DIR/tap/${KUBERNETES_VENDOR} \
   -v docker_username=${DOCKER_USERNAME} \
   -v docker_password=${DOCKER_PASSWORD} \
   -v tap_domain_name=${TAP_DOMAIN_NAME} \
+  -v tap_gui_url=${TAP_GUI_URL} \
   -v tap_catalog=${TAP_CATALOG} \
   --output-files $CONFIG_DIR
 chmod u=rw,go=r $CONFIG_DIR/tap-values.yaml

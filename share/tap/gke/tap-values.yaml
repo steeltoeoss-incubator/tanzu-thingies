@@ -35,16 +35,16 @@ tap_gui:
   ingressDomain: #@ data.values.tap_domain_name
   app_config:
     app:
-      baseUrl: #@ "http://tap-gui.{}".format(data.values.tap_domain_name)
+      baseUrl: #@ data.values.tap_gui_url
     catalog:
       locations:
         - type: url
           target: #@ data.values.tap_catalog
 
     backend:
-      baseUrl: #@ "http://tap-gui.{}".format(data.values.tap_domain_name)
+      baseUrl: #@ data.values.tap_gui_url
       cors:
-        origin: #@ "http://tap-gui.{}".format(data.values.tap_domain_name)
+        origin: #@ data.values.tap_gui_url
 
 metadata_store:
   app_service_type: LoadBalancer
