@@ -3,3 +3,4 @@
 TANZUNET_HOSTNAME=registry.tanzu.vmware.com
 CLUSTER_ESSENTIALS_BUNDLE=registry.tanzu.vmware.com/tanzu-cluster-essentials/cluster-essentials-bundle@sha256:82dfaf70656b54dcba0d4def85ccae1578ff27054e7533d08320244af7fb0343
 TAP_CATALOG=
+TAP_DOMAIN_NAME=tap.steeltoe.io

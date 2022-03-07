@@ -20,7 +20,7 @@ contour:
       type: LoadBalancer
 
 cnrs:
-  domain_name: steeltoe.io
+  domain_name: #@ data.values.tap_domain_name
 
 ootb_supply_chain_basic:
   registry:
@@ -32,19 +32,19 @@ ootb_supply_chain_basic:
 tap_gui:
   service_type: LoadBalancer
   ingressEnabled: "true"
-  ingressDomain: "steeltoe.io"
+  ingressDomain: #@ data.values.tap_domain_name
   app_config:
     app:
-      baseUrl: http://tap-gui.steeltoe.io
+      baseUrl: #@ "http://tap-gui.{}".format(data.values.tap_domain_name)
     catalog:
       locations:
         - type: url
           target: #@ data.values.tap_catalog
 
     backend:
-      baseUrl: http://tap-gui.steeltoe.io
+      baseUrl: #@ "http://tap-gui.{}".format(data.values.tap_domain_name)
       cors:
-        origin: http://tap-gui.steeltoe.io
+        origin: #@ "http://tap-gui.{}".format(data.values.tap_domain_name)
 
 metadata_store:
   app_service_type: LoadBalancer
