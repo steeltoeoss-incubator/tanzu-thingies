@@ -1,0 +1,50 @@
+#@ load("@ytt:data", "data")
+
+---
+profile: light
+ceip_policy_disclosed: true
+
+buildservice:
+  kp_default_repository: #@ "index.docker.io/{}/build-service".format(data.values.docker_username)
+  kp_default_repository_username: #@ data.values.docker_username
+  kp_default_repository_password: #@ data.values.docker_password
+  tanzunet_username: #@ data.values.tanzunet_username
+  tanzunet_password: #@ data.values.tanzunet_password
+  enable_automatic_dependency_updates: false
+
+supply_chain: basic
+
+contour:
+  envoy:
+    service:
+      type: LoadBalancer
+
+cnrs:
+  domain_name: steeltoe.io
+
+ootb_supply_chain_basic:
+  registry:
+    server: index.docker.io
+    repository: #@ data.values.docker_username
+  gitops:
+    ssh_secret: ""
+
+tap_gui:
+  service_type: LoadBalancer
+  ingressEnabled: "true"
+  ingressDomain: "steeltoe.io"
+  app_config:
+    app:
+      baseUrl: http://tap-gui.steeltoe.io
+    catalog:
+      locations:
+        - type: url
+          target: #@ data.values.tap_catalog
+
+    backend:
+      baseUrl: http://tap-gui.steeltoe.io
+      cors:
+        origin: http://tap-gui.steeltoe.io
+
+metadata_store:
+  app_service_type: LoadBalancer
