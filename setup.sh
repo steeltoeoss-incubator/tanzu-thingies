@@ -66,4 +66,5 @@ if [ -f $dependencies ]; then
     ensure $dependency
   done
 fi
+
 exec bash $thingy_setup
