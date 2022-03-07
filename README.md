@@ -36,7 +36,3 @@ tanzu-cli                        Tanzu CLI
 ## Setup a Thingy
 
 Run `./setup.sh <THINGY>`.
-
-```
-$ ./setup.sh application-platform
-```
