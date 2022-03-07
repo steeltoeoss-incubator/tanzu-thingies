@@ -60,7 +60,10 @@ thingy_setup=$thingy/setup.sh
 [ -f $thingy_setup ] || thingy_setup=$THINGY_DIR/$thingy_setup
 [ -f $thingy_setup ] || die "no such thingy $thingy; run with -l to list thingies"
 
-message MESSAGE
-crumb CRUMB
-exit
+dependencies=$thingy/dependencies
+if [ -f $dependencies ]; then
+  for dependency in $(cat $dependencies); do
+    ensure $dependency
+  done
+fi
 exec bash $thingy_setup

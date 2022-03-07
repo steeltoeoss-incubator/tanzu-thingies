@@ -12,14 +12,14 @@ if [ ! -f $distfile ]; then
   die
 fi
 
-set -x
 catalog_reset tanzu-cli
 init_workdir
-tar xvf $distfile -C $WORK_DIR
+crumb "extracting tanzu CLI"
+extract $distfile
 cd $WORK_DIR
+crumb "installing tanzu CLI"
 local_install cli/core/v${TANZU_CLI_TAP_VERSION}/tanzu-core-${OS}_${ARCH} bin/tanzu
-command -v tanzu
-tanzu version
+crumb "installing tanzu CLI plugins"
 TANZU_CLI_NO_INIT=true \
   tanzu plugin install --local cli all
 catalog tanzu-cli

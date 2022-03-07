@@ -2,8 +2,6 @@ set -ueo pipefail
 
 source $(dirname $0)/../../etc/profile.sh
 
-ensure cluster-essentials
-
 message "configuring Tanzu Application Platform"
 
 distfile=$DISTFILE_DIR/tanzu-framework-$OS-$ARCH.tar
@@ -16,6 +14,7 @@ fi
 
 catalog_reset application-platform-configure
 resolve_kubernetes_vendor
+crumb "creating tap-values"
 ytt -f $DATA_DIR/tap/${KUBERNETES_VENDOR} \
   -v tanzunet_username=${TANZUNET_USERNAME} \
   -v tanzunet_password=${TANZUNET_PASSWORD} \

@@ -2,8 +2,6 @@ set -ueo pipefail
 
 source $(dirname $0)/../../etc/profile.sh
 
-ensure tanzu-cli
-
 message "preparing Tanzu Application Platform"
 
 distfile=$DISTFILE_DIR/tanzu-framework-$OS-$ARCH.tar
@@ -14,15 +12,22 @@ if [ ! -f $distfile ]; then
   die
 fi
 
+namespace=tap-install
+
 catalog_reset application-platform-prepare
-if ! kubectl get namespace tap-install >/dev/null 2>&1; then
-  kubectl create ns tap-install
+if ! kubectl get namespace $namespace >/dev/null 2>&1; then
+  crumb "creating namespace $namespace"
+  kubectl create ns $namespace
+else
+  crumb "namespace $namespace already exists"
 fi
+crumb "adding tap-registry secret"
 tanzu secret registry add tap-registry \
   --server ${TANZUNET_HOSTNAME} \
   --username ${TANZUNET_USERNAME} \
   --password ${TANZUNET_PASSWORD} \
   --export-to-all-namespaces --yes --namespace tap-install
+crumb "adding tap-registry"
 tanzu package repository add tanzu-tap-repository \
   --url registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:${TAP_VERSION} \
   --namespace tap-install
@@ -32,5 +37,4 @@ while true; do
   echo "waiting for reconcile to complete ..."
   sleep 1
 done
-tanzu package available list --namespace tap-install
 catalog application-platform-prepare
