@@ -43,3 +43,7 @@ tap_gui:
 
 metadata_store:
   app_service_type: NodePort
+
+accelerator:
+  samples:
+    include: false
