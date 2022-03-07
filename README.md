@@ -1,6 +1,6 @@
 # Tanzu Toolkit
 
-Tools to help with the install and setup of Tanzu products.
+Help with the install and setup of Tanzu thingies.
 
 ## Credential Setup
 
@@ -18,20 +18,20 @@ export TANZUNET_CREDENTIALS=<USERNAME>:<PASSWORD>
 ...
 ```
 
-## See Available Tools
+## See Available Thingies
 
-Run `bin/setup.sh -l` to see available tools.
+Run `./setup.sh -l` to see available thingies.
 
 ```
-$ bin/setup.sh -l
+$ ./setup.sh -l
 application-platform-configure   Tanzu Application Platform (Configure
 ...
 ```
 
-## Setup a Tool
+## Setup a Thingy
 
-Run `bin/setup.sh <TOOL>`.
+Run `./setup.sh <THINGY>`.
 
 ```
-$ bin/setup.sh application-platform
+$ ./setup.sh application-platform
 ```

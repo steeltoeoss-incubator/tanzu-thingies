@@ -8,27 +8,27 @@ source $(dirname $0)/etc/profile.sh
 usage() {
   cat <<EOF
 $(b USAGE)
-     $(c $PROG) tool
+     $(c $PROG) thingy
      $(c $PROG) -h
      $(c $PROG) -l
 $(b DESCRIPTION)
-     Setup a Tanzu tool.
+     Setup a Tanzu thingy.
 $(b WHERE)
-     tool    tool to setup
+     thingy  thingy to setup
 $(b OPTIONS)
      -h      print this message
-     -l      list tools
+     -l      list thingies
 EOF
 }
 
 
-list_tools() {
-  local tool
-  for tool in $TOOL_DIR/*; do
-    tool=$(basename $tool)
+list_thingies() {
+  local thingy
+  for thingy in $THINGY_DIR/*; do
+    thingy=$(basename $thingy)
     local about=
-    [ -f $TOOL_DIR/$tool/about ] && about=$(cat $TOOL_DIR/$tool/about)
-    printf "%-32s %s\n" "$(basename $tool)" "$about"
+    [ -f $THINGY_DIR/$thingy/about ] && about=$(cat $THINGY_DIR/$thingy/about)
+    printf "%-32s %s\n" "$(basename $thingy)" "$about"
   done
 }
 
@@ -40,7 +40,7 @@ while getopts ":hl" opt; do
       exit
       ;;
     l)
-      list_tools
+      list_thingies
       exit
       ;;
     :)
@@ -53,14 +53,14 @@ while getopts ":hl" opt; do
 done
 shift $(($OPTIND - 1))
 
-[ $# -gt 0 ] || die "tool not specified; run with -h for help"
-tool=$1
+[ $# -gt 0 ] || die "thingy not specified; run with -h for help"
+thingy=$1
 shift
 
 [ $# -eq 0 ] || die "too many args; run with -h for help"
 
-tool_setup=$tool/setup.sh
-[ -f $tool_setup ] || tool_setup=$TOOL_DIR/$tool_setup
-[ -f $tool_setup ] || die "no such tool $tool; run with -l to list tools"
+thingy_setup=$thingy/setup.sh
+[ -f $thingy_setup ] || thingy_setup=$THINGY_DIR/$thingy_setup
+[ -f $thingy_setup ] || die "no such thingy $thingy; run with -l to list thingies"
 
-exec bash $tool_setup
+exec bash $thingy_setup

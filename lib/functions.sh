@@ -67,7 +67,7 @@ catalog_reset() {
 
 ensure() {
   is_cataloged $1 && return
-  bash $BASE_DIR/bin/setup.sh $1
+  bash $BASE_DIR/setup.sh $1
 }
 
 resolve_kubernetes_vendor() {
