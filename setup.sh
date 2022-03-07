@@ -2,7 +2,7 @@
 
 set -ueo pipefail
 
-source $(dirname $0)/../etc/profile.sh
+source $(dirname $0)/etc/profile.sh
 
 
 usage() {
