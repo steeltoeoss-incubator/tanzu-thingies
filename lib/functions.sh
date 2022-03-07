@@ -1,15 +1,21 @@
 die() {
-  [ $# -gt 0 ] && err "$*"
+  [ $# -gt 0 ] && error "$*"
   exit 1
 }
 
-msg() {
+message() {
   tput setaf 2
+  echo "=== $*"
+  tput sgr0
+}
+
+crumb() {
+  tput setaf 4
   echo "--- $*"
   tput sgr0
 }
 
-err() {
+error() {
   tput setaf 1
   echo "!!! $*" >&2
   tput sgr0
@@ -78,7 +84,7 @@ resolve_kubernetes_vendor() {
       KUBERNETES_VENDOR=gke
       ;;
     *)
-      err "couldn't detect Kubernetes vendor: sample node below"
+      error "couldn't detect Kubernetes vendor: sample node below"
       echo "$nodes"
       die
       ;;

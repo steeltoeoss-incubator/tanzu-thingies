@@ -2,13 +2,13 @@ set -ueo pipefail
 
 source $(dirname $0)/../../etc/profile.sh
 
-msg "installing Tanzu Cluster Essentials $TANZU_CLUSTER_ESSENTIALS_VERSION"
+message"installing Tanzu Cluster Essentials $TANZU_CLUSTER_ESSENTIALS_VERSION"
 
 distfile=$DISTFILE_DIR/tanzu-cluster-essentials-$OS-$ARCH-$TANZU_CLUSTER_ESSENTIALS_VERSION.tgz
 if [ ! -f $distfile ]; then
-  err "distribution not found"
-  err "go to: https://network.tanzu.vmware.com/products/tanzu-cluster-essentials/"
-  err "and download $(basename $distfile) and move to the 'distfiles' dir"
+  errerror"distribution not found"
+  error "go to: https://network.tanzu.vmware.com/products/tanzu-cluster-essentials/"
+  error "and download $(basename $distfile) and move to the 'distfiles' dir"
   die
 fi
 

@@ -4,7 +4,6 @@ set -ueo pipefail
 
 source $(dirname $0)/etc/profile.sh
 
-
 usage() {
   cat <<EOF
 $(b USAGE)
@@ -21,7 +20,6 @@ $(b OPTIONS)
 EOF
 }
 
-
 list_thingies() {
   local thingy
   for thingy in $THINGY_DIR/*; do
@@ -31,7 +29,6 @@ list_thingies() {
     printf "%-32s %s\n" "$(basename $thingy)" "$about"
   done
 }
-
 
 while getopts ":hl" opt; do
   case $opt in
@@ -63,4 +60,7 @@ thingy_setup=$thingy/setup.sh
 [ -f $thingy_setup ] || thingy_setup=$THINGY_DIR/$thingy_setup
 [ -f $thingy_setup ] || die "no such thingy $thingy; run with -l to list thingies"
 
+message MESSAGE
+crumb CRUMB
+exit
 exec bash $thingy_setup

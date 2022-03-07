@@ -2,13 +2,13 @@ set -ueo pipefail
 
 source $(dirname $0)/../../etc/profile.sh
 
-msg "installing Tanzu CLI"
+message "installing Tanzu CLI"
 
 distfile=$DISTFILE_DIR/tanzu-framework-$OS-$ARCH.tar
 if [ ! -f $distfile ]; then
-  err "distribution not found"
-  err "go to: https://network.tanzu.vmware.com/products/tanzu-application-platform/"
-  err "and download tanzu-cli-tap-$TANZU_CLI_TAP_VERSION ($(basename $distfile)) and move to the 'distfiles' dir"
+  error"distribution not found"
+  error "go to: https://network.tanzu.vmware.com/products/tanzu-application-platform/"
+  error "and download tanzu-cli-tap-$TANZU_CLI_TAP_VERSION ($(basename $distfile)) and move to the 'distfiles' dir"
   die
 fi
 

@@ -2,7 +2,7 @@ set -ueo pipefail
 
 source $(dirname $0)/../../etc/profile.sh
 
-msg "starting a Minikube cluster"
+message "starting a Minikube cluster"
 
 set -x
 catalog_reset minikube-cluster
