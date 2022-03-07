@@ -10,6 +10,8 @@ DISTFILE_DIR=${DISTFILE_DIR:=$BASE_DIR/distfiles}
 LOCAL_DIR=${LOCAL_DIR:=$BASE_DIR/local}
 WORK_DIR=${WORK_DIR:=$BASE_DIR/work}
 
+KUBERNETES_VENDOR=${KUBERNETES_VENDOR:-detect}
+
 source $LIB_DIR/functions.sh
 
 case $OSTYPE in

@@ -15,11 +15,13 @@ if [ ! -f $distfile ]; then
 fi
 
 catalog_reset application-platform-configure
-ytt -f $DATA_DIR/tap/minikube \
+resolve_kubernetes_vendor
+ytt -f $DATA_DIR/tap/${KUBERNETES_VENDOR} \
   -v tanzunet_username=${TANZUNET_USERNAME} \
   -v tanzunet_password=${TANZUNET_PASSWORD} \
   -v docker_username=${DOCKER_USERNAME} \
   -v docker_password=${DOCKER_PASSWORD} \
+  -v tap_catalog=${TAP_CATALOG} \
   --output-files $CONFIG_DIR
 chmod u=rw,go=r $CONFIG_DIR/tap-values.yaml
 catalog application-platform-configure

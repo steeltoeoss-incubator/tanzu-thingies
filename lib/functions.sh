@@ -69,3 +69,18 @@ ensure() {
   is_cataloged $1 && return
   bash $BASE_DIR/bin/setup.sh $1
 }
+
+resolve_kubernetes_vendor() {
+  [[ $KUBERNETES_VENDOR == detect ]] || return
+  local nodes=$(kubectl get nodes | tail -1)
+  case $nodes in
+    gke*)
+      KUBERNETES_VENDOR=gke
+      ;;
+    *)
+      err "couldn't detect Kubernetes vendor: sample node below"
+      echo "$nodes"
+      die
+      ;;
+  esac
+}
