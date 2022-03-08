@@ -1,6 +1,6 @@
 set -ueo pipefail
 
-source $(dirname $0)/../../etc/profile.sh
+source $PROFILE
 
 message "installing Tanzu Cluster Essentials $TANZU_CLUSTER_ESSENTIALS_VERSION"
 
@@ -19,10 +19,10 @@ export INSTALL_BUNDLE=$CLUSTER_ESSENTIALS_BUNDLE
 export TANZU_CLI_NO_INIT=true
 
 catalog_reset cluster-essentials
-git clean -fdx $WORK_DIR
+init_workdir
+cd $(workdir)
 crumb "extracting Tanzu Cluster Essentials"
 extract $distfile
-cd $WORK_DIR
 crumb "installing Tanzu Cluster Essentials in cluster"
 ./install.sh
 catalog cluster-essentials

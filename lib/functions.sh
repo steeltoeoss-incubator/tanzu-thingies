@@ -49,8 +49,13 @@ c() {
   tput sgr0
 }
 
+workdir() {
+  echo $WORK_DIR/$THINGY
+}
+
 init_workdir() {
-  git clean -fdx $WORK_DIR
+  rm -rf $(workdir)
+  mkdir -p $(workdir)
 }
 
 local_install() {
@@ -62,20 +67,20 @@ local_install() {
 
 catalog() {
   local thingy=$1
-  mkdir -p $LOCAL_DIR/catalog
-  touch $LOCAL_DIR/catalog/$thingy
+  mkdir -p $CATALOG_DIR
+  touch $CATALOG_DIR/$thingy
 }
 
 
 namespace=tap-install
 is_cataloged() {
   local thingy=$1
-  [ -f $LOCAL_DIR/catalog/$thingy ]
+  [ -f $CATALOG_DIR/$thingy ]
 }
 
 catalog_reset() {
   local thingy=$1
-  rm -f $LOCAL_DIR/catalog/$thingy
+  rm -f $CATALOG_DIR/$thingy
 }
 
 ensure() {
@@ -89,8 +94,12 @@ ensure() {
 
 extract() {
   local source=$1
-  [ $OS = darwin ] && xattr -d com.apple.quarantine $source
-  tar xvf $source -C $WORK_DIR
+  if [[ $OS == darwin ]]; then
+    if xattr -l $source | grep 'com.apple.quarantine'; then
+      xattr -d com.apple.quarantine $source
+    fi
+  fi
+  tar xvf $source
 }
 
 resolve_kubernetes_vendor() {

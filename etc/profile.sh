@@ -5,10 +5,12 @@ BASE_DIR=$(cd $(dirname $BASH_SOURCE)/.. && pwd)
 CONFIG_DIR=$BASE_DIR/etc
 LIB_DIR=$BASE_DIR/lib
 DATA_DIR=$BASE_DIR/share
-THINGY_DIR=$BASE_DIR/thingies
-DISTFILE_DIR=${DISTFILE_DIR:=$BASE_DIR/distfiles}
-LOCAL_DIR=${LOCAL_DIR:=$BASE_DIR/local}
-WORK_DIR=${WORK_DIR:=$BASE_DIR/work}
+CACHE_DIR=$BASE_DIR/var
+THINGY_DIR=$DATA_DIR/thingies
+DISTFILE_DIR=${DISTFILE_DIR:=$CACHE_DIR/distfiles}
+CATALOG_DIR=$CACHE_DIR/catalog
+WORK_DIR=$CACHE_DIR/work
+LOCAL_DIR=$BASE_DIR/local
 
 KUBERNETES_VENDOR=${KUBERNETES_VENDOR:-detect}
 
@@ -34,8 +36,9 @@ esac
 
 PATH=$LOCAL_DIR/bin:$PATH
 
-source $CONFIG_DIR/tanzu.sh
-source $CONFIG_DIR/versions.sh
+for f in $CONFIG_DIR/profile.d/*; do
+  source $f
+done
 [ -f $CONFIG_DIR/credentials.sh ] && source $CONFIG_DIR/credentials.sh
 [ -f $CONFIG_DIR/local.sh ] && source $CONFIG_DIR/local.sh
 

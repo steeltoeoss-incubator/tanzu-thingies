@@ -1,6 +1,6 @@
 set -ueo pipefail
 
-source $(dirname $0)/../../etc/profile.sh
+source $PROFILE
 
 message "preparing Tanzu Application Platform"
 
@@ -12,27 +12,25 @@ if [ ! -f $distfile ]; then
   die
 fi
 
-namespace=tap-install
-
 catalog_reset application-platform-prepare
-if ! kubectl get namespace $namespace >/dev/null 2>&1; then
-  crumb "creating namespace $namespace"
-  kubectl create ns $namespace
+if ! kubectl get namespace $TAP_INSTALL_NAMESPACE >/dev/null 2>&1; then
+  crumb "creating namespace $TAP_INSTALL_NAMESPACE"
+  kubectl create ns $TAP_INSTALL_NAMESPACE
 else
-  crumb "namespace $namespace already exists"
+  crumb "namespace $TAP_INSTALL_NAMESPACE already exists"
 fi
 crumb "adding tap-registry secret"
 tanzu secret registry add tap-registry \
   --server ${TANZUNET_HOSTNAME} \
   --username ${TANZUNET_USERNAME} \
   --password ${TANZUNET_PASSWORD} \
-  --export-to-all-namespaces --yes --namespace tap-install
+  --export-to-all-namespaces --yes --namespace $TAP_INSTALL_NAMESPACE
 crumb "adding tap-registry"
 tanzu package repository add tanzu-tap-repository \
   --url registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:${TAP_VERSION} \
-  --namespace tap-install
+  --namespace $TAP_INSTALL_NAMESPACE
 while true; do
-  status=$(echo $(tanzu package repository get tanzu-tap-repository --namespace tap-install | grep '^STATUS:' | cut -d: -f2))
+  status=$(echo $(tanzu package repository get tanzu-tap-repository --namespace $TAP_INSTALL_NAMESPACE | grep '^STATUS:' | cut -d: -f2))
   [ "$status" == "Reconcile succeeded" ] && break
   echo "waiting for reconcile to complete ..."
   sleep 1

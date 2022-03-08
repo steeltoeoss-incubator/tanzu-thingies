@@ -1,6 +1,6 @@
 set -ueo pipefail
 
-source $(dirname $0)/../../etc/profile.sh
+source $PROFILE
 
 message "installing Tanzu Cluster Essentials $TANZU_CLUSTER_ESSENTIALS_VERSION"
 
@@ -19,14 +19,13 @@ export INSTALL_BUNDLE=$CLUSTER_ESSENTIALS_BUNDLE
 export TANZU_CLI_NO_INIT=true
 
 catalog_reset cluster-essentials-local
-git clean -fdx $WORK_DIR
+init_workdir
+cd $(workdir)
 crumb "extracting Tanzu Cluster Essentials"
 extract $distfile
-cd $WORK_DIR
 crumb "installing local Tanzu Cluster Essentials tools"
-mkdir -p $LOCAL_DIR/bin
-install imgpkg $LOCAL_DIR/bin/imgpkg
-install kapp $LOCAL_DIR/bin/kapp
-install kbld $LOCAL_DIR/bin/kbld
-install ytt $LOCAL_DIR/bin/ytt
+local_install imgpkg bin/imgpkg
+local_install kapp bin/kapp
+local_install kbld bin/kbld
+local_install ytt bin/ytt
 catalog cluster-essentials-local

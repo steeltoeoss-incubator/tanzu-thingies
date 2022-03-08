@@ -1,6 +1,6 @@
 set -ueo pipefail
 
-source $(dirname $0)/../../etc/profile.sh
+source $PROFILE
 
 message "installing Tanzu CLI"
 
@@ -14,9 +14,9 @@ fi
 
 catalog_reset tanzu-cli
 init_workdir
+cd $(workdir)
 crumb "extracting tanzu CLI"
 extract $distfile
-cd $WORK_DIR
 crumb "installing tanzu CLI"
 local_install cli/core/v${TANZU_CLI_TAP_VERSION}/tanzu-core-${OS}_${ARCH} bin/tanzu
 crumb "installing tanzu CLI plugins"

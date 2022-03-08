@@ -67,4 +67,5 @@ if [ -f $dependencies ]; then
   done
 fi
 
-exec bash $thingy_setup
+PROFILE=$CONFIG_DIR/profile.sh THINGY=$thingy \
+  exec bash $thingy_setup
