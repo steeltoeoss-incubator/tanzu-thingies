@@ -60,7 +60,7 @@ thingy_setup=$thingy/setup.sh
 [ -f $thingy_setup ] || thingy_setup=$THINGY_DIR/$thingy_setup
 [ -f $thingy_setup ] || die "no such thingy $thingy; run with -l to list thingies"
 
-dependencies=$thingy/dependencies
+dependencies=$THINGY_DIR/$thingy/dependencies
 if [ -f $dependencies ]; then
   for dependency in $(cat $dependencies); do
     ensure $dependency
