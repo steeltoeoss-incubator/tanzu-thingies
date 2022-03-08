@@ -6,7 +6,7 @@ message "installing Tanzu Cluster Essentials $TANZU_CLUSTER_ESSENTIALS_VERSION"
 
 distfile=$DISTFILE_DIR/tanzu-cluster-essentials-$OS-$ARCH-$TANZU_CLUSTER_ESSENTIALS_VERSION.tgz
 if [ ! -f $distfile ]; then
-  error"distribution not found"
+  error "distribution not found"
   error "go to: https://network.tanzu.vmware.com/products/tanzu-cluster-essentials/"
   error "and download $(basename $distfile) and move to the 'distfiles' dir"
   die
