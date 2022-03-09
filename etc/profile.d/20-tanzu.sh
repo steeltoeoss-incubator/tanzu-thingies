@@ -5,7 +5,7 @@ CLUSTER_ESSENTIALS_BUNDLE=registry.tanzu.vmware.com/tanzu-cluster-essentials/clu
 TAP_INSTALL_NAMESPACE=tap-install
 TAP_CATALOG=
 TAP_DOMAIN_NAME=tap.steeltoe.io
-TAP_GUI_URL=http://34.134.58.240:7000
+TAP_GUI_URL=http://tap-gui.${TAP_DOMAIN_NAME}/
 TAP_ACCELERATORS="\
   https://github.com/sample-accelerators/tanzu-java-web-app \
   https://github.com/sample-accelerators/csharp-weatherforecast \
