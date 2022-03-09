@@ -85,9 +85,13 @@ catalog_reset() {
 
 ensure() {
   local thingy=$1
-  if is_cataloged $thingy; then
-    crumb "$thingy already setup"
-    return
+  if [[ $thingy == \!* ]]; then
+    thingy=${thingy:1}
+  else
+    if is_cataloged $thingy; then
+      crumb "$thingy already setup"
+      return
+    fi
   fi
   bash $BASE_DIR/setup.sh $thingy
 }
