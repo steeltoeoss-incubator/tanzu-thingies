@@ -19,10 +19,14 @@ export INSTALL_BUNDLE=$CLUSTER_ESSENTIALS_BUNDLE
 export TANZU_CLI_NO_INIT=true
 
 catalog_reset cluster-essentials
-init_workdir
-cd $(workdir)
 crumb "extracting Tanzu Cluster Essentials"
+cd $(init_dir $TANZU_CLUSTER_ESSENTIALS_HOME)
 extract $distfile
 crumb "installing Tanzu Cluster Essentials in cluster"
 ./install.sh
+crumb "installing Tanzu Cluster Essentials locally"
+for pgm in "imgpkg kapp kbld ytt"; do
+  local_install $pgm bin/$pgm
+  type $pgm
+done
 catalog cluster-essentials

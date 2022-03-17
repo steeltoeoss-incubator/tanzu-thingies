@@ -30,7 +30,7 @@ ootb_supply_chain_basic:
     ssh_secret: ""
 
 tap_gui:
-  service_type: LoadBalancer
+  service_type: ClusterIP
   ingressEnabled: "true"
   ingressDomain: #@ data.values.tap_domain_name
   app_config:
@@ -47,8 +47,8 @@ tap_gui:
         origin: #@ data.values.tap_gui_url
 
 metadata_store:
-  app_service_type: LoadBalancer
+  app_service_type: ClusterIP
 
-accelerator:
-  samples:
-    include: false
+# accelerator:
+#   samples:
+#     include: false

@@ -49,13 +49,11 @@ c() {
   tput sgr0
 }
 
-workdir() {
-  echo $WORK_DIR/$THINGY
-}
-
-init_workdir() {
-  rm -rf $(workdir)
-  mkdir -p $(workdir)
+init_dir() {
+  local dir=$1
+  rm -rf $dir
+  mkdir -p $dir
+  echo $dir
 }
 
 local_install() {
