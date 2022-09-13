@@ -260,7 +260,16 @@ where `NAME` is that specified in the command:
 
 You must add a matching entry to your local hosts resolving the route host to the loopback IF.
 
-.Sample `/etc/hosts`
+Host file locations:
+
+|===
+| Platform | path
+
+| OSX | `/etc/hosts`
+| Windows |  `C:\Windows\System32\drivers\etc\hosts`
+|===
+
+.Sample
 ----
 127.0.0.1	NAME.default.example.com
 ----
