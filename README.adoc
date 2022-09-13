@@ -28,7 +28,7 @@ Many of the example commands below work as-is on both Windows and non-Windows an
 $ bin/sample-command
 ----
 
-In situations where this is not the case, platform-specific command are shown.
+In situations where this is not the case, platform-specific commands are shown.
 
 .Sample Platform Commands
 ----
