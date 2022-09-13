@@ -19,6 +19,8 @@ This repo contains a collection of utilities to help with things Tanzu.
 | `minikube-start` | Creates/starts a Minikube cluster.
 | `minikube-stop` | Stops a Minikube cluster cluster.
 | `minikube-tunnel` | Creates a Minikube cluster tunnel.
+| `tap-install` | Installs TAP into current K8s context.
+| `tap-profile` | Creates a TAP profile.
 |===
 
 Many of the example commands below work as-is on both Windows and non-Windows and can be copy-pasted as is.
@@ -141,34 +143,56 @@ Configure credentials for TanzuNet and a Docker registry.
 .Sample `etc/credentials`
 ----
 REGISTRY_HOST=harbor-repo.vmware.com
-REGISTRY_USERNAME=joe
-REGISTRY_PASSWORD=joepass
+REGISTRY_USER=joe
+REGISTRY_PASS=joepass
 REGISTRY_REPO=joes_tap
 
-TANZUNET_USERNAME=joe@company.com
-TANZUNET_PASSWORD=joepassdeux
+TANZUNET_USER=joe@company.com
+TANZUNET_PASS=joepassdeux
 ----
-
 
 == TAP Tools
 
-=== `tanzu`
+=== Tanzu CLI
 
-Go to the the TanzuNet downloads for https://network.pivotal.io/products/tanzu-application-platform/[VMware Tanzu Application Platform, window="_new"].
+Go to the the TanzuNet downloads for https://network.tanzu.vmware.com/products/tanzu-application-platform/[VMware Tanzu Application Platform, window="_new"].
+
+Select the release that matches `TAP_VERSION`.
 
 Select the `tap-cli-tap` bundle for your platform and download.
 
-Rename the downloaded file, appending `TAP_VERSION`.
+Move/rename the downloaded file into `LOCAL_DIST_DIR`.
 
 .Example
 ----
 # OSX
 $ mkdir -p $DIST_DIR
-$ mv ~/Downloads/tanzu-framework-darwin-amd64.tar ${DIST_DIR}/tanzu-framework-darwin-amd64-${TAP_VERSION}.tar
+$ mv ~/Downloads/tanzu-framework-darwin-amd64.tar ${LOCAL_DIST_DIR}/tanzu-framework-darwin-amd64-${TAP_VERSION}.tar
 
 # Windows
-$ mkdir $Env:DIST_DIR
-$ move "$Env:UserProfile\Downloads\tanzu-framework-windows-amd64.zip" "$Env:DIST_DIR\tanzu-framework-windows-amd64-$Env:TAP_VERSION.zip"
+$ mkdir $Env:LOCAL_DIR
+$ mkdir $Env:LOCAL_DIST_DIR
+$ move "$Env:UserProfile\Downloads\tanzu-framework-windows-amd64.zip" "$Env:LOCAL_DIST_DIR\tanzu-framework-windows-amd64-$Env:TAP_VERSION.zip"
+----
+
+=== Tanzu Cluster Essentials
+
+Go to the the TanzuNet downloads for https://network.tanzu.vmware.com/products/tanzu-cluster-essentials[Cluster Essentials for VMware Tanzu, window="_new"].
+
+Select the release that matches `TANZU_ESSENTIALS_VERSION`.
+
+Move the downloaded file into `LOCAL_DIST_DIR`.
+
+.Example
+----
+# OSX
+$ mkdir -p $DIST_DIR
+$ mv ~/Downloads/tanzu-cluster-essentials-darwin-amd64-$TANZU_ESSENTIALS_VERSION.tar ${LOCAL_DIST_DIR}/
+
+# Windows
+$ mkdir $Env:LOCAL_DIR
+$ mkdir $Env:LOCAL_DIST_DIR
+$ move "$Env:UserProfile\Downloads\tanzu-cluster-essentials-windows-amd64-$Env:TANZU_ESSENTIALS_VERSION.zip" "$Env:LOCAL_DIST_DIR\"
 ----
 
 == Cluster
@@ -192,4 +216,23 @@ The tunnel runs in the foreground, `CTRL-C` to kill.
 
 ----
 $ bin/minikube-tunnel
+----
+
+== TAP
+
+=== TAP Profile
+
+Generate a TAP Profile based on your settings.
+You only need to do this once, or when you've changed settings.
+
+----
+$ bin/tap-profile
+----
+
+=== TAP Install
+
+Install TAP into the current K8s context.
+
+----
+$ bin/tap-install
 ----

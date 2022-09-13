@@ -6,6 +6,4 @@ set -o pipefail
 
 source $(dirname $0)/../etc/config
 
-runcmd sudo minikube tunnel
-
-# vim: ft=bash
+run-command sudo $MINIKUBE tunnel

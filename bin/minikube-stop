@@ -6,4 +6,4 @@ set -o pipefail
 
 source $(dirname $0)/../etc/config
 
-minikube stop
+run-command $MINIKUBE stop

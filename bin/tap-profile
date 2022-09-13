@@ -6,4 +6,4 @@ set -o pipefail
 
 source $(dirname $0)/../etc/config
 
-run-command $MINIKUBE delete
+envsubst < $DATA_DIR/examples/tap-profile.yaml > $CONFIG_DIR/tap-profile.yaml

@@ -1,0 +1,8 @@
+create-namespace() {
+  log-message "creating namespace $1"
+  if ! kubectl get ns $1 2> /dev/null; then
+    kubectl create ns $1
+  fi
+}
+
+# vim: ft=bash

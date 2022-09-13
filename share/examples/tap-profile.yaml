@@ -10,12 +10,11 @@ ceip_policy_disclosed: true
 
 buildservice:
   kp_default_repository: "$REGISTRY_HOST/$REGISTRY_REPO/build-service"
-  kp_default_repository_username: "$REGISTRY_USERNAME"
-  kp_default_repository_password: "$REGISTRY_PASSWORD"
-  tanzunet_username: "$TANZUNET_USERNAME"
-  tanzunet_password: "$TANZUNET_PASSWORD"
+  kp_default_repository_username: "$REGISTRY_USER"
+  kp_default_repository_password: "$REGISTRY_PASS"
+  tanzunet_username: "$TANZUNET_USER"
+  tanzunet_password: "$TANZUNET_PASS"
   enable_automatic_dependency_updates: false
-  # descriptor_name: "tap-$TAP_VERSION"
 
 supply_chain: basic
 

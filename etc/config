@@ -1,27 +1,34 @@
 export BASE_DIR=$(cd $(dirname $0)/.. && pwd)
 export BIN_DIR=$BASE_DIR/bin
 export CONFIG_DIR=$BASE_DIR/etc
-export DATA_DIR=$BASE_DIR/var
+export DATA_DIR=$BASE_DIR/share
 export LIBEXEC_DIR=$BASE_DIR/libexec
-export DIST_DIR=$DATA_DIR/distfiles
+export LOCAL_DIR=$BASE_DIR/local
+export LOCAL_BIN_DIR=$LOCAL_DIR/bin
+export LOCAL_DIST_DIR=$LOCAL_DIR/distfiles
+export LOCAL_TOOL_DIR=$LOCAL_DIR/tools
 
 source $LIBEXEC_DIR/sh-functions
 
-source $CONFIG_DIR/tap
-source $CONFIG_DIR/minikube
+export PLATFORM=$(uname | tr '[[:upper:]]' '[[:lower:]]')
 
 [[ -f $CONFIG_DIR/credentials ]] || die "credentials not defined"
 export \
   REGISTRY_HOST \
-  REGISTRY_USERNAME \
-  REGISTRY_PASSWORD \
+  REGISTRY_USER \
+  REGISTRY_PASS \
   REGISTRY_REPO \
-  TANZUNET_USERNAME \
-  TANZUNET_PASSWORD
+  TANZUNET_USER \
+  TANZUNET_PASS
 source $CONFIG_DIR/credentials
+
+source $CONFIG_DIR/tap
+source $CONFIG_DIR/minikube
 
 if [[ -f $CONFIG_DIR/overrides ]]; then
   source $CONFIG_DIR/overrides
 fi
+
+PATH=$LOCAL_BIN_DIR:$PATH
 
 # vim: ft=sh
