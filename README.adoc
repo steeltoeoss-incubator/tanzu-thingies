@@ -59,6 +59,13 @@ $ homebrew install gettext
 > scoop install envsubst
 ----
 
+=== `jq`
+
+----
+# OSX
+$ homebrew install jq
+----
+
 === `kubectl`
 
 `kubectl` is provided by https://www.docker.com/products/docker-desktop/[Docker for Desktop, window="_new"].
