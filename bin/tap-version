@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -e
+set -u
+set -o pipefail
+
+source $(dirname $0)/../etc/config
+
+eval echo $(kubectl get packageinstall -n $TAP_NAMESPACE tap -o json | jq .status.version)
