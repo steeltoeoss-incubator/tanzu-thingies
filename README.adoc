@@ -21,6 +21,7 @@ This repo contains a collection of utilities to help with things Tanzu.
 | `minikube-tunnel` | Creates a Minikube cluster tunnel.
 | `tap-install` | Installs TAP into current K8s context.
 | `tap-profile` | Creates a TAP profile.
+| `tap-version` | Displays the version of TAP running in the current K8s context.
 |===
 
 Many of the example commands below work as-is on both Windows and non-Windows and can be copy-pasted as is.
