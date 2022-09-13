@@ -207,7 +207,7 @@ $ mv ~/Downloads/tanzu-cluster-essentials-darwin-amd64-$TANZU_ESSENTIALS_VERSION
 
 === Minikube Cluster
 
-Running the `minikube-start` creates a cluster if necessary and then starts it.
+Running `minikube-start` creates a cluster if necessary and then starts it.
 
 ----
 $ bin/minikube-start
