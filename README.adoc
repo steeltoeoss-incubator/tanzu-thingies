@@ -235,6 +235,7 @@ See above for details on following checklist:
 * ensure cluster is running
 * ensure cluster tunnel is running
 * TAP product bundles are downloaded into expected paths
+* corporate VPN running
 
 === TAP Profile
 
