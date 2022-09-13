@@ -237,3 +237,21 @@ Install TAP into the current K8s context.
 ----
 $ bin/tap-install
 ----
+
+=== Workload Notes
+
+Deployed apps will be assigned an HTTP route of the form:
+
+`http://NAME.default.example.com`
+
+where `NAME` is that specified in the command:
+
+`tanzu apps workload create NAME ...`.
+
+You must add a matching entry to your local hosts resolving the route host to the loopback IF.
+
+.Sample `/etc/hosts`
+----
+127.0.0.1	NAME.default.example.com
+----
+
