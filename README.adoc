@@ -39,7 +39,7 @@ In situations where this is not the case, platform-specific commands are shown.
 $ bin/osx-command
 
 # Windows
-$ bin\win-command.ps1
+> bin\win-command.ps1
 ----
 
 == Prereqs
@@ -188,6 +188,8 @@ $ move "$Env:UserProfile\Downloads\tanzu-framework-windows-amd64.zip" "$Env:LOCA
 
 === Tanzu Cluster Essentials
 
+NOTE: This step is not required on Windows.
+
 Go to the the TanzuNet downloads for https://network.tanzu.vmware.com/products/tanzu-cluster-essentials[Cluster Essentials for VMware Tanzu, window="_new"].
 
 Select the release that matches `TANZU_ESSENTIALS_VERSION`.
@@ -199,11 +201,6 @@ Move the downloaded file into `LOCAL_DIST_DIR`.
 # OSX
 $ mkdir -p $DIST_DIR
 $ mv ~/Downloads/tanzu-cluster-essentials-darwin-amd64-$TANZU_ESSENTIALS_VERSION.tar ${LOCAL_DIST_DIR}/
-
-# Windows
-$ mkdir $Env:LOCAL_DIR
-$ mkdir $Env:LOCAL_DIST_DIR
-$ move "$Env:UserProfile\Downloads\tanzu-cluster-essentials-windows-amd64-$Env:TANZU_ESSENTIALS_VERSION.zip" "$Env:LOCAL_DIST_DIR\"
 ----
 
 == Cluster
