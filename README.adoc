@@ -101,7 +101,7 @@ $ homebrew install gettext
 
 ==== `tar`
 
-`tar` should be present on OSX and Linux.
+`tar` is no require for Windows and should be present on OSX and Linux.
 
 === Docker/Kubernetes
 
@@ -139,7 +139,6 @@ $ mv ~/Downloads/tanzu-framework-darwin-amd64.tar ${DIST_DIR}/tanzu-framework-da
 
 Running the `minikube-start` creates a cluster if necessary and then starts it.
 
-.minikube-start
 ----
 # OSX/Linux
 $ bin/minikube-start
@@ -150,11 +149,10 @@ $ bin/minikube-start
 NOTE: The Minikube tunnel requires elevated permissions.
 
 The tunnel is required for TAP installation.
-If packages are failing to reconcile, it may be due to lack of running tunnel.
+If packages are failing to reconcile, it may be due to lack of a running tunnel.
 
 The tunnel runs in the foreground, `CTRL-C` to kill.
 
-.minikube-tunnel
 ----
 # OSX/Linux
 $ bin/minikube-tunnel
