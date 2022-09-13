@@ -228,6 +228,14 @@ $ bin/minikube-tunnel
 
 == TAP
 
+=== Before You Begin
+
+See above for details on following checklist:
+
+* ensure cluster is running
+* ensure cluster tunnel is running
+* TAP product bundles are downloaded into expected paths
+
 === TAP Profile
 
 Generate a TAP Profile based on your settings.
