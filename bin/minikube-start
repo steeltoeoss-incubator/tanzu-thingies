@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -e
+set -u
+set -o pipefail
+
+source $(dirname $0)/../etc/config
+
+runcmd minikube start \
+  --driver=$MINIKUBE_DRIVER \
+  --kubernetes-version=$MINIKUBE_KUBERNETES_VERSION \
+  --cpus=$MINIKUBE_CPUS \
+  --memory=$MINIKUBE_MEMORY \
+  --disk-size=$MINIKUBE_DISK
+
+# vim: ft=bash

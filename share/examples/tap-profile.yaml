@@ -1,0 +1,30 @@
+---
+profile: iterate
+
+contour:
+  envoy:
+    service:
+      type: LoadBalancer
+
+ceip_policy_disclosed: true
+
+buildservice:
+  kp_default_repository: "$REGISTRY_HOST/$REGISTRY_REPO/build-service"
+  kp_default_repository_username: "$REGISTRY_USERNAME"
+  kp_default_repository_password: "$REGISTRY_PASSWORD"
+  tanzunet_username: "$TANZUNET_USERNAME"
+  tanzunet_password: "$TANZUNET_PASSWORD"
+  enable_automatic_dependency_updates: false
+  # descriptor_name: "tap-$TAP_VERSION"
+
+supply_chain: basic
+
+ootb_supply_chain_basic:
+  registry:
+    server: "$REGISTRY_HOST"
+    repository: "$REGISTRY_REPO"
+  gitops:
+    ssh_secret: ""
+
+metadata_store:
+  app_service_type: LoadBalancer

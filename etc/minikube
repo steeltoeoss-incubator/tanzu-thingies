@@ -1,0 +1,8 @@
+export MINIKUBE=minikube
+export MINIKUBE_KUBERNETES_VERSION=1.23.8
+export MINIKUBE_DRIVER=docker
+export MINIKUBE_CPUS=8
+export MINIKUBE_MEMORY=12g
+export MINIKUBE_DISK=12g
+
+# vim: ft=sh
