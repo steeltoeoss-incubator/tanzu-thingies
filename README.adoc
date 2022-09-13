@@ -15,8 +15,9 @@ This repo contains a collection of utilities to help with things Tanzu.
 |===
 | Util | Description
 
-| `minikube-create` | Creates a Minikube cluster.
 | `minikube-delete` | Deletes a Minikube cluster.
+| `minikube-start` | Creates/starts a Minikube cluster.
+| `minikube-stop` | Stops a Minikube cluster tunnel.
 | `minikube-tunnel` | Creates a Minikube cluster tunnel.
 |===
 
@@ -32,7 +33,6 @@ NOTE: Shell examples in this doc assume a loaded configuration.
 
 .Shell Configuration
 ----
-# OSX/Linux
 $ . etc/config
 ----
 
@@ -52,11 +52,14 @@ To override defaults, copy `link:share/examples/overrides[]` to `etc/`.
 ----
 # OSX/Linux
 $ cp share/examples/overrides etc/
+
+# Windows
+$ copy share\examples\overrides.ps1 etc\
 ----
 
 .Sample etc/overrides
 ----
-MINIKUBE_CPUS=4
+MINIKUBE_MEMORY=6g
 TAP_VERSION=1.2.2
 ----
 
@@ -70,6 +73,9 @@ Copy `link:share/examples/credentials[]` to `etc/`.
 ----
 # OSX/Linux
 $ cp share/examples/credentials etc/
+
+# Windows
+$ copy share\examples\credentials.ps1 etc\
 ----
 
 Configure credentials for TanzuNet and a Docker registry.
@@ -91,17 +97,27 @@ TANZUNET_PASSWORD=joepass
 
 ==== `envsubst`
 
-`envsubst` is in included in `gettext` distributions.
-
 .envsubst
 ----
 # OSX
 $ homebrew install gettext
+
+# Windows
+> scoop install envsubst
 ----
 
 ==== `tar`
 
-`tar` is no require for Windows and should be present on OSX and Linux.
+`tar` is not required for Windows and should be present on OSX and Linux.
+
+==== `unzip`
+
+`unzip` is only required for Windows.
+
+----
+# Windows
+> scoop install unzip
+----
 
 === Docker/Kubernetes
 
@@ -114,6 +130,9 @@ $ homebrew install gettext
 ----
 # OSX
 $ brew install minikube
+
+# Windows
+> scoop install minikube
 ----
 
 === TAP Tools
@@ -131,6 +150,10 @@ Rename the downloaded file, appending `TAP_VERSION`.
 # OSX
 $ mkdir -p $DIST_DIR
 $ mv ~/Downloads/tanzu-framework-darwin-amd64.tar ${DIST_DIR}/tanzu-framework-darwin-amd64-${TAP_VERSION}.tar
+
+# Windows
+$ mkdir $Env:DIST_DIR
+$ move "$Env:UserProfile\Downloads\tanzu-framework-windows-amd64.zip" "$Env:DIST_DIR\tanzu-framework-windows-amd64-$Env:TAP_VERSION.zip"
 ----
 
 == Cluster
@@ -140,13 +163,12 @@ $ mv ~/Downloads/tanzu-framework-darwin-amd64.tar ${DIST_DIR}/tanzu-framework-da
 Running the `minikube-start` creates a cluster if necessary and then starts it.
 
 ----
-# OSX/Linux
 $ bin/minikube-start
 ----
 
 === Minikube Tunnel
 
-NOTE: The Minikube tunnel requires elevated permissions.
+NOTE: The Minikube tunnel may require elevated permissions.
 
 The tunnel is required for TAP installation.
 If packages are failing to reconcile, it may be due to lack of a running tunnel.
@@ -154,6 +176,5 @@ If packages are failing to reconcile, it may be due to lack of a running tunnel.
 The tunnel runs in the foreground, `CTRL-C` to kill.
 
 ----
-# OSX/Linux
 $ bin/minikube-tunnel
 ----
