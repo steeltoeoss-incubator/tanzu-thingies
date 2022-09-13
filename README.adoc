@@ -21,6 +21,64 @@ This repo contains a collection of utilities to help with things Tanzu.
 | `minikube-tunnel` | Creates a Minikube cluster tunnel.
 |===
 
+Many of the example commands below work as-is on both Windows and non-Windows and can be copy-pasted as is.
+
+.Sample Command
+----
+$ bin/sample-command
+----
+
+In situations where this is not the case, platform-specific command are shown.
+
+.Sample Platform Commands
+----
+# OSX
+$ bin/osx-command
+
+# Windows
+$ bin\win-command.ps1
+----
+
+== Prereqs
+
+=== `docker`
+
+`docker` is provided by https://www.docker.com/products/docker-desktop/[Docker for Desktop, window="_new"].
+
+=== `envsubst`
+
+.envsubst
+----
+# OSX
+$ homebrew install gettext
+
+# Windows
+> scoop install envsubst
+----
+
+=== `kubectl`
+
+`kubectl` is provided by https://www.docker.com/products/docker-desktop/[Docker for Desktop, window="_new"].
+
+=== `minikube`
+
+----
+# OSX
+$ brew install minikube
+
+# Windows
+> scoop install minikube
+----
+
+=== `unzip`
+
+`unzip` is only required for Windows.
+
+----
+# Windows
+> scoop install unzip
+----
+
 == Configure
 
 Configuration is set by loading the `config` for your platform.
@@ -91,55 +149,12 @@ TANZUNET_USERNAME=joe@company.com
 TANZUNET_PASSWORD=joepassdeux
 ----
 
-== Tooling
 
-=== System Tools
+== TAP Tools
 
-==== `envsubst`
+=== `tanzu`
 
-.envsubst
-----
-# OSX
-$ homebrew install gettext
-
-# Windows
-> scoop install envsubst
-----
-
-==== `tar`
-
-`tar` is not required for Windows and should be present on OSX and Linux.
-
-==== `unzip`
-
-`unzip` is only required for Windows.
-
-----
-# Windows
-> scoop install unzip
-----
-
-=== Docker/Kubernetes
-
-==== `docker/kubectl`
-
-`docker` and `kubectl` are provided by https://www.docker.com/products/docker-desktop/[Docker for Desktop].
-
-==== `minikube`
-
-----
-# OSX
-$ brew install minikube
-
-# Windows
-> scoop install minikube
-----
-
-=== TAP Tools
-
-==== `tanzu`
-
-Go to the the TanzuNet downloads for https://network.pivotal.io/products/tanzu-application-platform/[VMware Tanzu Application Platform].
+Go to the the TanzuNet downloads for https://network.pivotal.io/products/tanzu-application-platform/[VMware Tanzu Application Platform, window="_new"].
 
 Select the `tap-cli-tap` bundle for your platform and download.
 
