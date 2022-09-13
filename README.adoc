@@ -64,6 +64,9 @@ $ homebrew install gettext
 ----
 # OSX
 $ homebrew install jq
+
+# Windows
+> scoop install jq
 ----
 
 === `kubectl`
