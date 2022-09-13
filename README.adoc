@@ -17,7 +17,7 @@ This repo contains a collection of utilities to help with things Tanzu.
 
 | `minikube-delete` | Deletes a Minikube cluster.
 | `minikube-start` | Creates/starts a Minikube cluster.
-| `minikube-stop` | Stops a Minikube cluster tunnel.
+| `minikube-stop` | Stops a Minikube cluster cluster.
 | `minikube-tunnel` | Creates a Minikube cluster tunnel.
 |===
 
@@ -57,7 +57,7 @@ $ cp share/examples/overrides etc/
 $ copy share\examples\overrides.ps1 etc\
 ----
 
-.Sample etc/overrides
+.Sample `etc/overrides`
 ----
 MINIKUBE_MEMORY=6g
 TAP_VERSION=1.2.2
@@ -80,15 +80,15 @@ $ copy share\examples\credentials.ps1 etc\
 
 Configure credentials for TanzuNet and a Docker registry.
 
-.Sample etc/credentials
+.Sample `etc/credentials`
 ----
 REGISTRY_HOST=harbor-repo.vmware.com
 REGISTRY_USERNAME=joe
-REGISTRY_PASSWORD=joepassdeux
+REGISTRY_PASSWORD=joepass
 REGISTRY_REPO=joes_tap
 
 TANZUNET_USERNAME=joe@company.com
-TANZUNET_PASSWORD=joepass
+TANZUNET_PASSWORD=joepassdeux
 ----
 
 == Tooling
