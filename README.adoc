@@ -189,7 +189,6 @@ Move/rename the downloaded file into `LOCAL_DIST_DIR`.
 .Example
 ----
 # Windows
-> mkdir $Env:LOCAL_DIR
 > mkdir $Env:LOCAL_DIST_DIR
 > move "$Env:UserProfile\Downloads\tanzu-framework-windows-amd64.zip" "$Env:LOCAL_DIST_DIR\tanzu-framework-windows-amd64-$Env:TAP_VERSION.zip"
 
