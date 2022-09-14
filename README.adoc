@@ -95,6 +95,12 @@ $ brew install minikube
 # beyond the scope of this doc
 ----
 
+=== Powershell
+
+Developed/tested with:
+
+https://github.com/PowerShell/PowerShell/releases/tag/v7.2.6
+
 === `unzip`
 
 NOTE: `unzip` is only required for Windows.
