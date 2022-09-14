@@ -36,8 +36,20 @@ kubectl create namespace secretgen-controller
 kubectl apply -f https://github.com/vmware-tanzu/carvel-kapp-controller/releases/download/v0.34.0/release.yml -n kapp-controller
 kubectl apply -f https://github.com/vmware-tanzu/carvel-secretgen-controller/releases/download/v0.8.0/release.yml -n secretgen-controller
 
-log-message "checking kapp-controller, secretgen-controller"
-kubectl get pods --all-namespaces | Select-String "controller"
+Write-Host
+Write-Host "=====================================================" -Foreground Blue
+Write-Host "                User Action Required" -Foreground Blue
+Write-Host "-----------------------------------------------------" -Foreground Blue
+Write-Host
+Write-Host "In separate terminal, run:" -Foreground Cyan
+Write-Host
+Write-Host "    kubectl get pods --all-namespaces" -Foreground Cyan
+Write-Host
+Write-Host "When all pods in Running state, hit ENTER to continue" -Foreground Cyan
+Write-Host
+Write-Host "=====================================================" -Foreground Blue
+Write-Host
+pause
 
 create-namespace $Env:TAP_NAMESPACE
 
