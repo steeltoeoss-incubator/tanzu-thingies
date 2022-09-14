@@ -35,7 +35,7 @@ In situations where this is not the case, platform-specific commands are shown.
 
 .Sample Platform Commands
 ----
-# OSX
+# OSX/Linux
 $ bin/osx-command
 
 # Windows
@@ -53,31 +53,46 @@ If using a WSL backend and Minikube is complaining about not enough resources, c
 === `envsubst`
 
 ----
+# Windows
+> scoop install envsubst
+
 # OSX
 $ homebrew install gettext
 
-# Windows
-> scoop install envsubst
+# Debian
+$ apt install gettext
+
+# Fedora
+$ yum install gettext
 ----
 
 === `jq`
 
 ----
+# Windows
+> scoop install jq
+
 # OSX
 $ homebrew install jq
 
-# Windows
-> scoop install jq
+# Debian
+$ apt install jq
+
+# Fedora
+$ yum install jq
 ----
 
 === `minikube`
 
 ----
+# Windows
+> scoop install minikube
+
 # OSX
 $ brew install minikube
 
-# Windows
-> scoop install minikube
+# Linux
+# beyond the scope of this doc
 ----
 
 === `unzip`
@@ -173,7 +188,7 @@ Move/rename the downloaded file into `LOCAL_DIST_DIR`.
 
 .Example
 ----
-# OSX
+# OSX/Linux
 $ mkdir -p $DIST_DIR
 $ mv ~/Downloads/tanzu-framework-darwin-amd64.tar ${LOCAL_DIST_DIR}/tanzu-framework-darwin-amd64-${TAP_VERSION}.tar
 
@@ -195,7 +210,7 @@ Move the downloaded file into `LOCAL_DIST_DIR`.
 
 .Example
 ----
-# OSX
+# OSX/Linux
 $ mkdir -p $DIST_DIR
 $ mv ~/Downloads/tanzu-cluster-essentials-darwin-amd64-$TANZU_ESSENTIALS_VERSION.tar ${LOCAL_DIST_DIR}/
 ----
@@ -271,6 +286,7 @@ Host file locations:
 |===
 | Platform | path
 
+| Linux | `/etc/hosts`
 | OSX | `/etc/hosts`
 | Windows |  `C:\Windows\System32\drivers\etc\hosts`
 |===
