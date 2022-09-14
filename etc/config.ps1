@@ -27,3 +27,5 @@ if (Test-Path "$overrides")
 {
     . "$overrides"
 }
+
+$Env:PATH="$Env:LOCAL_BIN_DIR;$Env:PATH"
