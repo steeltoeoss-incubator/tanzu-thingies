@@ -266,7 +266,9 @@ Install TAP into the current K8s context.
 $ bin/tap-install
 ----
 
-The installation takes some time. 10-30 mins. YMMV.
+The installation takes some time.
+10-30 mins.
+YMMV.
 
 === Workload Notes
 
@@ -310,6 +312,9 @@ $ tanzu apps workload tail java-web-app --timestamp
 ----
 
 Check if ready.
+This may take a while.
+5-15 mins.
+YMMV.
 
 ----
 $ tanzu apps workload get java-web-app
