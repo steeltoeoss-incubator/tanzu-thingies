@@ -327,6 +327,6 @@ Add a host entry for `java-web-app.default.example.com`.
 Access the app.
 
 ----
-$ > curl http://java-web-app.default.example.com/
+$ curl http://java-web-app.default.example.com/
 Greetings from Spring Boot + Tanzu!
 ----
