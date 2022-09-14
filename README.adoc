@@ -295,3 +295,38 @@ Host file locations:
 ----
 127.0.0.1	NAME.default.example.com
 ----
+
+== Sample TAP Deployment
+
+Deploy the Spring sample Java app.
+
+----
+$ tanzu apps workload create java-web-app --git-repo https://github.com/vmware-tanzu/application-accelerator-samples --sub-path tanzu-java-web-app --git-branch main --type web --label app.kubernetes.io/part-of=java-web-app --label tanzu.app.live.view=true --label tanzu.app.live.view.application.name=java-web-app --annotation autoscaling.knative.dev/minScale=1 --namespace default --yes
+----
+
+Follow progress.
+
+----
+$ tanzu apps workload tail java-web-app --timestamp
+----
+
+Check if ready.
+
+----
+$ tanzu apps workload get java-web-app
+,,,
+java-web-app   Ready   http://java-web-app.default.example.com
+----
+
+Add a host entry for `java-web-app.default.example.com`.
+
+----
+127.0.0.1 java-web-app.default.example.com
+----
+
+Access the app.
+
+----
+$ > curl http://java-web-app.default.example.com/
+Greetings from Spring Boot + Tanzu!
+----
