@@ -44,9 +44,11 @@ $ bin/osx-command
 
 == Prereqs
 
-=== `docker`
+=== Docker for Desktop
 
-`docker` is provided by https://www.docker.com/products/docker-desktop/[Docker for Desktop, window="_new"].
+https://www.docker.com/products/docker-desktop/
+
+If using a WSL backend, check out https://docs.microsoft.com/en-us/windows/wsl/wsl-config#wslconfig[instructions for increasing resource allocation].
 
 === `envsubst`
 
@@ -68,10 +70,6 @@ $ homebrew install jq
 # Windows
 > scoop install jq
 ----
-
-=== `kubectl`
-
-`kubectl` is provided by https://www.docker.com/products/docker-desktop/[Docker for Desktop, window="_new"].
 
 === `minikube`
 
