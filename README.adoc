@@ -35,11 +35,11 @@ In situations where this is not the case, platform-specific commands are shown.
 
 .Sample Platform Commands
 ----
-# OSX/Linux
-$ bin/osx-command
-
 # Windows
 > bin\win-command.ps1
+
+# OSX/Linux
+$ bin/osx-command
 ----
 
 == Prereqs
@@ -133,11 +133,11 @@ To override defaults, copy `link:share/examples/overrides[]` to `etc/`.
 
 .Overrides
 ----
-# OSX/Linux
-$ cp share/examples/overrides etc/
-
 # Windows
 > copy share\examples\overrides.ps1 etc\
+
+# OSX/Linux
+$ cp share/examples/overrides etc/
 ----
 
 .Sample `etc/overrides`
@@ -154,11 +154,11 @@ Copy `link:share/examples/credentials[]` to `etc/`.
 
 .Credentials
 ----
-# OSX/Linux
-$ cp share/examples/credentials etc/
-
 # Windows
 > copy share\examples\credentials.ps1 etc\
+
+# OSX/Linux
+$ cp share/examples/credentials etc/
 ----
 
 Configure credentials for TanzuNet and a Docker registry.
@@ -188,14 +188,14 @@ Move/rename the downloaded file into `LOCAL_DIST_DIR`.
 
 .Example
 ----
-# OSX/Linux
-$ mkdir -p $DIST_DIR
-$ mv ~/Downloads/tanzu-framework-darwin-amd64.tar ${LOCAL_DIST_DIR}/tanzu-framework-darwin-amd64-${TAP_VERSION}.tar
-
 # Windows
 > mkdir $Env:LOCAL_DIR
 > mkdir $Env:LOCAL_DIST_DIR
 > move "$Env:UserProfile\Downloads\tanzu-framework-windows-amd64.zip" "$Env:LOCAL_DIST_DIR\tanzu-framework-windows-amd64-$Env:TAP_VERSION.zip"
+
+# OSX/Linux
+$ mkdir -p $DIST_DIR
+$ mv ~/Downloads/tanzu-framework-darwin-amd64.tar ${LOCAL_DIST_DIR}/tanzu-framework-darwin-amd64-${TAP_VERSION}.tar
 ----
 
 === Tanzu Cluster Essentials
@@ -295,4 +295,3 @@ Host file locations:
 ----
 127.0.0.1	NAME.default.example.com
 ----
-
