@@ -266,7 +266,7 @@ Install TAP into the current K8s context.
 $ bin/tap-install
 ----
 
-The installation takes some time.  YMMV.
+The installation takes some time. 10-30 mins. YMMV.
 
 === Workload Notes
 
