@@ -10,3 +10,5 @@ $Env:INSTALL_BUNDLE = "registry.tanzu.vmware.com/tanzu-cluster-essentials/cluste
 $Env:INSTALL_REGISTRY_HOSTNAME = "$Env:TANZUNET_HOST"
 $Env:INSTALL_REGISTRY_USERNAME = "$Env:TANZUNET_USER"
 $Env:INSTALL_REGISTRY_PASSWORD = "$Env:TANZUNET_PASS"
+
+$Env:TANZU_CMD = "$Env:LOCAL_BIN_DIR/tanzu${Env:EXECUTABLE}"

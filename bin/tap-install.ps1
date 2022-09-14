@@ -2,41 +2,52 @@
 
 #Requires -Version 7.2
 
-. "$PSScriptRoot\..\etc\config.ps1"
-. "$Env:LIBEXEC_DIR\k8s-functions.ps1"
 
-log-header "installing TAP ($Env:TAP_VERSION)"
+$ErrorActionPreference = "Stop"
 
-log-message "installing Tanzu CLI"
-$cli_dist = "$Env:LOCAL_DIST_DIR\tanzu-framework-$Env:PLATFORM-amd64-$Env:TAP_VERSION.zip"
+. "$PSScriptRoot/../etc/config.ps1"
+
+Log-Header "Installing TAP ($Env:TAP_VERSION)"
+
+Log-Message "installing Tanzu CLI"
+$cli_dist = "$Env:LOCAL_DIST_DIR/tanzu-framework-$Env:PLATFORM-amd64-$Env:TAP_VERSION.$Env:ARCHIVE"
 if (!(Test-Path "$cli_dist"))
 {
     log-error "Tanzu CLI dist not found: $cli_dist"
     log-error "see https://github.com/steeltoeoss-incubator/tanzu-thingies#tanzu-cli"
-    throw
+    Die
 }
-Remove-Item "$Env:LOCAL_BIN_DIR\tanzu" -ErrorAction SilentlyContinue
-$cli_dir = "$Env:LOCAL_TOOL_DIR\tanzu-framework-$Env:TAP_VERSION"
+
+Remove-Item "$Env:TANZU_CMD" -ErrorAction SilentlyContinue
+$cli_dir = "$Env:LOCAL_TOOL_DIR/tanzu-framework-$Env:TAP_VERSION"
 Remove-Item "$cli_dir" -Recurse -ErrorAction SilentlyContinue
-mkdir "$cli_dir" | Out-Null
-unzip "$cli_dist" -d "$cli_dir" | Out-Null
-if (!(Test-Path "$Env:LOCAL_BIN_DIR"))
+New-Item -Path "$cli_dir" -ItemType Directory | Out-Null
+if ($IsWindows)
 {
-    mkdir "$Env:LOCAL_BIN_DIR" | Out-Null
+    unzip "$cli_dist" -d "$cli_dir" | Out-Null
 }
-copy "$cli_dir\cli\core\v*\tanzu-core-${Env:PLATFORM}_amd64.exe" "$Env:LOCAL_BIN_DIR\tanzu.exe"
-tanzu version
+else
+{
+    tar xf $cli_dist -C $cli_dir
+}
+New-Item -Path $(Split-Path -parent "$Env:TANZU_CMD") -ItemType Directory -ErrorAction SilentlyContinue | Out-Null
+Copy-Item "$cli_dir\cli\core\v*\tanzu-core-${Env:PLATFORM}_amd64${Env:EXECUTABLE}" "$Env:LOCAL_BIN_DIR\tanzu${Env:EXECUTABLE}"
+if (!($IsWindows))
+{
+    chmod +x "$Env:TANZU_CMD"
+}
+Run-Command $Env:TANZU_CMD version
 
-log-message "installing Tanzu CLI plugins"
-tanzu plugin install --local "$cli_dir\cli" all
+Log-Message "installing Tanzu CLI plugins"
+Run-Command $Env:TANZU_CMD plugin install --local "$cli_dir/cli" all
 
-log-message "installing Tanzu Cluster Essentials"
+Log-Message "installing Tanzu Cluster Essentials"
 # per : https://tanzu.vmware.com/developer/guides/tanzu-application-platform-local-devloper-install/#stage-3-install-cluster-essentials-for-vmware-tanzu-onto-minikube
-kubectl create namespace tanzu-cluster-essentials
-kubectl create namespace kapp-controller
-kubectl create namespace secretgen-controller
-kubectl apply -f https://github.com/vmware-tanzu/carvel-kapp-controller/releases/download/v0.34.0/release.yml -n kapp-controller
-kubectl apply -f https://github.com/vmware-tanzu/carvel-secretgen-controller/releases/download/v0.8.0/release.yml -n secretgen-controller
+Run-Command kubectl create namespace tanzu-cluster-essentials
+Run-Command kubectl create namespace kapp-controller
+Run-Command kubectl create namespace secretgen-controller
+Run-Command kubectl apply -f https://github.com/vmware-tanzu/carvel-kapp-controller/releases/download/v0.34.0/release.yml -n kapp-controller
+Run-Command kubectl apply -f https://github.com/vmware-tanzu/carvel-secretgen-controller/releases/download/v0.8.0/release.yml -n secretgen-controller
 
 Write-Host
 Write-Host "=====================================================" -Foreground Blue
@@ -51,43 +62,44 @@ Write-Host "When all pods in Running state, hit ENTER to continue" -Foreground C
 Write-Host
 Write-Host "=====================================================" -Foreground Blue
 Write-Host
-pause
+Pause
 
-create-namespace $Env:TAP_NAMESPACE
+K8s-Create-Namespace $Env:TAP_NAMESPACE
 
-log-message "adding tap-registry credentials ($Env:TAP_NAMESPACE)"
+Log-Message "adding tap-registry credentials ($Env:TAP_NAMESPACE)"
+Invoke-Expression "$Env:TANZU_CMD secret registry add tap-registry --server $Env:TANZUNET_HOST --username $Env:TANZUNET_USER --password '$Env:TANZUNET_PASS' --namespace $Env:TAP_NAMESPACE --export-to-all-namespaces --yes"
 
-tanzu secret registry add tap-registry --server $Env:TANZUNET_HOST --username $Env:TANZUNET_USER --password $Env:TANZUNET_PASS --namespace $Env:TAP_NAMESPACE --export-to-all-namespaces --yes
+Log-Message "adding registry credentials ($Env:TAP_NAMESPACE)"
+Invoke-Expression "$Env:TANZU_CMD secret registry add registry-credentials --server $Env:REGISTRY_HOST --username $Env:REGISTRY_USER --password '$Env:REGISTRY_PASS' --namespace $Env:TAP_NAMESPACE"
 
-log-message "adding registry credentials ($Env:TAP_NAMESPACE)"
-tanzu secret registry add registry-credentials --server $Env:REGISTRY_HOST --username $Env:REGISTRY_USER --password $Env:REGISTRY_PASS --namespace $Env:TAP_NAMESPACE
+Log-Message "adding repository"
+Run-Command $Env:TANZU_CMD package repository add tanzu-tap-repository --url $Env:TANZUNET_HOST/tanzu-application-platform/tap-packages:$Env:TAP_VERSION --namespace $Env:TAP_NAMESPACE
 
-log-message "adding repository"
-tanzu package repository add tanzu-tap-repository --url $Env:TANZUNET_HOST/tanzu-application-platform/tap-packages:$Env:TAP_VERSION --namespace $Env:TAP_NAMESPACE
+Log-Message "checking repository status"
+Run-Command $Env:TANZU_CMD package repository get tanzu-tap-repository --namespace $Env:TAP_NAMESPACE
 
-log-message "checking repository status"
-tanzu package repository get tanzu-tap-repository --namespace $Env:TAP_NAMESPACE
+Log-Message "listing packages"
+Run-Command $Env:TANZU_CMD package available list --namespace $Env:TAP_NAMESPACE
 
-log-message "listing packages"
-tanzu package available list --namespace $Env:TAP_NAMESPACE
-
-log-message "installing TAP (this may take a while)"
-$tap_profile = "$Env:CONFIG_DIR\tap-profile.yaml"
+Log-Message "installing TAP (this may take a while)"
+$tap_profile = "$Env:CONFIG_DIR/tap-profile.yaml"
 if (!(Test-Path "$tap_profile"))
 {
     log-error "TAP profile not found: $tap_profile"
     log-error "see https://github.com/steeltoeoss-incubator/tanzu-thingies#tap-profile"
-    throw
+    Die
 }
 
-tanzu package install tap -p tap.tanzu.vmware.com -v $Env:TAP_VERSION --values-file "$tap_profile" --poll-timeout 45m --namespace $Env:TAP_NAMESPACE
+Run-Command $Env:TANZU_CMD package install tap -p tap.tanzu.vmware.com -v $Env:TAP_VERSION --values-file "$tap_profile" --poll-timeout 45m --namespace $Env:TAP_NAMESPACE
 
-log-header "creating developer environment"
+Log-Header "Creating Developer Environment"
 
-create-namespace $Env:TAP_DEV_NAMESPACE
+K8s-Create-Namespace $Env:TAP_DEV_NAMESPACE
 
-log-message "adding registry credentials ($Env:TAP_DEV_NAMESPACE)"
-tanzu secret registry add registry-credentials --server $Env:REGISTRY_HOST --username $Env:REGISTRY_USER --password $Env:REGISTRY_PASS --namespace $Env:TAP_DEV_NAMESPACE
+Log-Message "adding registry credentials ($Env:TAP_DEV_NAMESPACE)"
+Invoke-Expression "$Env:TANZU_CMD secret registry add registry-credentials --server $Env:REGISTRY_HOST --username $Env:REGISTRY_USER --password '$Env:REGISTRY_PASS' --namespace $Env:TAP_DEV_NAMESPACE"
 
-log-message "adding service roles"
-kubectl -n $Env:TAP_DEV_NAMESPACE apply -f "$Env:CONFIG_DIR\serviceaccounts.yaml"
+Log-Message "adding service roles"
+Run-Command kubectl -n $Env:TAP_DEV_NAMESPACE apply -f "$Env:CONFIG_DIR/serviceaccounts.yaml"
+
+Log-Header "Installed TAP ($Env:TAP_VERSION)"

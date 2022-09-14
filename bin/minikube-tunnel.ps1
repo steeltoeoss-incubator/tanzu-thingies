@@ -2,6 +2,6 @@
 
 #Requires -Version 7.2
 
-. "$PSScriptRoot\..\etc\config.ps1"
+. "$PSScriptRoot/../etc/config.ps1"
 
-minikube tunnel
+Run-Command minikube tunnel

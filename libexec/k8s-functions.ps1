@@ -1,5 +1,5 @@
-function create-namespace
+function K8s-Create-Namespace
 {
-    log-message "creating namespace ($args)"
-    kubectl create namespace $args
+    Log-Message "creating namespace ($Args)"
+    Run-Command kubectl create namespace "$Args"
 }

@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-set -e
-set -u
-set -o pipefail
-
-source $(dirname $0)/../etc/config
-
-run-command $MINIKUBE stop
