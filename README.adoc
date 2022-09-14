@@ -314,7 +314,7 @@ Check if ready.
 
 ----
 $ tanzu apps workload get java-web-app
-,,,
+...
 java-web-app   Ready   http://java-web-app.default.example.com
 ----
 
