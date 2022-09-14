@@ -52,7 +52,6 @@ If using a WSL backend, check out https://docs.microsoft.com/en-us/windows/wsl/w
 
 === `envsubst`
 
-.envsubst
 ----
 # OSX
 $ homebrew install gettext
@@ -83,7 +82,7 @@ $ brew install minikube
 
 === `unzip`
 
-`unzip` is only required for Windows.
+NOTE: `unzip` is only required for Windows.
 
 ----
 # Windows
@@ -213,7 +212,7 @@ $ bin/minikube-start
 
 === Minikube Tunnel
 
-NOTE: The Minikube tunnel may require elevated permissions.
+WARNING: The Minikube tunnel requires elevated permissions.
 
 The tunnel is required for TAP installation.
 If packages are failing to reconcile, it may be due to lack of a running tunnel.
@@ -228,12 +227,10 @@ $ bin/minikube-tunnel
 
 === Before You Begin
 
-See above for details on following checklist:
-
-* ensure cluster is running
-* ensure cluster tunnel is running
-* TAP product bundles are downloaded into expected paths
-* corporate VPN running
+* link:#_minikube_cluster[cluster is running]
+* link:#_minikube_tunnel[tunnel is running]
+* link:#_tap_tools[TAP product bundles] are downloaded into expected paths
+* network connection to corporate network
 
 === TAP Profile
 
@@ -244,6 +241,9 @@ You only need to do this once, or when you've changed settings.
 $ bin/tap-profile
 ----
 
+This generates the file `etc/tap-profile.yaml`.
+Probably a good idea to give it a once-over before proceeding.
+
 === TAP Install
 
 Install TAP into the current K8s context.
@@ -251,6 +251,8 @@ Install TAP into the current K8s context.
 ----
 $ bin/tap-install
 ----
+
+The installation takes some time.  YMMV.
 
 === Workload Notes
 
@@ -262,7 +264,7 @@ where `NAME` is that specified in the command:
 
 `tanzu apps workload create NAME ...`.
 
-You must add a matching entry to your local hosts resolving the route host to the loopback IF.
+Add a matching entry to your local hosts resolving the route host to the loopback IF.
 
 Host file locations:
 
