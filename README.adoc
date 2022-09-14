@@ -137,7 +137,7 @@ To override defaults, copy `link:share/examples/overrides[]` to `etc/`.
 $ cp share/examples/overrides etc/
 
 # Windows
-$ copy share\examples\overrides.ps1 etc\
+> copy share\examples\overrides.ps1 etc\
 ----
 
 .Sample `etc/overrides`
@@ -158,7 +158,7 @@ Copy `link:share/examples/credentials[]` to `etc/`.
 $ cp share/examples/credentials etc/
 
 # Windows
-$ copy share\examples\credentials.ps1 etc\
+> copy share\examples\credentials.ps1 etc\
 ----
 
 Configure credentials for TanzuNet and a Docker registry.
@@ -193,9 +193,9 @@ $ mkdir -p $DIST_DIR
 $ mv ~/Downloads/tanzu-framework-darwin-amd64.tar ${LOCAL_DIST_DIR}/tanzu-framework-darwin-amd64-${TAP_VERSION}.tar
 
 # Windows
-$ mkdir $Env:LOCAL_DIR
-$ mkdir $Env:LOCAL_DIST_DIR
-$ move "$Env:UserProfile\Downloads\tanzu-framework-windows-amd64.zip" "$Env:LOCAL_DIST_DIR\tanzu-framework-windows-amd64-$Env:TAP_VERSION.zip"
+> mkdir $Env:LOCAL_DIR
+> mkdir $Env:LOCAL_DIST_DIR
+> move "$Env:UserProfile\Downloads\tanzu-framework-windows-amd64.zip" "$Env:LOCAL_DIST_DIR\tanzu-framework-windows-amd64-$Env:TAP_VERSION.zip"
 ----
 
 === Tanzu Cluster Essentials
