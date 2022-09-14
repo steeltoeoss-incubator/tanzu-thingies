@@ -227,9 +227,9 @@ $ bin/minikube-tunnel
 
 === Before You Begin
 
+* link:#tap-tools[TAP product bundles] are downloaded into expected paths
 * link:#minikube-cluster[cluster is running]
 * link:#minikube-tunnel[tunnel is running]
-* link:#tap-tools[TAP product bundles] are downloaded into expected paths
 * network connection to corporate network
 
 === TAP Profile
