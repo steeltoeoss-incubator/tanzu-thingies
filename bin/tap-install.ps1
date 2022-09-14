@@ -1,4 +1,6 @@
-#!/usr/bin/env pwsh
+#!/usr/bin/env pwsh -NoProfile
+
+#Requires -Version 7.2
 
 . "$PSScriptRoot\..\etc\config.ps1"
 . "$Env:LIBEXEC_DIR\k8s-functions.ps1"

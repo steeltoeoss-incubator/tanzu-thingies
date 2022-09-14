@@ -1,5 +1,6 @@
-#!/usr/bin/env pwsh
+#!/usr/bin/env pwsh -NoProfile
 
+#Requires -Version 7.2
 
 . "$PSScriptRoot\..\etc\config.ps1"
 
