@@ -13,19 +13,15 @@ Run-Command kubectl create namespace secretgen-controller
 Run-Command kubectl apply -f https://github.com/vmware-tanzu/carvel-kapp-controller/releases/download/v0.34.0/release.yml -n kapp-controller
 Run-Command kubectl apply -f https://github.com/vmware-tanzu/carvel-secretgen-controller/releases/download/v0.8.0/release.yml -n secretgen-controller
 
-Write-Host
-Write-Host "=====================================================" -Foreground Blue
-Write-Host "                User Action Required" -Foreground Blue
-Write-Host "-----------------------------------------------------" -Foreground Blue
-Write-Host
-Write-Host "In separate terminal, run:" -Foreground Cyan
-Write-Host
-Write-Host "    kubectl get pods --all-namespaces" -Foreground Cyan
-Write-Host
-Write-Host "When all pods in Running state, hit ENTER to continue" -Foreground Cyan
-Write-Host
-Write-Host "=====================================================" -Foreground Blue
-Write-Host
-Pause
+While ($true)
+{
+    $not_running = kubectl get pods --all-namespaces --no-headers | Select-String "Running" -NotMatch
+    if (!($not_running))
+    {
+        Break
+    }
+    Log-Info "waiting for all pods to be running"
+    Start-Sleep -s 1
+}
 
 Log-Header "Installed Tanzu Cluster Essentials"
