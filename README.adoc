@@ -77,7 +77,7 @@ PS> brew install minikube
 # beyond the scope of this doc
 ----
 
-=== Powershell
+=== PowerShell
 
 Developed/tested with:
 
