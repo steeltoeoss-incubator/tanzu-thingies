@@ -61,6 +61,7 @@ Running the above script requires one of the below installers:
 | Installer | Platform | Home
 
 | `brew` | Darwin | https://brew.sh/
+| `scoop` | Windows | https://scoop.sh/
 |===
 
 == Configure
