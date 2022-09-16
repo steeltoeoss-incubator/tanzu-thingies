@@ -112,7 +112,7 @@ PS> Copy-Item share/examples/credentials.ps1 etc/
 
 Configure credentials for TanzuNet and a Docker registry.
 
-.Sample `etc/credentials`
+.Sample `etc/credentials.ps1`
 ----
 $RegistryHost = "harbor-repo.vmware.com"
 $RegistryUser = "joe"
@@ -130,17 +130,17 @@ $TanzuNetPass = "joepassdeux"
 
 Go to the the TanzuNet downloads for https://network.tanzu.vmware.com/products/tanzu-application-platform/[VMware Tanzu Application Platform, window="_new"].
 
-Select the release that matches `TAP_VERSION`.
+Select the release that matches `TapVersion`.
 
 Select the `tap-cli-tap` bundle for your platform and download.
 
-Move/rename the downloaded file into `LOCAL_DIST_DIR` with `TAP_VERSION` appended.
+Move/rename the downloaded file into `LocalDistDir` with `TapVersion` appended.
 
 .Example
 ----
-PS> New-Item -Path $Env:LOCAL_DIST_DIR -ItemType Directory
-PS> Move-Item ~/Downloads/tanzu-framework-$Env:PLATFORM-amd64.$Env:ARCHIVE "$Env:LOCAL_DIST_DIR/tanzu-framework-$Env:PLATFORM-amd64-$Env:TAP_VERSION.$Env:ARCHIVE"
-PS> dir local/distfiles
+PS> New-Item -Path $LocalDistDir -ItemType Directory
+PS> Move-Item ~/Downloads/tanzu-framework-$PlatformName-amd64.$PlatformArchive "$LocalDistDir/tanzu-framework-$PlatformName-amd64-$TapVersion.$PlatformArchive"
+PS> dir $LocalDistDir
 
     Directory: C:\Users\ccheetham\src\github.com\steeltoeoss-incubator\tanzu-thingies\local\distfiles
 
@@ -161,8 +161,6 @@ PS> bin/minikube-start.ps1
 
 === Minikube Tunnel
 
-WARNING: The Minikube tunnel requires elevated permissions.
-
 The tunnel is required for TAP installation.
 If packages are failing to reconcile, it may be due to lack of a running tunnel.
 
@@ -176,7 +174,7 @@ PS> bin/minikube-tunnel.ps1
 
 === Before You Begin
 
-* link:#tap-tools[TAP product bundles] are downloaded into expected paths
+* link:#tap-tools[TAP Tools] are downloaded into expected paths
 * link:#minikube-cluster[cluster is running]
 * link:#minikube-tunnel[tunnel is running]
 * network connection to corporate network
