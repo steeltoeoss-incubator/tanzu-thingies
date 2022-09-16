@@ -1,6 +1,6 @@
 #!/usr/bin/env pwsh
 
-foreach ($prereq in $prereqs)
+ForEach ($PreReq in $PreReqs)
 {
-    brew install $prereq
+    brew install $PreReq
 }

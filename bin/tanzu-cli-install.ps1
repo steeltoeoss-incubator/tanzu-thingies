@@ -6,38 +6,38 @@ $ErrorActionPreference = "Stop"
 
 . "$PSScriptRoot/../etc/config.ps1"
 
-Log-Header "Installing Tanzu CLI ($Env:TAP_VERSION)"
+Log-Header "Installing Tanzu CLI ($TapVersion)"
 
-$cli_dist = "$Env:LOCAL_DIST_DIR/tanzu-framework-$Env:PLATFORM-amd64-$Env:TAP_VERSION.$Env:ARCHIVE"
-if (!(Test-Path "$cli_dist"))
+$CliDist = "$LocalDistDir/tanzu-framework-$PlatformName-amd64-$TapVersion.$PlatformArchive"
+If (!(Test-Path "$CliDist"))
 {
-    log-error "Tanzu CLI dist not found: $cli_dist"
-    log-error "see https://github.com/steeltoeoss-incubator/tanzu-thingies#tanzu-cli"
+    Log-Error "Tanzu CLI dist not found: $CliDist"
+    Log-Error "see https://github.com/steeltoeoss-incubator/tanzu-thingies#tanzu-cli"
     Die
 }
 
-Remove-Item "$Env:TANZU_CMD" -ErrorAction SilentlyContinue
-$cli_dir = "$Env:LOCAL_TOOL_DIR/tanzu-framework-$Env:TAP_VERSION"
-Remove-Item "$cli_dir" -Recurse -ErrorAction SilentlyContinue
-New-Item -Path "$cli_dir" -ItemType Directory | Out-Null
-if ($IsWindows)
+Remove-Item "$TanzuCommand" -ErrorAction SilentlyContinue
+$CliDir = "$LocalToolDir/tanzu-framework-$TapVersion"
+Remove-Item "$CliDir" -Recurse -ErrorAction SilentlyContinue
+New-Item -Path "$CliDir" -ItemType Directory | Out-Null
+If ($IsWindows)
 {
-    unzip "$cli_dist" -d "$cli_dir" | Out-Null
+    unzip "$CliDist" -d "$CliDir" | Out-Null
 }
-else
+Else
 {
-    tar xf $cli_dist -C $cli_dir
+    tar xf $CliDist -C $CliDir
 }
 
-New-Item -Path $(Split-Path -parent "$Env:TANZU_CMD") -ItemType Directory -ErrorAction SilentlyContinue | Out-Null
-Copy-Item "$cli_dir\cli\core\v*\tanzu-core-${Env:PLATFORM}_amd64${Env:EXECUTABLE}" "$Env:LOCAL_BIN_DIR\tanzu${Env:EXECUTABLE}"
-if (!($IsWindows))
+New-Item -Path $(Split-Path -parent "$TanzuCommand") -ItemType Directory -ErrorAction SilentlyContinue | Out-Null
+Copy-Item "$CliDir/cli/core/v*/tanzu-core-${PlatformName}_amd64${PlatformExe}" "$LocalBinDir/tanzu$PlatformExe"
+If (!($IsWindows))
 {
-    chmod +x "$Env:TANZU_CMD"
+    chmod +x "$TanzuCommand"
 }
 
 Log-Info "installing Tanzu CLI plugins"
-Run-Command $Env:TANZU_CMD plugin install --local "$cli_dir/cli" all
+Run-Command $TanzuCommand plugin install --local "$CliDir/cli" all
 
 Log-Success "Tanzu CLI installed"
-Invoke-Expression "$Env:TANZU_CMD version"
+Invoke-Expression "$TanzuCommand version"

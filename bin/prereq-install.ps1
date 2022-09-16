@@ -2,21 +2,18 @@
 
 . "$PSScriptRoot/../etc/config.ps1"
 
-$prereq_list = "$Env:CONFIG_DIR/prereqs-$Env:PLATFORM.ps1"
-$prereq_script = "$Env:LIBEXEC_DIR/prereq-install-$Env:PLATFORM.ps1"
+$PreReqList = "$ConfigDir/prereqs-$PlatformName.ps1"
+$PreReqScript = "$LibExecDir/prereq-install-$PlatformName.ps1"
 
-$prereq_list
-
-
-if (!(Test-Path "$prereq_list"))
+If (!(Test-Path "$PreReqList"))
 {
-    Die "no prereqs configured for platform: $Env:PLATFORM"
+    Die "no prereqs configured for platform: $PlatformName"
 }
 
-if (!(Test-Path "$prereq_script"))
+If (!(Test-Path "$PreReqScript"))
 {
-    Die "no prereq installer for platform: $Env:PLATFORM"
+    Die "no prereq installer for platform: $PlatformName"
 }
 
-. "$prereq_list"
-Invoke-Expression $prereq_script
+. "$PreReqList"
+Invoke-Expression $PreReqScript

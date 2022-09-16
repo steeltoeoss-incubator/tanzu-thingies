@@ -6,61 +6,61 @@ $ErrorActionPreference = "Stop"
 
 . "$PSScriptRoot/../etc/config.ps1"
 
-Log-Header "Installing TAP ($Env:TAP_VERSION)"
+Log-Header "Installing TAP ($TapVersion)"
 
-$tap_profile = "$Env:CONFIG_DIR/tap-profile.yaml"
-if (!(Test-Path "$tap_profile"))
+$TapProfile = "$ConfigDir/tap-profile.yaml"
+If (!(Test-Path "$TapProfile"))
 {
-    log-error "TAP profile not found: $tap_profile"
-    log-error "see https://github.com/steeltoeoss-incubator/tanzu-thingies#tap-profile"
+    Log-Error "TAP profile not found: $TapProfile"
+    Log-Error "see https://github.com/steeltoeoss-incubator/tanzu-thingies#tap-profile"
     Die
 }
 
-Invoke-Expression "$Env:BIN_DIR\tanzu-cli-install.ps1"
-Invoke-Expression "$Env:BIN_DIR\essentials-install.ps1"
+Invoke-Expression "$BinDir/tanzu-cli-install.ps1"
+Invoke-Expression "$BinDir/essentials-install.ps1"
 
-K8s-Create-Namespace $Env:TAP_NAMESPACE
+K8s-Create-Namespace $TapNamespace
 
-Log-Info "adding tap-registry credentials ($Env:TAP_NAMESPACE)"
-Invoke-Expression "$Env:TANZU_CMD secret registry add tap-registry --server $Env:TANZUNET_HOST --username $Env:TANZUNET_USER --password '$Env:TANZUNET_PASS' --namespace $Env:TAP_NAMESPACE --export-to-all-namespaces --yes"
+Log-Info "adding tap-registry credentials ($TapNamespace)"
+Invoke-Expression "$TanzuCommand secret registry add tap-registry --server $TanzuNetHost --username $TanzuNetUser --password '$TanzuNetPass' --namespace $TapNamespace --export-to-all-namespaces --yes"
 
-Log-Info "adding registry credentials ($Env:TAP_NAMESPACE)"
-Invoke-Expression "$Env:TANZU_CMD secret registry add registry-credentials --server $Env:REGISTRY_HOST --username $Env:REGISTRY_USER --password '$Env:REGISTRY_PASS' --namespace $Env:TAP_NAMESPACE"
+Log-Info "adding registry credentials ($TapNamespace)"
+Invoke-Expression "$TanzuCommand secret registry add registry-credentials --server $RegistryHost --username $RegistryUser --password '$RegistryPass' --namespace $TapNamespace"
 
 Log-Info "adding repository"
-Run-Command $Env:TANZU_CMD package repository add tanzu-tap-repository --url $Env:TANZUNET_HOST/tanzu-application-platform/tap-packages:$Env:TAP_VERSION --namespace $Env:TAP_NAMESPACE
+Run-Command $TanzuCommand package repository add tanzu-tap-repository --url $TanzuNetHost/tanzu-application-platform/tap-packages:$TapVersion --namespace $TapNamespace
 
 Log-Info "checking repository status"
-Run-Command $Env:TANZU_CMD package repository get tanzu-tap-repository --namespace $Env:TAP_NAMESPACE
+Run-Command $TanzuCommand package repository get tanzu-tap-repository --namespace $TapNamespace
 
 Log-Info "listing packages"
-Run-Command $Env:TANZU_CMD package available list --namespace $Env:TAP_NAMESPACE
+Run-Command $TanzuCommand package available list --namespace $TapNamespace
 
 Log-Info "installing TAP (this may take a while)"
 
-Run-Command $Env:TANZU_CMD package install tap -p tap.tanzu.vmware.com -v $Env:TAP_VERSION --values-file "$tap_profile" --poll-timeout 45m --namespace $Env:TAP_NAMESPACE
-$count = 0
-While ($true)
+Run-Command $TanzuCommand package install tap -p tap.tanzu.vmware.com -v $TapVersion --values-file "$TapProfile" --poll-timeout 45m --namespace $TapNamespace
+$Count = 0
+While ($True)
 {
-    $not_running = kubectl get packageinstall/tap -n $Env:TAP_NAMESPACE --no-headers | Select-String "Reconcile succeeded" -NotMatch
-    if (!($not_running))
+    $NotRunning = kubectl get packageinstall/tap -n $TapNamespace --no-headers | Select-String "Reconcile succeeded" -NotMatch
+    If (!($NotRunning))
     {
         Break
     }
-    ++$count
-    Log-Crumb "waiting for TAP to fully reconcile [$count]"
+    ++$Count
+    Log-Crumb "waiting for TAP to fully reconcile [$Count]"
     Start-Sleep -s 1
 }
 
 Log-Header "Creating Developer Environment"
 
-K8s-Create-Namespace $Env:TAP_DEV_NAMESPACE
+K8s-Create-Namespace $TapDevNamespace
 
-Log-Info "adding registry credentials ($Env:TAP_DEV_NAMESPACE)"
-Invoke-Expression "$Env:TANZU_CMD secret registry add registry-credentials --server $Env:REGISTRY_HOST --username $Env:REGISTRY_USER --password '$Env:REGISTRY_PASS' --namespace $Env:TAP_DEV_NAMESPACE"
+Log-Info "adding registry credentials ($TapDevNamespace)"
+Invoke-Expression "$TanzuCommand secret registry add registry-credentials --server $RegistryHost --username $RegistryUser --password '$RegistryPass' --namespace $TapDevNamespace"
 
 Log-Info "adding service roles"
-Run-Command kubectl -n $Env:TAP_DEV_NAMESPACE apply -f "$Env:CONFIG_DIR/serviceaccounts.yaml"
+Run-Command kubectl -n $TapDevNamespace apply -f "$ConfigDir/serviceaccounts.yaml"
 
 Log-Success "TAP installed"
-Invoke-Expression "$Env:BIN_DIR\tap-version.ps1"
+Invoke-Expression "$BinDir/tap-version.ps1"

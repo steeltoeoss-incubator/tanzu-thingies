@@ -1,46 +1,46 @@
-. "$Env:CONFIG_DIR\look-n-feel.ps1"
+. "$ConfigDir/look-n-feel.ps1"
 
-function Log-Info
+Function Log-Info
 {
     $message = $Args
-    Write-Host "--- $message" -ForegroundColor $Env:InfoColor
+    Write-Host "--- $message" -ForegroundColor $InfoColor
 }
 
-function Log-Success
+Function Log-Success
 {
     $message = $Args
-    Write-Host "--- $message" -ForegroundColor $Env:SuccessColor
+    Write-Host "--- $message" -ForegroundColor $SuccessColor
 }
 
-function Log-Error
+Function Log-Error
 {
     $message = $Args
-    Write-Host "!!! $message" -ForegroundColor $Env:ErrorColor
+    Write-Host "!!! $message" -ForegroundColor $ErrorColor
 }
 
-function Log-Header
+Function Log-Header
 {
     $message = $Args
-    Write-Host "=== $message" -ForegroundColor $Env:HeaderColor
+    Write-Host "=== $message" -ForegroundColor $HeaderColor
 }
 
-function Log-Crumb
+Function Log-Crumb
 {
     $message = $Args
-    Write-Host "--- $message" -ForegroundColor $Env:CrumbColor
+    Write-Host "--- $message" -ForegroundColor $CrumbColor
 }
 
-function Die
+Function Die
 {
-    if ($Args)
+    If ($Args)
     {
         $message = "$Args"
         Log-Error $message
     }
-    exit 1
+    Exit 1
 }
 
-function Run-Command
+Function Run-Command
 {
     $command = "$Args"
     Log-Crumb "running: $command"
