@@ -1,4 +1,4 @@
-. "$Env:CONFIG_DIR\look-n-feel.ps1"
+. "$Env:CONFIG_DIR/look-n-feel.ps1"
 
 function Log-Info
 {

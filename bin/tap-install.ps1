@@ -16,8 +16,8 @@ if (!(Test-Path "$tap_profile"))
     Die
 }
 
-Invoke-Expression "$Env:BIN_DIR\tanzu-cli-install.ps1"
-Invoke-Expression "$Env:BIN_DIR\essentials-install.ps1"
+Invoke-Expression "$Env:BIN_DIR/tanzu-cli-install.ps1"
+Invoke-Expression "$Env:BIN_DIR/essentials-install.ps1"
 
 K8s-Create-Namespace $Env:TAP_NAMESPACE
 
@@ -63,4 +63,4 @@ Log-Info "adding service roles"
 Run-Command kubectl -n $Env:TAP_DEV_NAMESPACE apply -f "$Env:CONFIG_DIR/serviceaccounts.yaml"
 
 Log-Success "TAP installed"
-Invoke-Expression "$Env:BIN_DIR\tap-version.ps1"
+Invoke-Expression "$Env:BIN_DIR/tap-version.ps1"

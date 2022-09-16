@@ -19,7 +19,7 @@ if (!(Test-Path "$cli_dist"))
 Remove-Item "$Env:TANZU_CMD" -ErrorAction SilentlyContinue
 $cli_dir = "$Env:LOCAL_TOOL_DIR/tanzu-framework-$Env:TAP_VERSION"
 Remove-Item "$cli_dir" -Recurse -ErrorAction SilentlyContinue
-New-Item -Path "$cli_dir" -ItemType Directory | Out-Null
+# New-Item -Path "$cli_dir" -ItemType Directory | Out-Null
 if ($IsWindows)
 {
     unzip "$cli_dist" -d "$cli_dir" | Out-Null
@@ -30,7 +30,7 @@ else
 }
 
 New-Item -Path $(Split-Path -parent "$Env:TANZU_CMD") -ItemType Directory -ErrorAction SilentlyContinue | Out-Null
-Copy-Item "$cli_dir\cli\core\v*\tanzu-core-${Env:PLATFORM}_amd64${Env:EXECUTABLE}" "$Env:LOCAL_BIN_DIR\tanzu${Env:EXECUTABLE}"
+Copy-Item "$cli_dir/cli/core/v*/tanzu-core-${Env:PLATFORM}_amd64${Env:EXECUTABLE}" "$Env:LOCAL_BIN_DIR/tanzu${Env:EXECUTABLE}"
 if (!($IsWindows))
 {
     chmod +x "$Env:TANZU_CMD"
