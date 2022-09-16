@@ -4,4 +4,6 @@
 
 . "$PSScriptRoot/../etc/config.ps1"
 
-Run-Command minikube stop
+Log-Header "Stopping MiniKube cluster"
+Run-Command $MiniKubeCommand stop
+Log-Success "MiniKube cluster stopped"

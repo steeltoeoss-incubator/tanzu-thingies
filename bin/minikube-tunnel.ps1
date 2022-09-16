@@ -4,4 +4,5 @@
 
 . "$PSScriptRoot/../etc/config.ps1"
 
-Run-Command minikube tunnel
+Log-Header "Starting MiniKube cluster tunnel"
+Run-Command $MiniKubeCommand tunnel

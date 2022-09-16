@@ -4,4 +4,6 @@
 
 . "$PSScriptRoot/../etc/config.ps1"
 
-Run-Command minikube delete
+Log-Header "Deleting MiniKube cluster"
+Run-Command $MiniKubeCommand delete
+Log-Success "MiniKube cluster deleted"

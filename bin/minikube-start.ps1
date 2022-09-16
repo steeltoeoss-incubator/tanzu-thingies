@@ -4,9 +4,11 @@
 
 . "$PSScriptRoot/../etc/config.ps1"
 
-Run-Command minikube start `
-    --driver=$Env:MINIKUBE_DRIVER `
-    --kubernetes-version=$Env:MINIKUBE_KUBERNETES_VERSION `
-    --cpus=$Env:MINIKUBE_CPUS `
-    --memory=$Env:MINIKUBE_MEMORY `
-    --disk-size=$Env:MINIKUBE_DISK
+Log-Header "Starting MiniKube cluster"
+Run-Command $MiniKubeCommand start `
+    --driver=$MiniKubeDriver `
+    --kubernetes-version=$MiniKubeKubernetesVersion `
+    --cpus=$MiniKubeCpus `
+    --memory=$MiniKubeMemory `
+    --disk-size=$MiniKubeDisk
+Log-Success "MiniKube cluster started"

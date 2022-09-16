@@ -15,10 +15,13 @@ This repo contains a collection of utilities to help with things Tanzu.
 |===
 | Util | Description
 
+| `essentials-install.ps1` | Installs VMware Cluster Essentials.
 | `minikube-delete.ps1` | Deletes a Minikube cluster.
 | `minikube-start.ps1` | Creates/starts a Minikube cluster.
 | `minikube-stop.ps1` | Stops a Minikube cluster cluster.
 | `minikube-tunnel.ps1` | Creates a Minikube cluster tunnel.
+| `prereq-install.ps1` | Installs prerequisite tools.
+| `tanzu-cli-install.ps1` | Installs Tanzu CLI and plugins.
 | `tap-install.ps1` | Installs TAP into current K8s context.
 | `tap-profile.ps1` | Creates a TAP profile.
 | `tap-version.ps1` | Displays the version of TAP running in the current K8s context.
@@ -26,71 +29,40 @@ This repo contains a collection of utilities to help with things Tanzu.
 
 == Prereqs
 
+=== PowerShell
+
+For Windows, install a recent version, >=7.2, from the the PowerShell https://github.com/PowerShell/PowerShell/releases[releases].
+The PowerShell that ships with Windows is too old for these scripts.
+
+For Darwin, install using `brew install powershell`.
+
 === Docker for Desktop
 
 https://www.docker.com/products/docker-desktop/
 
 If using a WSL backend and Minikube is complaining about not enough resources, check out https://docs.microsoft.com/en-us/windows/wsl/wsl-config#wslconfig[instructions for increasing WSL resource allocation].
 
-=== `envsubst`
+=== Tools
+
+The prerequisite tools for your platform are defined in one of:
+
+* `link:etc/prereqs-darwin.ps1[]`
+* `link:etc/prereqs-windows.ps1[]`
+
+You can install the tools manuallay, or by running:
 
 ----
-# Windows
-PS> scoop install envsubst
-
-# OSX
-PS> homebrew install gettext
-
-# Debian
-PS> apt install gettext
-
-# Fedora
-PS> yum install gettext
+PS> bin/prereq-install.ps1
 ----
 
-=== `jq`
+Running the above script requires one of the below installers:
 
-----
-# Windows
-PS> scoop install jq
+|===
+| Installer | Platform | Home
 
-# OSX
-PS> homebrew install jq
-
-# Debian
-PS> apt install jq
-
-# Fedora
-PS> yum install jq
-----
-
-=== `minikube`
-
-----
-# Windows
-PS> scoop install minikube
-
-# OSX
-PS> brew install minikube
-
-# Linux
-# beyond the scope of this doc
-----
-
-=== Powershell
-
-Developed/tested with:
-
-https://github.com/PowerShell/PowerShell/releases/tag/v7.2.6
-
-=== `unzip`
-
-NOTE: `unzip` is only required for Windows.
-
-----
-# Windows
-PS> scoop install unzip
-----
+| `brew` | Darwin | https://brew.sh/
+| `scoop` | Windows | https://scoop.sh/
+|===
 
 == Configure
 
@@ -124,8 +96,7 @@ PS> Copy-Item share/examples/overrides.ps1 etc/
 
 .Sample `etc/overrides.ps1`
 ----
-Env:TAP_VERSION = "1.2.2"
-Env:MINIKUBE_MEMORY = "6g"
+$MiniKubeMemory = "6g"
 ----
 
 === Credentials
@@ -141,15 +112,16 @@ PS> Copy-Item share/examples/credentials.ps1 etc/
 
 Configure credentials for TanzuNet and a Docker registry.
 
-.Sample `etc/credentials`
+.Sample `etc/credentials.ps1`
 ----
-$Env:REGISTRY_HOST = "harbor-repo.vmware.com"
-$Env:REGISTRY_USER = "joe"
-$Env:REGISTRY_PASS = "joepass"
-$Env:REGISTRY_REPO = "joes_tap"
+$RegistryHost = "harbor-repo.vmware.com"
+$RegistryUser = "joe"
+$RegistryPass = "joepass"
+$RegistryRepo = "joes_tap"
 
-$Env:TANZUNET_USER = "joe@company.com"
-$Env:TANZUNET_PASS = "joepassdeux"
+$TanzuNetHost = "registry.tanzu.vmware.com"
+$TanzuNetUser = "joe@company.com"
+$TanzuNetPass = "joepassdeux"
 ----
 
 == TAP Tools
@@ -158,17 +130,17 @@ $Env:TANZUNET_PASS = "joepassdeux"
 
 Go to the the TanzuNet downloads for https://network.tanzu.vmware.com/products/tanzu-application-platform/[VMware Tanzu Application Platform, window="_new"].
 
-Select the release that matches `TAP_VERSION`.
+Select the release that matches `TapVersion`.
 
 Select the `tanzu-cli-tap` bundle for your platform and download.
 
-Move/rename the downloaded file into `LOCAL_DIST_DIR` with `TAP_VERSION` appended.
+Move/rename the downloaded file into `LocalDistDir` with `TapVersion` appended.
 
 .Example
 ----
-PS> New-Item -Path $Env:LOCAL_DIST_DIR -ItemType Directory
-PS> Move-Item ~/Downloads/tanzu-framework-$Env:PLATFORM-amd64.$Env:ARCHIVE "$Env:LOCAL_DIST_DIR/tanzu-framework-$Env:PLATFORM-amd64-$Env:TAP_VERSION.$Env:ARCHIVE"
-PS> dir local/distfiles
+PS> New-Item -Path $LocalDistDir -ItemType Directory
+PS> Move-Item ~/Downloads/tanzu-framework-$PlatformName-amd64.$PlatformArchive "$LocalDistDir/tanzu-framework-$PlatformName-amd64-$TapVersion.$PlatformArchive"
+PS> dir $LocalDistDir
 
     Directory: C:\Users\ccheetham\src\github.com\steeltoeoss-incubator\tanzu-thingies\local\distfiles
 
@@ -189,8 +161,6 @@ PS> bin/minikube-start.ps1
 
 === Minikube Tunnel
 
-WARNING: The Minikube tunnel requires elevated permissions.
-
 The tunnel is required for TAP installation.
 If packages are failing to reconcile, it may be due to lack of a running tunnel.
 
@@ -204,7 +174,7 @@ PS> bin/minikube-tunnel.ps1
 
 === Before You Begin
 
-* link:#tap-tools[TAP product bundles] are downloaded into expected paths
+* link:#tap-tools[TAP Tools] are downloaded into expected paths
 * link:#minikube-cluster[cluster is running]
 * link:#minikube-tunnel[tunnel is running]
 * network connection to corporate network
@@ -250,8 +220,8 @@ Host file locations:
 |===
 | Platform | path
 
+| Darwin | `/etc/hosts`
 | Linux | `/etc/hosts`
-| OSX | `/etc/hosts`
 | Windows |  `C:\Windows\System32\drivers\etc\hosts`
 |===
 
@@ -262,7 +232,7 @@ Host file locations:
 
 == Sample TAP Deployment
 
-Deploy the Spring sample Java app.
+Deploy the sample Java app.
 
 ----
 PS> tanzu apps workload create java-web-app --git-repo https://github.com/vmware-tanzu/application-accelerator-samples --sub-path tanzu-java-web-app --git-branch main --type web --label app.kubernetes.io/part-of=java-web-app --label tanzu.app.live.view=true --label tanzu.app.live.view.application.name=java-web-app --annotation autoscaling.knative.dev/minScale=1 --namespace default --yes
