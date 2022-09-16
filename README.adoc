@@ -15,10 +15,12 @@ This repo contains a collection of utilities to help with things Tanzu.
 |===
 | Util | Description
 
+| `essentials-install.ps1` | Installs VMware Cluster Essentials.
 | `minikube-delete.ps1` | Deletes a Minikube cluster.
 | `minikube-start.ps1` | Creates/starts a Minikube cluster.
 | `minikube-stop.ps1` | Stops a Minikube cluster cluster.
 | `minikube-tunnel.ps1` | Creates a Minikube cluster tunnel.
+| `tanzu-cli-install.ps1` | Installs Tanzu CLI and plugins.
 | `tap-install.ps1` | Installs TAP into current K8s context.
 | `tap-profile.ps1` | Creates a TAP profile.
 | `tap-version.ps1` | Displays the version of TAP running in the current K8s context.
@@ -26,13 +28,22 @@ This repo contains a collection of utilities to help with things Tanzu.
 
 == Prereqs
 
+=== PowerShell
+
+For Windows, install a recent version, >=7.2, from the the PowerShell https://github.com/PowerShell/PowerShell/releases[releases].
+The PowerShell that ships with Windows is too old for these scripts.
+
+For OS, install using `brew install powershell`.
+
 === Docker for Desktop
 
 https://www.docker.com/products/docker-desktop/
 
 If using a WSL backend and Minikube is complaining about not enough resources, check out https://docs.microsoft.com/en-us/windows/wsl/wsl-config#wslconfig[instructions for increasing WSL resource allocation].
 
-=== `envsubst`
+=== Tools
+
+==== `envsubst`
 
 ----
 # Windows
@@ -48,7 +59,7 @@ PS> apt install gettext
 PS> yum install gettext
 ----
 
-=== `jq`
+==== `jq`
 
 ----
 # Windows
@@ -64,7 +75,7 @@ PS> apt install jq
 PS> yum install jq
 ----
 
-=== `minikube`
+==== `minikube`
 
 ----
 # Windows
@@ -77,13 +88,7 @@ PS> brew install minikube
 # beyond the scope of this doc
 ----
 
-=== PowerShell
-
-Developed/tested with:
-
-https://github.com/PowerShell/PowerShell/releases/tag/v7.2.6
-
-=== `unzip`
+==== `unzip`
 
 NOTE: `unzip` is only required for Windows.
 

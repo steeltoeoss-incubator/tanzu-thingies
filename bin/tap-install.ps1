@@ -2,12 +2,19 @@
 
 #Requires -Version 7.2
 
-
 $ErrorActionPreference = "Stop"
 
 . "$PSScriptRoot/../etc/config.ps1"
 
 Log-Header "Installing TAP ($Env:TAP_VERSION)"
+
+$tap_profile = "$Env:CONFIG_DIR/tap-profile.yaml"
+if (!(Test-Path "$tap_profile"))
+{
+    log-error "TAP profile not found: $tap_profile"
+    log-error "see https://github.com/steeltoeoss-incubator/tanzu-thingies#tap-profile"
+    Die
+}
 
 Invoke-Expression "$Env:BIN_DIR\tanzu-cli-install.ps1"
 Invoke-Expression "$Env:BIN_DIR\essentials-install.ps1"
@@ -30,15 +37,20 @@ Log-Info "listing packages"
 Run-Command $Env:TANZU_CMD package available list --namespace $Env:TAP_NAMESPACE
 
 Log-Info "installing TAP (this may take a while)"
-$tap_profile = "$Env:CONFIG_DIR/tap-profile.yaml"
-if (!(Test-Path "$tap_profile"))
-{
-    log-error "TAP profile not found: $tap_profile"
-    log-error "see https://github.com/steeltoeoss-incubator/tanzu-thingies#tap-profile"
-    Die
-}
 
 Run-Command $Env:TANZU_CMD package install tap -p tap.tanzu.vmware.com -v $Env:TAP_VERSION --values-file "$tap_profile" --poll-timeout 45m --namespace $Env:TAP_NAMESPACE
+$count = 0
+While ($true)
+{
+    $not_running = kubectl get packageinstall/tap -n $Env:TAP_NAMESPACE --no-headers | Select-String "Reconcile succeeded" -NotMatch
+    if (!($not_running))
+    {
+        Break
+    }
+    ++$count
+    Log-Crumb "waiting for TAP to fully reconcile [$count]"
+    Start-Sleep -s 1
+}
 
 Log-Header "Creating Developer Environment"
 
@@ -50,4 +62,5 @@ Invoke-Expression "$Env:TANZU_CMD secret registry add registry-credentials --ser
 Log-Info "adding service roles"
 Run-Command kubectl -n $Env:TAP_DEV_NAMESPACE apply -f "$Env:CONFIG_DIR/serviceaccounts.yaml"
 
-Log-Header "Installed TAP ($Env:TAP_VERSION)"
+Log-Success "TAP installed"
+Invoke-Expression "$Env:BIN_DIR\tap-version.ps1"

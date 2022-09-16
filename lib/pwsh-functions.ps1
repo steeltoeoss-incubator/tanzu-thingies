@@ -6,6 +6,12 @@ function Log-Info
     Write-Host "--- $message" -ForegroundColor $Env:InfoColor
 }
 
+function Log-Success
+{
+    $message = $Args
+    Write-Host "--- $message" -ForegroundColor $Env:SuccessColor
+}
+
 function Log-Error
 {
     $message = $Args
@@ -16,6 +22,12 @@ function Log-Header
 {
     $message = $Args
     Write-Host "=== $message" -ForegroundColor $Env:HeaderColor
+}
+
+function Log-Crumb
+{
+    $message = $Args
+    Write-Host "--- $message" -ForegroundColor $Env:CrumbColor
 }
 
 function Die
@@ -31,6 +43,6 @@ function Die
 function Run-Command
 {
     $command = "$Args"
-    Log-Info "running: $command"
+    Log-Crumb "running: $command"
     Invoke-Expression $command
 }

@@ -36,10 +36,8 @@ if (!($IsWindows))
     chmod +x "$Env:TANZU_CMD"
 }
 
-Log-Info "displaying Tanzu CLI version"
-Run-Command $Env:TANZU_CMD version
-
 Log-Info "installing Tanzu CLI plugins"
 Run-Command $Env:TANZU_CMD plugin install --local "$cli_dir/cli" all
 
-Log-Header "Tanzu CLI installed"
+Log-Success "Tanzu CLI installed"
+Invoke-Expression "$Env:TANZU_CMD version"
