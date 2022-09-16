@@ -47,6 +47,7 @@ If using a WSL backend and Minikube is complaining about not enough resources, c
 The prerequisite tools for your platform are defined in one of:
 
 * `link:etc/prereqs-darwin.ps1[]`
+* `link:etc/prereqs-windows.ps1[]`
 
 You can install the tools manuallay, or by running:
 
