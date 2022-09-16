@@ -34,7 +34,7 @@ This repo contains a collection of utilities to help with things Tanzu.
 For Windows, install a recent version, >=7.2, from the the PowerShell https://github.com/PowerShell/PowerShell/releases[releases].
 The PowerShell that ships with Windows is too old for these scripts.
 
-For OS, install using `brew install powershell`.
+For Darwin, install using `brew install powershell`.
 
 === Docker for Desktop
 
@@ -51,7 +51,7 @@ The prerequisite tools for your platform are defined in one of:
 You can install the tools manuallay, or by running:
 
 ----
-PS> `bin/prereq-install.ps1`.
+PS> bin/prereq-install.ps1
 ----
 
 Running the above script requires one of the below installers:
