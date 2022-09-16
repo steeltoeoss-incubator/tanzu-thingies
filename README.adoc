@@ -241,8 +241,8 @@ Host file locations:
 |===
 | Platform | path
 
-| Linux | `/etc/hosts`
 | Darwin | `/etc/hosts`
+| Linux | `/etc/hosts`
 | Windows |  `C:\Windows\System32\drivers\etc\hosts`
 |===
 
