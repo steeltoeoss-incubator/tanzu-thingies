@@ -20,6 +20,7 @@ This repo contains a collection of utilities to help with things Tanzu.
 | `minikube-start.ps1` | Creates/starts a Minikube cluster.
 | `minikube-stop.ps1` | Stops a Minikube cluster cluster.
 | `minikube-tunnel.ps1` | Creates a Minikube cluster tunnel.
+| `prereq-install.ps1` | Installs prerequisite tools.
 | `tanzu-cli-install.ps1` | Installs Tanzu CLI and plugins.
 | `tap-install.ps1` | Installs TAP into current K8s context.
 | `tap-profile.ps1` | Creates a TAP profile.
@@ -43,59 +44,23 @@ If using a WSL backend and Minikube is complaining about not enough resources, c
 
 === Tools
 
-==== `envsubst`
+The prerequisite tools for your platform are defined in one of:
+
+* `link:etc/prereqs-darwin.ps1[]`
+
+You can install the tools manuallay, or by running:
 
 ----
-# Windows
-PS> scoop install envsubst
-
-# OSX
-PS> homebrew install gettext
-
-# Debian
-PS> apt install gettext
-
-# Fedora
-PS> yum install gettext
+PS> `bin/prereq-install.ps1`.
 ----
 
-==== `jq`
+Running the above script requires one of the below installers:
 
-----
-# Windows
-PS> scoop install jq
+|===
+| Installer | Platform | Home
 
-# OSX
-PS> homebrew install jq
-
-# Debian
-PS> apt install jq
-
-# Fedora
-PS> yum install jq
-----
-
-==== `minikube`
-
-----
-# Windows
-PS> scoop install minikube
-
-# OSX
-PS> brew install minikube
-
-# Linux
-# beyond the scope of this doc
-----
-
-==== `unzip`
-
-NOTE: `unzip` is only required for Windows.
-
-----
-# Windows
-PS> scoop install unzip
-----
+| `brew` | Darwin | https://brew.sh/
+|===
 
 == Configure
 
@@ -256,7 +221,7 @@ Host file locations:
 | Platform | path
 
 | Linux | `/etc/hosts`
-| OSX | `/etc/hosts`
+| Darwin | `/etc/hosts`
 | Windows |  `C:\Windows\System32\drivers\etc\hosts`
 |===
 
