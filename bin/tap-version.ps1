@@ -4,5 +4,5 @@
 
 . "$PSScriptRoot/../etc/config.ps1"
 
-$version = kubectl get packageinstall -n $Env:TAP_NAMESPACE tap -o json | jq .status.version
-$version -Replace '"', ""
+$Version = kubectl get packageinstall -n $TapNamespace tap -o json | jq .status.version
+$Version -Replace '"', ""

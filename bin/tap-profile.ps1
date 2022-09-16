@@ -13,20 +13,18 @@ $Env:TANZUNET_HOST = "$TanzuNetHost"
 $Env:TANZUNET_USER = "$TanzuNetUser"
 $Env:TANZUNET_PASS = "$TanzuNetPass"
 
-$Env:TAP_DOMAIN = "$TapDomain"
-
 $InFile = "$DataDir/examples/tap-profile.yaml"
 $OutFile = "$ConfigDir/tap-profile.yaml"
 
 Log-Header "Generating TAP Profile"
-if ($IsWindows)
+If ($IsWindows)
 {
-    Run-Command envsubst -i $infile -o $outfile
+    Run-Command envsubst -i $InFile -o $OutFile
 }
-else
+Else
 {
-    cat $infile | envsubst > $outfile
+    cat $InFile | envsubst > $OutFile
 }
 
 Log-Success "TAP Profile generated"
-$outfile
+$OutFile

@@ -1,18 +1,18 @@
-if ($IsMacOs)
+If ($IsMacOs)
 {
-    $Env:PLATFORM = "darwin"
-    $Env:ARCHIVE = "tar"
-    $Env:EXECUTABLE = ""
+    $PlatformName = "darwin"
+    $PlatformArchive = "tar"
+    $PlatformExe = ""
 }
-elseif ($IsLinux)
+ElseIf ($IsLinux)
 {
-    $Env:PLATFORM = "linux"
-    $Env:ARCHIVE = "tar"
-    $Env:EXECUTABLE = ""
+    $PlatformName = "linux"
+    $PlatformArchive = "tar"
+    $PlatformExe = ""
 }
-else
+Else
 {
-    $Env:PLATFORM = "windows"
-    $Env:ARCHIVE = "zip"
-    $Env:EXECUTABLE = ".exe"
+    $PlatformName = "windows"
+    $PlatformArchive = "zip"
+    $PlatformExe = ".exe"
 }

@@ -94,8 +94,7 @@ PS> Copy-Item share/examples/overrides.ps1 etc/
 
 .Sample `etc/overrides.ps1`
 ----
-Env:TAP_VERSION = "1.2.2"
-Env:MINIKUBE_MEMORY = "6g"
+$MiniKubeMemory = "6g"
 ----
 
 === Credentials
@@ -113,13 +112,14 @@ Configure credentials for TanzuNet and a Docker registry.
 
 .Sample `etc/credentials`
 ----
-$Env:REGISTRY_HOST = "harbor-repo.vmware.com"
-$Env:REGISTRY_USER = "joe"
-$Env:REGISTRY_PASS = "joepass"
-$Env:REGISTRY_REPO = "joes_tap"
+$RegistryHost = "harbor-repo.vmware.com"
+$RegistryUser = "joe"
+$RegistryPass = "joepass"
+$RegistryRepo = "joes_tap"
 
-$Env:TANZUNET_USER = "joe@company.com"
-$Env:TANZUNET_PASS = "joepassdeux"
+$TanzuNetHost = "registry.tanzu.vmware.com"
+$TanzuNetUser = "joe@company.com"
+$TanzuNetPass = "joepassdeux"
 ----
 
 == TAP Tools

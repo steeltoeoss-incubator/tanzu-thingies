@@ -1,1 +1,1 @@
-$prereqs = "gettext", "jq", "minikube"
+$PreReqs = "gettext", "jq", "minikube"

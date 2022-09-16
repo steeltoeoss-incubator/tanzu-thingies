@@ -2,5 +2,5 @@
 
 ForEach ($PreReq in $PreReqs)
 {
-    brew install $PreReq
+    scoop install $PreReq
 }
