@@ -1,19 +1,21 @@
-function Log-Message
-{
-    $message = $Args
-    Write-Host "--- $message" -ForegroundColor Green
-}
+. "$Env:CONFIG_DIR\look-n-feel.ps1"
 
-function Log-Header
+function Log-Info
 {
     $message = $Args
-    Write-Host "=== $message" -ForegroundColor Green
+    Write-Host "--- $message" -ForegroundColor $Env:InfoColor
 }
 
 function Log-Error
 {
     $message = $Args
-    Write-Host "!!! $message" -ForegroundColor Red
+    Write-Host "!!! $message" -ForegroundColor $Env:ErrorColor
+}
+
+function Log-Header
+{
+    $message = $Args
+    Write-Host "=== $message" -ForegroundColor $Env:HeaderColor
 }
 
 function Die
@@ -29,6 +31,6 @@ function Die
 function Run-Command
 {
     $command = "$Args"
-    log-message "running: $command"
+    Log-Info "running: $command"
     Invoke-Expression $command
 }
