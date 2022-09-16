@@ -232,7 +232,7 @@ Host file locations:
 
 == Sample TAP Deployment
 
-Deploy the Spring sample Java app.
+Deploy the sample Java app.
 
 ----
 PS> tanzu apps workload create java-web-app --git-repo https://github.com/vmware-tanzu/application-accelerator-samples --sub-path tanzu-java-web-app --git-branch main --type web --label app.kubernetes.io/part-of=java-web-app --label tanzu.app.live.view=true --label tanzu.app.live.view.application.name=java-web-app --annotation autoscaling.knative.dev/minScale=1 --namespace default --yes
