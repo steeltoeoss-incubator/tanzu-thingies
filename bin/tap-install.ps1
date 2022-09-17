@@ -48,8 +48,8 @@ K8s-Create-Namespace $TapDevNamespace
 Log-Info "adding registry credentials ($TapDevNamespace)"
 Invoke-Expression "$TanzuCommand secret registry add registry-credentials --server $RegistryHost --username $RegistryUser --password '$RegistryPass' --namespace $TapDevNamespace"
 
-Log-Info "adding service roles"
-K8s-Apply -Namespace $TapDevNamespace -FileName "$ConfigDir/serviceaccounts.yaml"
+Log-Info "adding RBAC definitions"
+K8s-Apply -Namespace $TapDevNamespace -FileName "$ConfigDir/rbac.yaml"
 
 Log-Success "TAP installed"
 Invoke-Expression "$BinDir/tap-version.ps1"
