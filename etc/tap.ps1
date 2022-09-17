@@ -9,4 +9,4 @@ $TanzuClusterEssentialsBundle = "registry.tanzu.vmware.com/tanzu-cluster-essenti
 
 $Env:TANZU_CLI_NO_INIT = "true"
 
-$TanzuCommand = "$Env:LOCAL_BIN_DIR/tanzu${EXECUTABLE}"
+$TanzuCommand = "$LocalBinDir/tanzu${EXECUTABLE}"

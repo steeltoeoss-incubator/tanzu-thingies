@@ -19,14 +19,7 @@ $InFile = "$DataDir/examples/tap-profile.yaml"
 $OutFile = "$ConfigDir/tap-profile.yaml"
 
 Log-Header "Generating TAP Profile"
-If ($IsWindows)
-{
-    Run-Command envsubst -i $InFile -o $OutFile
-}
-Else
-{
-    cat $InFile | envsubst > $OutFile
-}
+Substitute-Env -InFile "$InFile" -OutFile "$OutFile"
 
 Log-Success "TAP Profile generated"
 $OutFile
