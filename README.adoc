@@ -232,16 +232,16 @@ Host file locations:
 
 == Sample TAP Deployment
 
-Deploy the sample Java app.
+Deploy the sample Steeltoe app.
 
 ----
-PS> tanzu apps workload create java-web-app --git-repo https://github.com/vmware-tanzu/application-accelerator-samples --sub-path tanzu-java-web-app --git-branch main --type web --label app.kubernetes.io/part-of=java-web-app --label tanzu.app.live.view=true --label tanzu.app.live.view.application.name=java-web-app --annotation autoscaling.knative.dev/minScale=1 --namespace default --yes
+PS> tanzu apps workload create weatherforecast --git-repo https://github.com/vmware-tanzu/application-accelerator-samples --sub-path weatherforecast-steeltoe --git-branch main --type web --label app.kubernetes.io/part-of=weatherforecast --label tanzu.app.live.view=true --label tanzu.app.live.view.application.name=weatherforecast --annotation autoscaling.knative.dev/minScale=1 --namespace default --yes
 ----
 
 Follow progress.
 
 ----
-PS> tanzu apps workload tail java-web-app --timestamp
+PS> tanzu apps workload tail weatherforecast --timestamp
 ----
 
 Check if ready.
@@ -250,20 +250,20 @@ This may take a while.
 YMMV.
 
 ----
-PS> tanzu apps workload get java-web-app
+PS> tanzu apps workload get weatherforecast
 ...
-java-web-app   Ready   http://java-web-app.default.example.com
+NAME              READY   URL
+weatherforecast   Ready   http://weatherforecast.default.example.com
 ----
 
-Add a host entry for `java-web-app.default.example.com`.
+Add a host entry for `weatherforecast.default.example.com`.
 
 ----
-127.0.0.1 java-web-app.default.example.com
+127.0.0.1 weatherforecast.default.example.com
 ----
 
 Access the app.
 
 ----
-PS> curl http://java-web-app.default.example.com/
-Greetings from Spring Boot + Tanzu!
+PS> curl http://weatherforecast.default.example.com/
 ----
