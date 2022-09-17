@@ -1,4 +1,4 @@
-$TapVersion = "1.2.2"
+$TapVersion = "1.3.0-build.23"
 
 $TapNamespace = "tap-install"
 $TapDevNamespace = "default"
