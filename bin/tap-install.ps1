@@ -39,7 +39,6 @@ Run-Command $TanzuCommand package available list --namespace $TapNamespace
 Log-Info "installing TAP (this may take a while)"
 
 Run-Command $TanzuCommand package install tap -p tap.tanzu.vmware.com -v $TapVersion --values-file "$TapProfile" --poll-timeout 45m --namespace $TapNamespace
-$Count = 0
 K8s-Wait-For-Resource -Namespace $TapNamespace -Resource packageinstall/tap -Status "Reconcile succeeded"
 
 Log-Header "Creating Developer Environment"
@@ -50,7 +49,7 @@ Log-Info "adding registry credentials ($TapDevNamespace)"
 Invoke-Expression "$TanzuCommand secret registry add registry-credentials --server $RegistryHost --username $RegistryUser --password '$RegistryPass' --namespace $TapDevNamespace"
 
 Log-Info "adding service roles"
-Run-Command kubectl -n $TapDevNamespace apply -f "$ConfigDir/serviceaccounts.yaml"
+K8s-Apply -Namespace $TapDevNamespace -FileName "$ConfigDir/serviceaccounts.yaml"
 
 Log-Success "TAP installed"
 Invoke-Expression "$BinDir/tap-version.ps1"
