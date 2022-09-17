@@ -1,5 +1,4 @@
 #!/usr/bin/env pwsh -NoProfile
-
 #Requires -Version 7.2
 
 $ErrorActionPreference = "Stop"
@@ -20,21 +19,11 @@ Remove-Item "$TanzuCommand" -ErrorAction SilentlyContinue
 $CliDir = "$LocalToolDir/tanzu-framework-$TapVersion"
 Remove-Item "$CliDir" -Recurse -ErrorAction SilentlyContinue
 New-Item -Path "$CliDir" -ItemType Directory | Out-Null
-If ($IsWindows)
-{
-    unzip "$CliDist" -d "$CliDir" | Out-Null
-}
-Else
-{
-    tar xf $CliDist -C $CliDir
-}
+Extract -Archive "$CliDist" -OutDir "$CliDir"
 
 New-Item -Path $(Split-Path -parent "$TanzuCommand") -ItemType Directory -ErrorAction SilentlyContinue | Out-Null
 Copy-Item "$CliDir/cli/core/v*/tanzu-core-${PlatformName}_amd64${PlatformExe}" "$LocalBinDir/tanzu$PlatformExe"
-If (!($IsWindows))
-{
-    chmod +x "$TanzuCommand"
-}
+Make-Executable $TanzuCommand
 
 Log-Info "installing Tanzu CLI plugins"
 Run-Command $TanzuCommand plugin install --local "$CliDir/cli" all
