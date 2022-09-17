@@ -46,3 +46,56 @@ Function Run-Command
     Log-Crumb "running: $command"
     Invoke-Expression $command
 }
+
+Function Extract
+{
+    Param
+    (
+        [Parameter (Mandatory = $True)]
+        [string]$Archive,
+        [Parameter (Mandatory = $True)]
+        [string]$OutDir
+    )
+    Log-Crumb "extracting $Archive -> $OutDir"
+    If ($IsWindows)
+    {
+        unzip "$Archive" -d "$OutDir" | Out-Null
+    }
+    Else
+    {
+        tar xf $Archive -C $OutDir
+    }
+}
+
+Function Make-Executable
+{
+    Param
+    (
+        [Parameter (Mandatory = $True)]
+        [string]$Path
+    )
+    If (!($IsWindows))
+    {
+        Log-Crumb "making executable: $Path"
+        chmod +x $Path
+    }
+}
+
+Function Substitute-Env
+{
+    Param
+    (
+        [Parameter (Mandatory = $True)]
+        [string]$InFile,
+        [Parameter (Mandatory = $True)]
+        [string]$OutFile
+    )
+    If ($IsWindows)
+    {
+        Run-Command envsubst -i $InFile -o $OutFile
+    }
+    Else
+    {
+        cat $InFile | envsubst > $OutFile
+    }
+}
