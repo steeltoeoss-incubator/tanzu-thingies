@@ -21,7 +21,7 @@ If (!(Test-Path "$EssentialsDist"))
 
 $EssentialsDir = "$LocalToolDir/tanzu-cluster-essentials-$TanzuClusterEssentialsVersion"
 Remove-Item "$EssentialsDir" -Recurse -ErrorAction SilentlyContinue
-New-Item -Path "$EssentialsDir" -ItemType Directory | Out-Null
+New-Item -Path "$EssentialsDir" -ItemType Directory -ErrorAction SilentlyContinue | Out-Null
 Extract -Archive "$EssentialsDist" -OutDir "$EssentialsDir"
 
 If ($IsWindows)
@@ -36,11 +36,17 @@ If ($IsWindows)
 }
 Else
 {
+    Set-Location $EssentialsDir
     $Env:INSTALL_BUNDLE = $TanzuClusterEssentialsBundle
     $Env:INSTALL_REGISTRY_HOSTNAME = $TanzuNetHost
     $Env:INSTALL_REGISTRY_USERNAME = $TanzuNetUser
     $Env:INSTALL_REGISTRY_PASSWORD = $TanzuNetPass
-    Run-Command "$EssentialsDir/install.sh" --yes
+    Run-Command ./install.sh --yes
+}
+
+ForEach ($PodNamespace in "kapp-controller", "secretgen-controller")
+{
+    K8s-Wait-For-Resource -Namespace $PodNamespace -Resource pods -Status "Running"
 }
 
 Log-Success "Tanzu Cluster Essentials installed"
