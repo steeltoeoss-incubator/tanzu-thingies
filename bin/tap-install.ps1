@@ -17,7 +17,7 @@ If (!(Test-Path "$TapProfile"))
 }
 
 Invoke-Expression "$BinDir/tanzu-cli-install.ps1"
-Invoke-Expression "$BinDir/essentials-install.ps1"
+Invoke-Expression "$BinDir/tanzu-cluster-essentials-install.ps1"
 
 K8s-Create-Namespace $TapNamespace
 
