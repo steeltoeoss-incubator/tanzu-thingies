@@ -1,27 +1,31 @@
 #!/usr/bin/bash env
 
-home=$1
-dist_dir=$2
+dist_dir=$1
+env_file=./env
+kubectl_cfg=kube-config
 
-kube_config=$home/.kube/config
-export KUBECONFIG=kube-config
-
-if [[ ! -f $kube_config ]]; then
-  echo "cannot find kubectl config: $kube_config" >&2
+if [[ ! -d $dist_dir ]]; then
+  echo "distribution dir does not exist: $dist_dir" >&2
   exit 1
 fi
 
 cd $dist_dir
 
-sed -i 's/\r//' ./env
-source ./env
+if [[ ! -f $kubectl_cfg ]]; then
+  echo "kubectl config does not exist: $kubectl_cfg" >&2
+  exit 1
+fi
+
+sed -i 's/\r//' $env_file
+source $env_file
 export \
   INSTALL_BUNDLE INSTALL_\
   INSTALL_REGISTRY_HOSTNAME \
   INSTALL_REGISTRY_USERNAME \
   INSTALL_REGISTRY_PASSWORD
 
-sed -i 's_C:_/mnt/c_' $KUBECONFIG
-sed -i 's_\\_/_g' $KUBECONFIG
+sed -i 's_C:_/mnt/c_' $kubectl_cfg
+sed -i 's_\\_/_g' $kubectl_cfg
 
-./install.sh --yes
+KUBECONFIG=$kubectl_cfg \
+  ./install.sh --yes

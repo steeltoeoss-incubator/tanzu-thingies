@@ -32,7 +32,6 @@ If ($IsWindows)
     echo "export INSTALL_REGISTRY_USERNAME='$TanzuNetUser'" >> "$EssentialsDir/env"
     echo "export INSTALL_REGISTRY_PASSWORD='$TanzuNetPass'" >> "$EssentialsDir/env"
     bash $(Windows-2-Unix "$LibExecDir/essentials-install-via-winbash.sh") `
-        $(Windows-2-Unix $home) `
         $(Windows-2-Unix "$EssentialsDir")
 }
 Else
