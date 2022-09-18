@@ -4,8 +4,19 @@
 
 . "$PSScriptRoot/../etc/config.ps1"
 
-$infile = "$Env:DATA_DIR/examples/tap-profile.yaml"
-$outfile = "$Env:CONFIG_DIR/tap-profile.yaml"
+$Env:REGISTRY_HOST = "$RegistryHost"
+$Env:REGISTRY_USER = "$RegistryUser"
+$Env:REGISTRY_PASS = "$RegistryPass"
+$Env:REGISTRY_REPO = "$RegistryRepo"
+
+$Env:TANZUNET_HOST = "$TanzuNetHost"
+$Env:TANZUNET_USER = "$TanzuNetUser"
+$Env:TANZUNET_PASS = "$TanzuNetPass"
+
+$Env:TAP_DOMAIN = "$TapDomain"
+
+$InFile = "$DataDir/examples/tap-profile.yaml"
+$OutFile = "$ConfigDir/tap-profile.yaml"
 
 Log-Header "Generating TAP Profile"
 if ($IsWindows)
