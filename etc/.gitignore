@@ -1,3 +1,5 @@
-credentials.ps1
 overrides.ps1
 tap-profile.yaml
+
+# do not edit below this line
+credentials.ps1
