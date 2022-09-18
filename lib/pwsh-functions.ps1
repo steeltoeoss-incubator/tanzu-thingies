@@ -57,7 +57,7 @@ Function Extract
         [string]$OutDir
     )
     Log-Crumb "extracting $Archive -> $OutDir"
-    If ($IsWindows)
+    If ($Archive -Match ".zip$")
     {
         unzip "$Archive" -d "$OutDir" | Out-Null
     }
@@ -98,4 +98,9 @@ Function Substitute-Env
     {
         cat $InFile | envsubst > $OutFile
     }
+}
+
+Function Windows-2-Unix
+{
+    "$Args" -Replace "\\", "/" -Replace "C:", "/mnt/c"
 }

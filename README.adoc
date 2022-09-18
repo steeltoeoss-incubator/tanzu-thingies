@@ -15,13 +15,13 @@ This repo contains a collection of utilities to help with things Tanzu.
 |===
 | Util | Description
 
-| `essentials-install.ps1` | Installs VMware Cluster Essentials.
 | `minikube-delete.ps1` | Deletes a Minikube cluster.
 | `minikube-start.ps1` | Creates/starts a Minikube cluster.
 | `minikube-stop.ps1` | Stops a Minikube cluster cluster.
 | `minikube-tunnel.ps1` | Creates a Minikube cluster tunnel.
 | `prereq-install.ps1` | Installs prerequisite tools.
 | `tanzu-cli-install.ps1` | Installs Tanzu CLI and plugins.
+| `tanzu-cluster-essentials-install.ps1` | Installs Tanzu Cluster Essentials.
 | `tap-install.ps1` | Installs TAP into current K8s context.
 | `tap-profile.ps1` | Creates a TAP profile.
 | `tap-version.ps1` | Displays the version of TAP running in the current K8s context.
@@ -130,11 +130,11 @@ $TanzuNetPass = "joepassdeux"
 
 Go to the the TanzuNet downloads for https://network.tanzu.vmware.com/products/tanzu-application-platform/[VMware Tanzu Application Platform, window="_new"].
 
-Select the release that matches `TapVersion`.
+Select the release that matches `$TapVersion`.
 
 Select the `tanzu-cli-tap` bundle for your platform and download.
 
-Move/rename the downloaded file into `LocalDistDir` with `TapVersion` appended.
+Move/rename the downloaded file into `$LocalDistDir` with `$TapVersion` appended.
 
 .Example
 ----
@@ -147,6 +147,27 @@ PS> dir $LocalDistDir
 Mode                 LastWriteTime         Length Name
 ----                 -------------         ------ ----
 -a---           9/14/2022  2:12 PM      206479649 tanzu-framework-windows-amd64-1.2.2.zip
+----
+
+=== Tanzu Cluster Essentials
+
+Go to the the TanzuNet downloads for https://network.tanzu.vmware.com/products/tanzu-cluster-essentials[Cluster Essentials for VMware Tanzu, window="_new"].
+
+Select the release that matches `$TanzuClusterEssentialsVersion`.
+
+If you're installing on Windows, select the `linux` distribution.
+
+Move the downloaded file into `$LocalDistDir`.
+
+.Example
+----
+# Windows
+$ mkdir $LocalDistDir
+$ mv ~/Downloads/tanzu-cluster-essentials-linux-amd64-$TanzuClusterEssentialsVersion.tgz $LocalDistDir/
+
+# OSX/Linux
+$ mkdir $LocalDistDir
+$ mv ~/Downloads/tanzu-cluster-essentials-$PlatformName-amd64-$TanzuClusterEssentialsVersion.tgz $LocalDistDir/
 ----
 
 == Cluster
