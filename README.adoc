@@ -100,7 +100,7 @@ Env:MINIKUBE_MEMORY = "6g"
 
 === Credentials
 
-Credentials are defined in a specialized configuration that is ignored by Git.
+Credentials are defined in a discrete configuration that is ignored by Git.
 
 Copy `link:share/examples/credentials.ps1[]` to `etc/`.
 
