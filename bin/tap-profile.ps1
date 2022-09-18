@@ -13,6 +13,8 @@ $Env:TANZUNET_HOST = "$TanzuNetHost"
 $Env:TANZUNET_USER = "$TanzuNetUser"
 $Env:TANZUNET_PASS = "$TanzuNetPass"
 
+$Env:TAP_DOMAIN = "$TapDomain"
+
 $InFile = "$DataDir/examples/tap-profile.yaml"
 $OutFile = "$ConfigDir/tap-profile.yaml"
 
