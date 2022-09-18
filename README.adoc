@@ -228,7 +228,7 @@ YMMV.
 
 Deployed apps will be assigned an HTTP route of the form:
 
-`http://NAME.default.example.com`
+`http://NAME.default.local`
 
 where `NAME` is that specified in the command:
 
@@ -248,7 +248,7 @@ Host file locations:
 
 .Sample
 ----
-127.0.0.1	NAME.default.example.com
+127.0.0.1	NAME.default.local.
 ----
 
 == Sample TAP Deployment
@@ -274,17 +274,17 @@ YMMV.
 PS> tanzu apps workload get weatherforecast
 ...
 NAME              READY   URL
-weatherforecast   Ready   http://weatherforecast.default.example.com
+weatherforecast   Ready   http://weatherforecast.default.local
 ----
 
-Add a host entry for `weatherforecast.default.example.com`.
+Add a host entry for `weatherforecast.default.local`.
 
 ----
-127.0.0.1 weatherforecast.default.example.com
+127.0.0.1 weatherforecast.default.local.
 ----
 
 Access the app.
 
 ----
-PS> curl http://weatherforecast.default.example.com/
+PS> curl http://weatherforecast.default.local/
 ----

@@ -1,4 +1,7 @@
 ---
+shared:
+  ingress_domain: "$TAP_DOMAIN"
+
 profile: iterate
 
 contour:
