@@ -1,2 +1,5 @@
-local/
-foo.*
+# ignore local sandbox
+/local/
+
+# ignore OSX state
+.DS_Store
