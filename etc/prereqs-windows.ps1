@@ -1,1 +1,5 @@
-$PreReqs = "gettext", "jq", "minikube", "unzip"
+$PreReqs = `
+    "gettext", `
+    "jq", `
+    "minikube", `
+    "unzip"
