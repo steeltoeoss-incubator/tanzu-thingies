@@ -58,7 +58,7 @@ PS> bin/prereq-install.ps1
 Running the above script requires one of the below installers:
 
 |===
-| Installer | OS | Home
+| Installer | Platform | Home
 
 | `brew` | OS X | https://brew.sh/
 | `scoop` | Windows | https://scoop.sh/
@@ -141,7 +141,7 @@ Resultant file will be of the form: `$LocalDistDir/tanzu-framework-$PlatformName
 Samples:
 
 |===
-| OS | Path
+| Platform | Path
 
 | Linux | `local/distfiles/tanzu-framework-linux-amd64-1.2.2.tar`
 | OS X | `local/distfiles/tanzu-framework-darwin-amd64-1.2.2.tar`
@@ -161,7 +161,7 @@ Move the downloaded file into `$LocalDistDir`.
 Resultant file will be of the form: `$LocalDistDir/tanzu-cluster-essentials-$PlatformName-amd64-$TanzuClusterEssentialsVersion.tgz`
 
 |===
-| OS | Path
+| Platform | Path
 
 | Linux | `local/distfiles/tanzu-cluster-essentials-linux-amd64-1.2.0.tgz`
 | OS X | `local/distfiles/tanzu-cluster-essentials-darwin-amd64-1.2.0.tgz`
@@ -193,6 +193,7 @@ PS> bin/minikube-tunnel.ps1
 
 === Before You Begin
 
+* link:#prereqs[Prereqs] are installed for your platform
 * link:#tap-tools[TAP Tools] are downloaded into expected paths
 * link:#minikube-cluster[cluster is running]
 * link:#minikube-tunnel[tunnel is running]
@@ -237,7 +238,7 @@ Add a matching entry to your local hosts resolving the route host to the loopbac
 Host file locations:
 
 |===
-| OS | Path
+| Platform | Path
 
 | OS X | `/etc/hosts`
 | Linux | `/etc/hosts`
