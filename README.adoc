@@ -195,8 +195,9 @@ PS> bin/minikube-tunnel.ps1
 
 * link:#prereqs[Prereqs] are installed for your platform
 * link:#tap-tools[TAP Tools] are downloaded into expected paths
+* link:#credentials[Credentials] are configured
 * link:#minikube-cluster[cluster is running]
-* link:#minikube-tunnel[tunnel is running]
+* link:#minikube-tunnel[tunnel is running], if using MiniKube
 * network connection to corporate network
 
 === TAP Profile
