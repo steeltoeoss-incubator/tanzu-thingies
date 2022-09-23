@@ -64,6 +64,8 @@ Running the above script requires one of the below installers:
 | `scoop` | Windows | https://scoop.sh/
 |===
 
+Did you get a message about credentials.ps1? Refer to <<Credentials>> for what to do next.
+
 == Configure
 
 Configuration is defined in `link:etc/config.ps1[]`.
@@ -87,11 +89,11 @@ Default settings are defined in:
 * `link:etc/tap.ps1[]`
 * `link:etc/minikube.ps1[]`
 
-To override defaults, copy `link:share/examples/overrides.ps1[]` to `etc/`.
+To override defaults, copy `link:share/templates/overrides.ps1[]` to `etc/`.
 
 .Overrides
 ----
-PS> Copy-Item share/examples/overrides.ps1 etc/
+PS> Copy-Item share/templates/overrides.ps1 etc/
 ----
 
 .Sample `etc/overrides.ps1`
@@ -103,11 +105,11 @@ $MiniKubeMemory = "6g"
 
 Credentials are defined in a discrete configuration that is ignored by Git.
 
-Copy `link:share/examples/credentials.ps1[]` to `etc/`.
+Copy `link:share/templates/credentials.ps1[]` to `etc/`.
 
 .Credentials
 ----
-PS> Copy-Item share/examples/credentials.ps1 etc/
+PS> Copy-Item share/templates/credentials.ps1 etc/
 ----
 
 Configure credentials for TanzuNet and a Docker registry.

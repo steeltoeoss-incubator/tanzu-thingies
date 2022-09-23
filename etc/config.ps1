@@ -26,7 +26,8 @@ If (Test-Path "$Overrides")
 $Credentials = "$ConfigDir/credentials.ps1"
 If (!(Test-Path "$credentials"))
 {
-    throw "credentials.ps1 not found"
+    Copy-Item "$BaseDir/share/templates/credentials.ps1.template" "$ConfigDir/credentials.ps1"
+    throw "credentials.ps1 was not found! It has now been copied to $ConfigDir/credentials.ps1 for you - configure this copy and re-run the script"
 }
 . "$Credentials"
 
