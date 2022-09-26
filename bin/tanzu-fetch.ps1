@@ -10,12 +10,28 @@ $ErrorActionPreference = "Stop"
 $slug = $TapSlug
 $release = $TapVersion
 $platform = $PlatformName
+If ($IsWindows)
+{
+    $archive = "zip"
+}
+Else
+{
+    $archive = "tar"
+}
+$archive
 Pivnet-Download -Slug $slug -Release $release -Platform $platform
-Log-Crumb "renameing dist to include release version"
-Move-Item $LocalDistDir/tanzu-framework-$platform-amd64.tar $LocalDistDir/tanzu-framework-$platform-amd64-$release.tar
+Log-Crumb "renaming dist to include release version"
+Move-Item -Force "$LocalDistDir/tanzu-framework-$platform-amd64.$archive" $LocalDistDir/tanzu-framework-$platform-amd64-$release.$archive
 
 # Tanzu Cluster Essentials
 $slug = $TanzuClusterEssentialsSlug
 $release = $TanzuClusterEssentialsVersion
-$platform = $PlatformName
+If ($IsWindows)
+{
+    $platform = "linux"
+}
+Else
+{
+    $platform = $PlatformName
+}
 Pivnet-Download -Slug $slug -Release $release -Platform $platform
