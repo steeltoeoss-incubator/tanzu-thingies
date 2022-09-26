@@ -45,6 +45,10 @@ Function Run-Command
     $command = "$Args"
     Log-Crumb "running: $command"
     Invoke-Expression $command
+    If ($LastExitCode -ne 0)
+    {
+        Exit $LastExitCode
+    }
 }
 
 Function Extract
