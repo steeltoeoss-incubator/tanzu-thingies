@@ -1,5 +1,8 @@
 # ignore local sandbox
 /local/
 
+# ignore VS Code stat
+/.vscode/
+
 # ignore OSX state
 .DS_Store
