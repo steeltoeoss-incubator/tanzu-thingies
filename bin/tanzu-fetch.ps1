@@ -18,7 +18,6 @@ Else
 {
     $archive = "tar"
 }
-$archive
 Pivnet-Download -Slug $slug -Release $release -Platform $platform
 Log-Crumb "renaming dist to include release version"
 Move-Item -Force "$LocalDistDir/tanzu-framework-$platform-amd64.$archive" $LocalDistDir/tanzu-framework-$platform-amd64-$release.$archive
