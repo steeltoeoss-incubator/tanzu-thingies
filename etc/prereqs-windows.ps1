@@ -1,4 +1,5 @@
 $PreReqs = `
+    "envsubst", `
     "gettext", `
     "jq", `
     "minikube", `

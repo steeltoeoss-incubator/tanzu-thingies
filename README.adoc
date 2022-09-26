@@ -128,7 +128,28 @@ $TanzuNetPass = "joepassdeux"
 
 == TAP Tools
 
-=== Tanzu CLI
+The Tanzu CLI and Cluster Essentials are required. Below are a scripted approach (using the pivnet cli) and a manual approach.
+
+=== Using pivnet cli
+
+==== Install the pivnet cli
+On OSX run `brew install pivotal/tap/pivnet-cli`
+
+On other platforms, get the latest release for your platform at https://github.com/pivotal-cf/pivnet-cli/releases, ensure the file is executable and on the path. On Windows you'll want to rename the file to `pivnet.exe`
+
+After the CLI is installed, https://network.pivotal.io/docs/api#how-to-authenticate[login, window="_new"]
+
+==== Run the script
+
+The included script assumes `pivnet` is available on the path and you are already logged in:
+
+----
+PS> bin/tanzu-fetch.ps1
+----
+
+=== Manual downloading files
+
+==== Tanzu CLI
 
 Go to the the TanzuNet downloads for https://network.tanzu.vmware.com/products/tanzu-application-platform/[VMware Tanzu Application Platform, window="_new"].
 
@@ -150,7 +171,7 @@ Samples:
 | Windows |`local/distfiles/tanzu-framework-windows-amd64-1.3.0.zip`
 |===
 
-=== Tanzu Cluster Essentials
+==== Tanzu Cluster Essentials
 
 Go to the the TanzuNet downloads for https://network.tanzu.vmware.com/products/tanzu-cluster-essentials[Cluster Essentials for VMware Tanzu, window="_new"].
 
