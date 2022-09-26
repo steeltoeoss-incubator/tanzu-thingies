@@ -9,11 +9,22 @@ Function Pivnet-Download
         [Parameter (Mandatory = $True)]
         [string]$Platform
     )
-    Log-Crumb "downloading $Slug $Release"
-    $id = pivnet product-files `
-        --product-slug=$Slug `
-        --release-version=$Release `
-        --format=json | ConvertFrom-Json | Where name -match $platform | Select id -ExpandProperty id
+    Log-Crumb "downloading $Slug $Release ($Platform)"
+    If ($IsWindows)
+    {
+        $id = pivnet product-files `
+            --product-slug=$Slug `
+            --release-version=$Release `
+            --format=json | ConvertFrom-Json | Where name -match $platform | Select id -ExpandProperty id
+    }
+    Else
+    {
+        $id = pivnet product-files `
+            --product-slug $Slug `
+            --release-version $Release `
+            --format=json | jq ".[] | select(.aws_object_key | test(""$Platform"")) | .id"
+    }
+
     If ($LastExitCode -ne 0)
     {
         Exit $LastExitCode
