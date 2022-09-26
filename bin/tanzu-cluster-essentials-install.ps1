@@ -5,13 +5,12 @@
 
 Log-Header "Installing Tanzu Cluster Essentials ($TanzuClusterEssentialsVersion)"
 
-$PlatformArchive = "tgz"
 If ($IsWindows)
 {
     $PlatformName = "linux"
 }
 
-$EssentialsDist = "$LocalDistDir/tanzu-cluster-essentials-$PlatformName-amd64-$TanzuClusterEssentialsVersion.$PlatformArchive"
+$EssentialsDist = "$LocalDistDir/tanzu-cluster-essentials-$PlatformName-amd64-$TanzuClusterEssentialsVersion.tgz"
 If (!(Test-Path "$EssentialsDist"))
 {
     Log-Error "Tanzu Cluster Essentials dist not found: $EssentialsDist"

@@ -12,6 +12,7 @@ $LocalToolDir = "$LocalDir/tools"
 . "$LibDir/pwsh-functions.ps1"
 . "$LibDir/k8s-functions.ps1"
 . "$LibDir/minikube-functions.ps1"
+. "$LibDir/pivnet.ps1"
 
 . "$ConfigDir/platform.ps1"
 . "$ConfigDir/tap.ps1"
