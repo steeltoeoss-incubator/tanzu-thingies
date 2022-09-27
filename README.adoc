@@ -110,6 +110,26 @@ Resultant file should be of the form: `tanzu-cluster-essentials-$PlatformName-am
 | Windows | `local/distfiles/tanzu-cluster-essentials-linux-amd64-1.2.0.tgz`
 |===
 
+== Minikube
+
+=== Minikube Cluster
+
+Running `minikube-start` creates a cluster if necessary and then starts it.
+
+----
+PS> bin/minikube-start.ps1
+----
+
+=== Minikube Tunnel
+
+The tunnel is required for TAP installation and workload deployments.
+
+The tunnel runs in the foreground, `CTRL-C` to kill.
+
+----
+PS> bin/minikube-tunnel.ps1
+----
+
 == Credentials
 
 Credentials are defined in a configuration file that is ignored by Git: `etc/credentials.ps1`.
@@ -132,26 +152,6 @@ $RegistryRepo = "joes_tap"
 $TanzuNetHost = "registry.tanzu.vmware.com"
 $TanzuNetUser = "joe@company.com"
 $TanzuNetPass = "joepassdeux"
-----
-
-== Minikube
-
-=== Minikube Cluster
-
-Running `minikube-start` creates a cluster if necessary and then starts it.
-
-----
-PS> bin/minikube-start.ps1
-----
-
-=== Minikube Tunnel
-
-The tunnel is required for TAP installation and workload deployments.
-
-The tunnel runs in the foreground, `CTRL-C` to kill.
-
-----
-PS> bin/minikube-tunnel.ps1
 ----
 
 == TAP
