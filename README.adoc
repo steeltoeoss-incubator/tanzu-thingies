@@ -181,6 +181,8 @@ PS> bin/tap-install.ps1
 
 The installation takes some time, 10-30 mins.
 
+To check on the installation process, run: `tanzu package installed list -A`
+
 == TAP Workloads
 
 === Overview
