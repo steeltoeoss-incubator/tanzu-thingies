@@ -1,5 +1,5 @@
 :toc:
-:toclevels: 3
+:toclevels: 2
 :toc-placement!:
 :toc-title!:
 :linkattrs:
