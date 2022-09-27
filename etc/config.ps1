@@ -4,6 +4,7 @@ $ConfigDir = "$BaseDir/etc"
 $DataDir = "$BaseDir/share"
 $LibDir = "$BaseDir/lib"
 $LibExecDir = "$BaseDir/libexec"
+$TemplateDir = "$DataDir/templates"
 $LocalDir = "$BaseDir/local"
 $LocalBinDir = "$LocalDir/bin"
 $LocalDistDir = "$LocalDir/distfiles"
@@ -27,8 +28,12 @@ If (Test-Path "$Overrides")
 $Credentials = "$ConfigDir/credentials.ps1"
 If (!(Test-Path "$credentials"))
 {
-    Copy-Item "$BaseDir/share/templates/credentials.ps1" "$ConfigDir/credentials.ps1"
-    throw "credentials.ps1 was not found! It has now been copied to $ConfigDir/credentials.ps1 for you - configure this copy and re-run the script"
+    Copy-Item "$TemplateDir/credentials.ps1" "$ConfigDir/credentials.ps1"
+    Log-Error "credentials.ps1 was not found"
+    Log-Error "A template has been copied to:"
+    Log-Error "    $ConfigDir/credentials.ps1"
+    Log-Error "Edit this file with your credentials before continuing."
+    Die
 }
 . "$Credentials"
 

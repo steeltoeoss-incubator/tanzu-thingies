@@ -15,7 +15,7 @@ $Env:TANZUNET_PASS = "$TanzuNetPass"
 
 $Env:TAP_DOMAIN = "$TapDomain"
 
-$InFile = "$DataDir/templates/tap-profile.yaml"
+$InFile = "$TemplateDir/tap-profile.yaml"
 $OutFile = "$ConfigDir/tap-profile.yaml"
 
 Log-Header "Generating TAP Profile"
