@@ -8,43 +8,24 @@
 
 toc::[]
 
-== Overview
-
-This repo contains a collection of utilities to help with things Tanzu.
-
-|===
-| Util | Description
-
-| `minikube-delete.ps1` | Deletes a Minikube cluster.
-| `minikube-start.ps1` | Creates/starts a Minikube cluster.
-| `minikube-stop.ps1` | Stops a Minikube cluster cluster.
-| `minikube-tunnel.ps1` | Creates a Minikube cluster tunnel.
-| `prereq-install.ps1` | Installs prerequisite tools.
-| `tanzu-cli-install.ps1` | Installs Tanzu CLI and plugins.
-| `tanzu-cluster-essentials-install.ps1` | Installs Tanzu Cluster Essentials.
-| `tap-install.ps1` | Installs TAP into current K8s context.
-| `tap-profile.ps1` | Creates a TAP profile.
-| `tap-version.ps1` | Displays the version of TAP running in the current K8s context.
-|===
-
-== Prereqs
+== Prerequisites
 
 === PowerShell
 
 For Windows, install a recent version, >=7.2, from the the PowerShell https://github.com/PowerShell/PowerShell/releases[releases].
 The PowerShell that ships with Windows is too old for these scripts.
 
-For OS X, install using `brew install powershell`.
+For OS X, install using: `brew install powershell`
 
 === Docker for Desktop
 
-https://www.docker.com/products/docker-desktop/
+Install https://www.docker.com/products/docker-desktop/[Docker Desktop] for your platform
 
 If using a WSL backend and Minikube is complaining about not enough resources, check out https://docs.microsoft.com/en-us/windows/wsl/wsl-config#wslconfig[instructions for increasing WSL resource allocation].
 
-=== Tools
+=== 3rd Party Tools
 
-The prerequisite tools for your platform are defined in one of:
+The prerequisite 3rd party tools for your platform are defined in one of:
 
 * `link:etc/prereqs-darwin.ps1[]`
 * `link:etc/prereqs-windows.ps1[]`
@@ -54,7 +35,6 @@ You can install the tools manually, or by running:
 ----
 PS> bin/prereq-install.ps1
 ----
-
 Running the above script requires one of the below installers:
 
 |===
@@ -64,90 +44,28 @@ Running the above script requires one of the below installers:
 | `scoop` | Windows | https://scoop.sh/
 |===
 
-Did you get a message about credentials.ps1? Refer to <<Credentials>> for what to do next.
+=== Tanzu Tools
 
-== Configure
+The Tanzu CLI and Cluster Essentials are required.
+You only need to download the distributions; the tools will be installed as needed for you.
 
-Configuration is defined in `link:etc/config.ps1[]`.
+Below are a scripted approach (using the `pivnet` CLI) and a manual approach to download the distributions.
 
-The utilities in this repo load this configuration when they are run.
+=== Scripted Using pivnet CLI
 
-NOTE: Shell examples in this doc assume a loaded configuration.
+Install `pivnet` from the https://github.com/pivotal-cf/pivnet-cli/[Pivnet CLI] project, either using a platform installer or downloading a release.
 
-.Shell Configuration
-----
-PS> . etc/config.ps1
-----
+Ensure the file is executable and on your path. On Windows be sure to rename the file to `pivnet.exe`.
 
-=== Settings
+After the CLI is installed, https://network.pivotal.io/docs/api#how-to-authenticate[login, window="_new"] to the https://network.pivotal.io/[Tanzu Network, window="_new"].
 
-The default settings should work out-of-the-box.
-
-Default settings are defined in:
-
-* `link:etc/config.ps1[]`
-* `link:etc/tap.ps1[]`
-* `link:etc/minikube.ps1[]`
-
-To override defaults, copy `link:share/templates/overrides.ps1[]` to `etc/`.
-
-.Overrides
-----
-PS> Copy-Item share/templates/overrides.ps1 etc/
-----
-
-.Sample `etc/overrides.ps1`
-----
-$MiniKubeMemory = "6g"
-----
-
-=== Credentials
-
-Credentials are defined in a discrete configuration that is ignored by Git.
-
-Copy `link:share/templates/credentials.ps1[]` to `etc/`.
-
-.Credentials
-----
-PS> Copy-Item share/templates/credentials.ps1 etc/
-----
-
-Configure credentials for TanzuNet and a Docker registry.
-
-.Sample `etc/credentials.ps1`
-----
-$RegistryHost = "harbor-repo.vmware.com"
-$RegistryUser = "joe"
-$RegistryPass = "joepass"
-$RegistryRepo = "joes_tap"
-
-$TanzuNetHost = "registry.tanzu.vmware.com"
-$TanzuNetUser = "joe@company.com"
-$TanzuNetPass = "joepassdeux"
-----
-
-== TAP Tools
-
-The Tanzu CLI and Cluster Essentials are required. Below are a scripted approach (using the pivnet cli) and a manual approach.
-
-=== Using pivnet cli
-
-==== Install the pivnet cli
-On OSX run `brew install pivotal/tap/pivnet-cli`
-
-On other platforms, get the latest release for your platform at https://github.com/pivotal-cf/pivnet-cli/releases, ensure the file is executable and on the path. On Windows you'll want to rename the file to `pivnet.exe`
-
-After the CLI is installed, https://network.pivotal.io/docs/api#how-to-authenticate[login, window="_new"]
-
-==== Run the script
-
-The included script assumes `pivnet` is available on the path and you are already logged in:
+Once logged in, fetch the distributions by running:
 
 ----
 PS> bin/tanzu-fetch.ps1
 ----
 
-=== Manual downloading files
+=== Manual Downloads
 
 ==== Tanzu CLI
 
@@ -155,11 +73,11 @@ Go to the the TanzuNet downloads for https://network.tanzu.vmware.com/products/t
 
 Select the release that matches `$TapVersion`.
 
-Select the `tanzu-cli-tap` distribution for your platform.
+Select the `tanzu-cli-tap` distribution for your platform and download.
 
 Move/rename the downloaded file into `$LocalDistDir` with `$TapVersion` appended.
 
-Resultant file will be of the form: `$LocalDistDir/tanzu-framework-$PlatformName-amd64-$TapVersion.$PlatformArchive`
+Resultant file should be of the form: `tanzu-framework-$PlatformName-amd64-$TapVersion.{tar,zip}`
 
 Samples:
 
@@ -177,11 +95,12 @@ Go to the the TanzuNet downloads for https://network.tanzu.vmware.com/products/t
 
 Select the release that matches `$TanzuClusterEssentialsVersion`.
 
-Select the distribution for your platform. If you're installing on Windows, select the `linux` distribution.
+Select the distribution for your platform and download.
+If you're installing on Windows, select the `linux` distribution.
 
 Move the downloaded file into `$LocalDistDir`.
 
-Resultant file will be of the form: `$LocalDistDir/tanzu-cluster-essentials-$PlatformName-amd64-$TanzuClusterEssentialsVersion.tgz`
+Resultant file should be of the form: `tanzu-cluster-essentials-$PlatformName-amd64-$TanzuClusterEssentialsVersion.tgz`
 
 |===
 | Platform | Path
@@ -191,7 +110,31 @@ Resultant file will be of the form: `$LocalDistDir/tanzu-cluster-essentials-$Pla
 | Windows | `local/distfiles/tanzu-cluster-essentials-linux-amd64-1.2.0.tgz`
 |===
 
-== Cluster
+== Credentials
+
+Credentials are defined in a configuration file that is ignored by Git: `etc/credentials.ps1`.
+
+Copy `link:share/templates/credentials.ps1[]` to `etc/`.
+
+----
+PS> Copy-Item share/templates/credentials.ps1 etc/
+----
+
+Configure credentials for your Docker registry and TanzuNet.
+
+.Sample
+----
+$RegistryHost = "harbor-repo.vmware.com"
+$RegistryUser = "joe"
+$RegistryPass = "joepass"
+$RegistryRepo = "joes_tap"
+
+$TanzuNetHost = "registry.tanzu.vmware.com"
+$TanzuNetUser = "joe@company.com"
+$TanzuNetPass = "joepassdeux"
+----
+
+== Minikube
 
 === Minikube Cluster
 
@@ -203,8 +146,7 @@ PS> bin/minikube-start.ps1
 
 === Minikube Tunnel
 
-The tunnel is required for TAP installation.
-If packages are failing to reconcile, it may be due to lack of a running tunnel.
+The tunnel is required for TAP installation and workload deployments.
 
 The tunnel runs in the foreground, `CTRL-C` to kill.
 
@@ -213,15 +155,6 @@ PS> bin/minikube-tunnel.ps1
 ----
 
 == TAP
-
-=== Before You Begin
-
-* link:#prereqs[Prereqs] are installed for your platform
-* link:#tap-tools[TAP Tools] are downloaded into expected paths
-* link:#credentials[Credentials] are configured
-* link:#minikube-cluster[cluster is running]
-* link:#minikube-tunnel[tunnel is running], if using MiniKube
-* network connection to corporate network
 
 === TAP Profile
 
@@ -232,10 +165,13 @@ You only need to do this once, or when you've changed settings.
 PS> bin/tap-profile.ps1
 ----
 
-This generates the file `etc/tap-profile.yaml`.
-Probably a good idea to give it a once-over before proceeding.
+Review the generated file `etc/tap-profile.yaml` before proceeding, regenerating as needed.
 
 === TAP Install
+
+IMPORTANT: A network connection to corporate network must be open.
+
+IMPORTANT: The Minikube tunnel must be running.
 
 Install TAP into the current K8s context.
 
@@ -243,19 +179,16 @@ Install TAP into the current K8s context.
 PS> bin/tap-install.ps1
 ----
 
-The installation takes some time.
-10-30 mins.
-YMMV.
+The installation takes some time, 10-30 mins.
 
-=== Workload Notes
+== TAP Workloads
 
-Deployed apps will be assigned an HTTP route of the form:
+=== Overview
 
-`http://NAME.default.local`
+Deployed apps will be assigned an HTTP route of the form: `http://NAME.default.local`
 
-where `NAME` is that specified in the command:
+Where `NAME` is that specified in the command: `tanzu apps workload create NAME ...`
 
-`tanzu apps workload create NAME ...`.
 
 Add a matching entry to your local hosts resolving the route host to the loopback IF.
 
@@ -274,25 +207,25 @@ Host file locations:
 127.0.0.1	NAME.default.local.
 ----
 
-== Sample TAP Deployment
+=== Sample TAP Workload
 
-Deploy the sample Steeltoe app.
+Deploy the Application Accelerator https://github.com/vmware-tanzu/application-accelerator-samples/tree/main/weatherforecast-steeltoe[Steeltoe sample, window="_new"].
 
+.Deploy
 ----
 PS> tanzu apps workload create weatherforecast --git-repo https://github.com/vmware-tanzu/application-accelerator-samples --sub-path weatherforecast-steeltoe --git-branch main --type web --label app.kubernetes.io/part-of=weatherforecast --label tanzu.app.live.view=true --label tanzu.app.live.view.application.name=weatherforecast --annotation autoscaling.knative.dev/minScale=1 --namespace default --yes
 ----
 
-Follow progress.
-
+.Follow progress
 ----
 PS> tanzu apps workload tail weatherforecast --timestamp
 ----
 
-Check if ready.
+Wait for the status to transition to `Ready`.
 This may take a while.
 5-15 mins.
-YMMV.
 
+.Checking Status
 ----
 PS> tanzu apps workload get weatherforecast
 ...
@@ -311,3 +244,26 @@ Access the app.
 ----
 PS> curl http://weatherforecast.default.local/
 ----
+
+== Custom Configuration.
+
+Configuration defaults are loaded by `link:etc/config.ps1[]`.
+
+Defaults are defined in:
+
+* `link:etc/config.ps1[]`
+* `link:etc/tap.ps1[]`
+* `link:etc/minikube.ps1[]`
+
+To load configuration in a shell session, run: `. etc/config.ps1`
+
+To override defaults, copy `link:share/templates/overrides.ps1[]` to `etc/`.
+
+.Sample
+----
+$MiniKubeMemory = "6g"
+----
+
+== FAQ
+
+Did you get a message about credentials.ps1? Refer to <<Credentials>> for what to do next.
