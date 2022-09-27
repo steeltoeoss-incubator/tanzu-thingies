@@ -247,6 +247,8 @@ The installation takes some time.
 10-30 mins.
 YMMV.
 
+To check on the installation process: `tanzu package installed list -A`
+
 === Workload Notes
 
 Deployed apps will be assigned an HTTP route of the form:
