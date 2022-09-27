@@ -207,7 +207,7 @@ Host file locations:
 127.0.0.1	NAME.default.local.
 ----
 
-=== Sample TAP Workload
+=== Sample
 
 Deploy the Application Accelerator https://github.com/vmware-tanzu/application-accelerator-samples/tree/main/weatherforecast-steeltoe[Steeltoe sample, window="_new"].
 
