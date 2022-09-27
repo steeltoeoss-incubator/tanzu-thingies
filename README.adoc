@@ -51,7 +51,7 @@ You only need to download the distributions; the tools will be installed as need
 
 Below are a scripted approach (using the `pivnet` CLI) and a manual approach to download the distributions.
 
-=== Scripted Using pivnet CLI
+==== Scripted Using pivnet CLI
 
 Install `pivnet` from the https://github.com/pivotal-cf/pivnet-cli/[Pivnet CLI] project, either using a platform installer or downloading a release.
 
@@ -65,9 +65,9 @@ Once logged in, fetch the distributions by running:
 PS> bin/tanzu-fetch.ps1
 ----
 
-=== Manual Downloads
+==== Manual Downloads
 
-==== Tanzu CLI
+===== Tanzu CLI
 
 Go to the the TanzuNet downloads for https://network.tanzu.vmware.com/products/tanzu-application-platform/[VMware Tanzu Application Platform, window="_new"].
 
@@ -89,7 +89,7 @@ Samples:
 | Windows |`local/distfiles/tanzu-framework-windows-amd64-1.3.0.zip`
 |===
 
-==== Tanzu Cluster Essentials
+===== Tanzu Cluster Essentials
 
 Go to the the TanzuNet downloads for https://network.tanzu.vmware.com/products/tanzu-cluster-essentials[Cluster Essentials for VMware Tanzu, window="_new"].
 
