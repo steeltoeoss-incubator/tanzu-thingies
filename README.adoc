@@ -245,7 +245,7 @@ Access the app.
 PS> curl http://weatherforecast.default.local/
 ----
 
-== Custom Configuration.
+== Custom Configuration
 
 Configuration defaults are loaded by `link:etc/config.ps1[]`.
 
