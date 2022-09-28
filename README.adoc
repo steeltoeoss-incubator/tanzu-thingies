@@ -17,6 +17,10 @@ The PowerShell that ships with Windows is too old for these scripts.
 
 For OS X, install using: `brew install powershell`
 
+=== WSL
+
+Windows users will need a WSL Linux instance to run some shell scripts that are part of the Tanzu Cluster Essentials installation.
+
 === Docker for Desktop
 
 Install https://www.docker.com/products/docker-desktop/[Docker Desktop] for your platform
