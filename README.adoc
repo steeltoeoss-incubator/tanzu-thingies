@@ -22,7 +22,7 @@ This repo contains a collection of utilities to help with things Tanzu.
 | `prereq-install.ps1` | Installs prerequisite tools.
 | `tanzu-cli-install.ps1` | Installs Tanzu CLI and plugins.
 | `tanzu-cluster-essentials-install.ps1` | Installs Tanzu Cluster Essentials.
-| `tap-configuration.ps1` | Creates TAP configuration.
+| `tap-configure.ps1` | Creates TAP configuration.
 | `tap-install.ps1` | Installs TAP into current K8s context.
 | `tap-version.ps1` | Displays the version of TAP running in the current K8s context.
 |===
@@ -229,7 +229,7 @@ Generate a TAP Configuration based on your settings.
 You only need to do this once, or when you've changed settings.
 
 ----
-PS> bin/tap-configuration.ps1
+PS> bin/tap-configure.ps1
 ----
 
 This generates the file `etc/tap-values.yaml`.
