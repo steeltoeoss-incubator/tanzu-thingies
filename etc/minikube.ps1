@@ -1,5 +1,4 @@
 $MiniKubeCommand = "minikube"
-$MiniKubeKubernetesVersion = "1.24.3"
 $MiniKubeDriver = "docker"
 $MiniKubeCpus = "8"
 $MiniKubeMemory = "12g"

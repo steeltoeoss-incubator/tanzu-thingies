@@ -2,7 +2,7 @@ Function MiniKube-Start
 {
     Run-Command $MiniKubeCommand start `
         --driver=$MiniKubeDriver `
-        --kubernetes-version=$MiniKubeKubernetesVersion `
+        --kubernetes-version=$KubernetesVersion `
         --cpus=$MiniKubeCpus `
         --memory=$MiniKubeMemory `
         --disk-size=$MiniKubeDisk

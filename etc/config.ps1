@@ -17,6 +17,7 @@ $LocalToolDir = "$LocalDir/tools"
 
 . "$ConfigDir/platform.ps1"
 . "$ConfigDir/tap.ps1"
+. "$ConfigDir/kubernetes.ps1"
 . "$ConfigDir/minikube.ps1"
 
 $Overrides = "$ConfigDir/overrides.ps1"
