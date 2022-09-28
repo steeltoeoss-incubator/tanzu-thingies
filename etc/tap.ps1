@@ -4,7 +4,7 @@ $TapDist = "tanzu-framework-$PlatformName-amd64-$TapVersion.tar"
 
 $TapNamespace = "tap-install"
 $TapDevNamespace = "default"
-$TapDomain = "local"
+$TapDomain = "lvh.me"
 
 $TanzuClusterEssentialsVersion = "1.2.0"
 $TanzuClusterEssentialsSlug = "tanzu-cluster-essentials"

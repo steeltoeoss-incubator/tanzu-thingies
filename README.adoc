@@ -249,33 +249,6 @@ YMMV.
 
 To check on the installation process: `tanzu package installed list -A`
 
-=== Workload Notes
-
-Deployed apps will be assigned an HTTP route of the form:
-
-`http://NAME.default.local`
-
-where `NAME` is that specified in the command:
-
-`tanzu apps workload create NAME ...`.
-
-Add a matching entry to your local hosts resolving the route host to the loopback IF.
-
-Host file locations:
-
-|===
-| Platform | Path
-
-| OS X | `/etc/hosts`
-| Linux | `/etc/hosts`
-| Windows |  `C:\Windows\System32\drivers\etc\hosts`
-|===
-
-.Sample
-----
-127.0.0.1	NAME.default.local.
-----
-
 == Sample TAP Deployment
 
 Deploy the sample Steeltoe app.
