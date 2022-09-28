@@ -22,8 +22,8 @@ This repo contains a collection of utilities to help with things Tanzu.
 | `prereq-install.ps1` | Installs prerequisite tools.
 | `tanzu-cli-install.ps1` | Installs Tanzu CLI and plugins.
 | `tanzu-cluster-essentials-install.ps1` | Installs Tanzu Cluster Essentials.
+| `tap-configuration.ps1` | Creates TAP configuration.
 | `tap-install.ps1` | Installs TAP into current K8s context.
-| `tap-profile.ps1` | Creates a TAP profile.
 | `tap-version.ps1` | Displays the version of TAP running in the current K8s context.
 |===
 
@@ -223,16 +223,16 @@ PS> bin/minikube-tunnel.ps1
 * link:#minikube-tunnel[tunnel is running], if using MiniKube
 * network connection to corporate network
 
-=== TAP Profile
+=== TAP Configuration
 
-Generate a TAP Profile based on your settings.
+Generate a TAP Configuration based on your settings.
 You only need to do this once, or when you've changed settings.
 
 ----
-PS> bin/tap-profile.ps1
+PS> bin/tap-configuration.ps1
 ----
 
-This generates the file `etc/tap-profile.yaml`.
+This generates the file `etc/tap-values.yaml`.
 Probably a good idea to give it a once-over before proceeding.
 
 === TAP Install
