@@ -1,1 +1,1 @@
-$KubernetesVersion = "1.24.3"
+$KubernetesVersion = "1.23.12"
