@@ -194,6 +194,8 @@ To check on the installation process, run:
 PS> tanzu package installed list -A
 ----
 
+When all packages are "Reconciled", TAP is fully installed.
+
 == Sample Workload Deployment
 
 Deploy the sample Steeltoe app.
