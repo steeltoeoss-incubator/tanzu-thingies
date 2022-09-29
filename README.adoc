@@ -162,12 +162,15 @@ $TanzuNetPass = "joepassdeux"
 
 === TAP Configuration
 
-Generate a TAP configuration based on your settings.
-You only need to do this once, or when you've changed settings.
+TAP is configuration is defined in the file `etc/tap-values.yaml`.
+
+Generate a TAP configuration based on your local settings by running:
 
 ----
 PS> bin/tap-configure.ps1
 ----
+
+You only need to do this once, or when you've changed settings.
 
 Review the generated file `etc/tap-values.yaml` before proceeding.
 
@@ -191,7 +194,7 @@ To check on the installation process, run:
 PS> tanzu package installed list -A
 ----
 
-=== Sample
+== Sample Workload Deployment
 
 Deploy the sample Steeltoe app.
 
