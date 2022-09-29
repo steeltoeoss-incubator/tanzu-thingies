@@ -160,16 +160,16 @@ $TanzuNetPass = "joepassdeux"
 
 == TAP
 
-=== TAP Profile
+=== TAP Configuration
 
-Generate a TAP Profile based on your settings.
+Generate a TAP configuration based on your settings.
 You only need to do this once, or when you've changed settings.
 
 ----
-PS> bin/tap-profile.ps1
+PS> bin/tap-configure.ps1
 ----
 
-Review the generated file `etc/tap-profile.yaml` before proceeding, regenerating as needed.
+Review the generated file `etc/tap-values.yaml` before proceeding.
 
 === TAP Install
 
@@ -183,85 +183,64 @@ Install TAP into the current K8s context.
 PS> bin/tap-install.ps1
 ----
 
-The installation takes some time, 10-30 mins.
+The installation takes some time, 10-20 mins; YMMV.
 
-To check on the installation process, run: `tanzu package installed list -A`
+To check on the installation process, run:
 
-== TAP Workloads
-
-=== Overview
-
-Deployed apps will be assigned an HTTP route of the form: `http://NAME.default.local`
-
-Where `NAME` is that specified in the command: `tanzu apps workload create NAME ...`
-
-
-Add a matching entry to your local hosts resolving the route host to the loopback IF.
-
-Host file locations:
-
-|===
-| Platform | Path
-
-| OS X | `/etc/hosts`
-| Linux | `/etc/hosts`
-| Windows |  `C:\Windows\System32\drivers\etc\hosts`
-|===
-
-.Sample
 ----
-127.0.0.1	NAME.default.local.
+PS> tanzu package installed list -A
 ----
 
 === Sample
 
-Deploy the Application Accelerator https://github.com/vmware-tanzu/application-accelerator-samples/tree/main/weatherforecast-steeltoe[Steeltoe sample, window="_new"].
+Deploy the sample Steeltoe app.
 
-.Deploy
 ----
 PS> tanzu apps workload create weatherforecast --git-repo https://github.com/vmware-tanzu/application-accelerator-samples --sub-path weatherforecast-steeltoe --git-branch main --type web --label app.kubernetes.io/part-of=weatherforecast --label tanzu.app.live.view=true --label tanzu.app.live.view.application.name=weatherforecast --annotation autoscaling.knative.dev/minScale=1 --namespace default --yes
 ----
 
-.Follow progress
+Follow progress.
+
 ----
 PS> tanzu apps workload tail weatherforecast --timestamp
 ----
 
-Wait for the status to transition to `Ready`.
-This may take a while.
-5-15 mins.
+Check if ready, waiting for the status to transition to `Ready`.
+This takes 5-15 mins; YMMV.
 
-.Checking Status
 ----
 PS> tanzu apps workload get weatherforecast
 ...
 NAME              READY   URL
-weatherforecast   Ready   http://weatherforecast.default.local
-----
-
-Add a host entry for `weatherforecast.default.local`.
-
-----
-127.0.0.1 weatherforecast.default.local.
+weatherforecast   Ready   http://weatherforecast.default.lvh.me
 ----
 
 Access the app.
 
 ----
-PS> curl http://weatherforecast.default.local/
+PS> curl http://weatherforecast.default.lvh.me/
 ----
 
-== Custom Configuration
+== Configuration Addenda
 
-Configuration defaults are loaded by `link:etc/config.ps1[]`.
+Configuration defaults are loaded by scripts by sourcing `link:etc/config.ps1[]`.
 
 Defaults are defined in:
 
 * `link:etc/config.ps1[]`
-* `link:etc/tap.ps1[]`
+* `link:etc/kubernetes.ps1[]`
 * `link:etc/minikube.ps1[]`
+* `link:etc/tap.ps1[]`
 
-To load configuration in a shell session, run: `. etc/config.ps1`
+=== Loading into a Shell
+
+To load configuration in a shell session:
+
+----
+PS> . etc/config.ps1
+----
+
+=== Customizing
 
 To override defaults, copy `link:share/templates/overrides.ps1[]` to `etc/`.
 
