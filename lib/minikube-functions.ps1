@@ -1,4 +1,29 @@
-Function MiniKube-Start
+Enum MiniKubeStatus
+{
+    Absent
+    Running
+    Stopped
+}
+
+Function MiniKube-Status
+{
+    $status = "$(& $MiniKubeCommand status | Select-String "host:")"
+    If ($status -eq "")
+    {
+        Return [MiniKubeStatus]::Absent
+    }
+    If ($status -Match "Running")
+    {
+        Return [MiniKubeStatus]::Running
+    }
+    If ($status -Match "Stopped")
+    {
+        Return [MiniKubeStatus]::Stopped
+    }
+    Throw "Unable to determine minikube status"
+}
+
+Function MiniKube-Create
 {
     Run-Command $MiniKubeCommand start `
         --driver=$MiniKubeDriver `
@@ -6,6 +31,11 @@ Function MiniKube-Start
         --cpus=$MiniKubeCpus `
         --memory=$MiniKubeMemory `
         --disk-size=$MiniKubeDisk
+}
+
+Function MiniKube-Start
+{
+    Run-Command $MiniKubeCommand start
 }
 
 Function MiniKube-Stop
