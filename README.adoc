@@ -118,22 +118,14 @@ Resultant file should be of the form: `tanzu-cluster-essentials-$PlatformName-am
 
 === Minikube Cluster
 
-Running `minikube-creates` creates a cluster and starts it.
+Running `minikube-up`:
+
+* creates a cluster if needed)
+* starts the cluster (if needed)
+* starts a cluster tunnel
 
 ----
-PS> bin/minikube-create.ps1
-----
-
-Once created, use `minikube-start` and `minikube-stop` to manage cluster.
-
-=== Minikube Tunnel
-
-The tunnel is required for TAP installation and workload deployments.
-
-The tunnel runs in the foreground, `CTRL-C` to kill.
-
-----
-PS> bin/minikube-tunnel.ps1
+PS> bin/minikube-up.ps1
 ----
 
 == Credentials

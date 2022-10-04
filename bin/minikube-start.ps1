@@ -3,13 +3,13 @@
 
 . "$PSScriptRoot/../etc/config.ps1"
 
-Log-Header "Starting minikube cluster"
-If ((MiniKube-Status) -eq [MiniKubeStatus]::Stopped)
+If ((MiniKube-Status) -eq [MiniKubeStatus]::Absent)
 {
-    MiniKube-Start
+    Die "minikube cluster is absent"
 }
-else
+If ((MiniKube-Status) -eq [MiniKubeStatus]::Running)
 {
-    Die "minikube cluster is running or is absent"
+    Log-Info "minikube cluster is already running"
+    Exit
 }
-Log-Success "minikube cluster started"
+MiniKube-Start
