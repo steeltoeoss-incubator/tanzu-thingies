@@ -6,6 +6,8 @@ $TapNamespace = "tap-install"
 $TapDevNamespace = "default"
 $TapDomain = "lvh.me"
 
+$TapProfile = "$ConfigDir/tap-values.yaml"
+
 $TanzuClusterEssentialsVersion = "1.2.0"
 $TanzuClusterEssentialsSlug = "tanzu-cluster-essentials"
 $TanzuClusterEssentialsDist = "tanzu-cluster-essentials-$PlatformName-amd64-$TanzuClusterEssentialsVersion.tgz"

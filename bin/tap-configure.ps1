@@ -15,11 +15,10 @@ $Env:TANZUNET_PASS = "$TanzuNetPass"
 
 $Env:TAP_DOMAIN = "$TapDomain"
 
-$InFile = "$TemplateDir/tap-values.yaml"
-$OutFile = "$ConfigDir/tap-values.yaml"
+$template = "$TemplateDir/tap-values.yaml"
 
 Log-Header "Generating TAP Configuration"
-Substitute-Env -InFile "$InFile" -OutFile "$OutFile"
+Substitute-Env -InFile "$template" -OutFile "$TapProfile"
 
 Log-Success "TAP Configuration generated"
 $OutFile

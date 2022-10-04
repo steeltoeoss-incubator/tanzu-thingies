@@ -8,7 +8,6 @@ $ErrorActionPreference = "Stop"
 
 Log-Header "Installing TAP ($TapVersion)"
 
-$TapProfile = "$ConfigDir/tap-profile.yaml"
 If (!(Test-Path "$TapProfile"))
 {
     Log-Error "TAP profile not found: $TapProfile"
