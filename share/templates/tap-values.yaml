@@ -1,8 +1,10 @@
 ---
-shared:
-  ingress_domain: "$TAP_DOMAIN"
+installed_for_vmware_internal_use: true
 
 profile: iterate
+
+shared:
+  ingress_domain: "$TAP_DOMAIN"
 
 contour:
   envoy:
