@@ -88,9 +88,9 @@ Samples:
 |===
 | Platform | Path
 
-| Linux | `local/distfiles/tanzu-framework-linux-amd64-1.3.0.tar`
-| OS X | `local/distfiles/tanzu-framework-darwin-amd64-1.3.0.tar`
-| Windows |`local/distfiles/tanzu-framework-windows-amd64-1.3.0.zip`
+| Linux | `local/distfiles/tanzu-framework-linux-amd64-1.3.0-rc.1.tar`
+| OS X | `local/distfiles/tanzu-framework-darwin-amd64-1.3.0-rc.1.tar`
+| Windows |`local/distfiles/tanzu-framework-windows-amd64-1.3.0-rc.1.zip`
 |===
 
 ===== Tanzu Cluster Essentials
