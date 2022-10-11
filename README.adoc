@@ -109,9 +109,9 @@ Resultant file should be of the form: `tanzu-cluster-essentials-$PlatformName-am
 |===
 | Platform | Path
 
-| Linux | `local/distfiles/tanzu-cluster-essentials-linux-amd64-1.2.0.tgz`
-| OS X | `local/distfiles/tanzu-cluster-essentials-darwin-amd64-1.2.0.tgz`
-| Windows | `local/distfiles/tanzu-cluster-essentials-linux-amd64-1.2.0.tgz`
+| Linux | `local/distfiles/tanzu-cluster-essentials-linux-amd64-1.3.0.tgz`
+| OS X | `local/distfiles/tanzu-cluster-essentials-darwin-amd64-1.3.0.tgz`
+| Windows | `local/distfiles/tanzu-cluster-essentials-linux-amd64-1.3.0.tgz`
 |===
 
 == Minikube
