@@ -14,6 +14,8 @@ $Env:TANZUNET_USER = "$TanzuNetUser"
 $Env:TANZUNET_PASS = "$TanzuNetPass"
 
 $Env:TAP_DOMAIN = "$TapDomain"
+$Env:TAP_BUILDSERVICE_IMAGES = "$TapBuildserviceImages"
+$Env:TAP_WORKLOAD_IMAGES = "$TapWorkloadImages"
 
 $template = "$TemplateDir/tap-values.yaml"
 

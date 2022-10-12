@@ -8,6 +8,9 @@ $TapDomain = "lvh.me"
 
 $TapProfile = "$ConfigDir/tap-values.yaml"
 
+$TapBuildserviceImages = "buildservice"
+$TapWorkloadImages = "workloads"
+
 $TanzuClusterEssentialsVersion = "1.3.0"
 $TanzuClusterEssentialsSlug = "tanzu-cluster-essentials"
 $TanzuClusterEssentialsDist = "tanzu-cluster-essentials-$PlatformName-amd64-$TanzuClusterEssentialsVersion.tgz"

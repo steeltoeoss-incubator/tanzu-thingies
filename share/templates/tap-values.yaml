@@ -12,7 +12,7 @@ contour:
 ceip_policy_disclosed: true
 
 buildservice:
-  kp_default_repository: "$REGISTRY_HOST/$REGISTRY_REPO/tap/build-service"
+  kp_default_repository: "$REGISTRY_HOST/$REGISTRY_REPO/$TAP_BUILDSERVICE_IMAGES"
   kp_default_repository_username: "$REGISTRY_USER"
   kp_default_repository_password: "$REGISTRY_PASS"
   tanzunet_username: "$TANZUNET_USER"
@@ -24,7 +24,7 @@ supply_chain: basic
 ootb_supply_chain_basic:
   registry:
     server: "$REGISTRY_HOST"
-    repository: "$REGISTRY_REPO/workloads"
+    repository: "$REGISTRY_REPO/$TAP_WORKLOAD_IMAGES"
   gitops:
     ssh_secret: ""
 
