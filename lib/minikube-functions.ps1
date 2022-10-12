@@ -7,8 +7,8 @@ Enum MiniKubeStatus
 
 Function MiniKube-Status
 {
-    $status = "$(& $MiniKubeCommand status | Select-String "host:")"
-    If ($status -eq "")
+    $status = "$(& $MiniKubeCommand status 2>&1 | Select-String "host:")"
+    If (($status -eq "") -Or ($status -Match "Nonexistent"))
     {
         Return [MiniKubeStatus]::Absent
     }
