@@ -5,11 +5,6 @@
 
 Log-Header "Installing Tanzu Cluster Essentials ($TanzuClusterEssentialsVersion)"
 
-If ($IsWindows)
-{
-    $PlatformName = "linux"
-}
-
 $EssentialsDist = "$LocalDistDir/tanzu-cluster-essentials-$PlatformName-amd64-$TanzuClusterEssentialsVersion.tgz"
 If (!(Test-Path "$EssentialsDist"))
 {
@@ -23,25 +18,14 @@ Remove-Item "$EssentialsDir" -Recurse -ErrorAction SilentlyContinue
 New-Item -Path "$EssentialsDir" -ItemType Directory -ErrorAction SilentlyContinue | Out-Null
 Extract -Archive "$EssentialsDist" -OutDir "$EssentialsDir"
 
-If ($IsWindows)
-{
-    Copy-Item $home/.kube/config "$EssentialsDir/kube-config"
-    echo "export INSTALL_BUNDLE='$TanzuClusterEssentialsBundle'" > "$EssentialsDir/env"
-    echo "export INSTALL_REGISTRY_HOSTNAME=$TanzuNetHost" >> "$EssentialsDir/env"
-    echo "export INSTALL_REGISTRY_USERNAME='$TanzuNetUser'" >> "$EssentialsDir/env"
-    echo "export INSTALL_REGISTRY_PASSWORD='$TanzuNetPass'" >> "$EssentialsDir/env"
-    bash $(Windows-2-Unix "$LibExecDir/essentials-install-via-winbash.sh") `
-        $(Windows-2-Unix "$EssentialsDir")
-}
-Else
-{
-    Set-Location $EssentialsDir
-    $Env:INSTALL_BUNDLE = $TanzuClusterEssentialsBundle
-    $Env:INSTALL_REGISTRY_HOSTNAME = $TanzuNetHost
-    $Env:INSTALL_REGISTRY_USERNAME = $TanzuNetUser
-    $Env:INSTALL_REGISTRY_PASSWORD = $TanzuNetPass
-    Run-Command ./install.sh --yes
-}
+$Env:INSTALL_BUNDLE = $TanzuClusterEssentialsBundle
+$Env:INSTALL_REGISTRY_HOSTNAME = $TanzuNetHost
+$Env:INSTALL_REGISTRY_USERNAME = $TanzuNetUser
+$Env:INSTALL_REGISTRY_PASSWORD = $TanzuNetPass
+$workDir = Get-Location
+Set-Location $EssentialsDir
+Run-Command ".\$(($IsWindows) ? "install.bat" : "install.sh")" --yes
+Set-Location $workDir
 
 ForEach ($PodNamespace in "kapp-controller", "secretgen-controller")
 {

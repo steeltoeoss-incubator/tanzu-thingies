@@ -17,4 +17,4 @@ Move-Item -Force "$LocalDistDir/tanzu-framework-$PlatformName-amd64.$archive" $L
 # Tanzu Cluster Essentials
 $slug = $TanzuClusterEssentialsSlug
 $release = $TanzuClusterEssentialsVersion
-Pivnet-Download -Slug $slug -Release $release -Platform (($IsWindows) ? "linux" : $PlatformName)
+Pivnet-Download -Slug $slug -Release $release -Platform $PlatformName
