@@ -34,8 +34,9 @@ Function K8s-Wait-For-Resource
         [string]$Status
     )
     Log-Info "k8s: waiting for $Resource -> $Status ($Namespace)"
+    $Max = 120
     $Count = 0
-    While ($True)
+    While ($Count -lt $Max)
     {
         $current = kubectl get --namespace $Namespace $Resource --no-headers `
             | Select-String $Status -NotMatch
@@ -44,7 +45,7 @@ Function K8s-Wait-For-Resource
             Break
         }
         ++$Count
-        Log-Crumb "waiting for $Resource to be $Status ($Namespace) [$Count]"
+        Log-Crumb "waiting for $Resource to be $Status ($Namespace) [$Count/$Max]"
         Start-Sleep -s 1
     }
 }
