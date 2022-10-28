@@ -30,3 +30,12 @@ ootb_supply_chain_basic:
 
 metadata_store:
   app_service_type: LoadBalancer
+
+excluded_packages:
+- api-portal.tanzu.vmware.com
+- grype.scanning.apps.tanzu.vmware.com
+- learningcenter.tanzu.vmware.com
+- policy.apps.tanzu.vmware.com
+- scanning.apps.tanzu.vmware.com
+- tap-telemetry.tanzu.vmware.com
+- workshops.learningcenter.tanzu.vmware.com
