@@ -1,4 +1,4 @@
-$TapVersion = "1.3.0"
+$TapVersion = "1.3.1-build.6"
 $TapSlug = "tanzu-application-platform"
 $TapDist = "tanzu-framework-$PlatformName-amd64-$TapVersion.tar"
 
