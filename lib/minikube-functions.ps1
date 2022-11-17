@@ -35,7 +35,7 @@ Function MiniKube-Create
 
 Function MiniKube-Start
 {
-    Run-Command $MiniKubeCommand start
+    Run-Command $MiniKubeCommand start --driver=$MiniKubeDriver
 }
 
 Function MiniKube-Stop
