@@ -1,5 +1,5 @@
-$TapVersion = "1.3.2"
-$TapCliVersion = "v0.25.0.4"
+$TapVersion = "1.4.0-build.10"
+$TapCliVersion = "v0.25.0.5"
 $TapSlug = "tanzu-application-platform"
 $TapDist = "tanzu-framework-$PlatformName-amd64-$TapVersion.tar"
 
@@ -20,4 +20,3 @@ $TanzuClusterEssentialsBundle = "registry.tanzu.vmware.com/tanzu-cluster-essenti
 $Env:TANZU_CLI_NO_INIT = "true"
 
 $TanzuCommand = "$LocalBinDir/tanzu${EXECUTABLE}"
-
