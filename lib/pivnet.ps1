@@ -29,7 +29,7 @@ Function Pivnet-Download
     {
         Exit $LastExitCode
     }
-    New-Item -ItemType Directory $LocalDistDir -Force
+    New-Item -ItemType Directory $LocalDistDir -Force | Out-Null
     pivnet download-product-files --product-slug=$Slug --release-version=$Release --product-file-id=$id --download-dir=$LocalDistDir
     If ($LastExitCode -ne 0)
     {
