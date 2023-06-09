@@ -1,3 +1,3 @@
 $PreReqs = `
     "gettext", `
-    "jq", `
+    "jq"

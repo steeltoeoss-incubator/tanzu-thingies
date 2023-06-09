@@ -1,3 +1,4 @@
+
 $BaseDir = Resolve-Path "$PSScriptRoot/.."
 $BinDir = "$BaseDir/bin"
 $ConfigDir = "$BaseDir/etc"
@@ -15,6 +16,8 @@ $LocalToolDir = "$LocalDir/tools"
 
 . "$ConfigDir/platform.ps1"
 . "$ConfigDir/tap.ps1"
+. "$ConfigDir/xdg.ps1"
+
 
 $Overrides = "$ConfigDir/overrides.ps1"
 if (Test-Path "$Overrides") {

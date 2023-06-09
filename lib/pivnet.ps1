@@ -25,8 +25,8 @@ function Pivnet-Download {
         exit $LastExitCode
     }
 
-    New-Item -ItemType Directory $LocalDistDir -Force | Out-Null
-    pivnet download-product-files --product-slug=$Slug --release-version=$Release --product-file-id=$id --download-dir=$LocalDistDir
+    New-Item -ItemType Directory $LocalDistDir/$TapVersion -Force | Out-Null
+    Run-Command pivnet download-product-files --product-slug=$Slug --release-version=$Release --product-file-id=$id --download-dir=$LocalDistDir/$TapVersion
     if ($LastExitCode -ne 0) {
         exit $LastExitCode
     }

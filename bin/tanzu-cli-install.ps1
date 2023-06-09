@@ -12,25 +12,21 @@ if ($IsWindows) {
 } else {
     $archive = "tar"
 }
-$CliDist = "$LocalDistDir/tanzu-framework-$PlatformName-amd64-$TapVersion.$archive"
-if (!(Test-Path "$CliDist")) {
+$CliDist = Get-ChildItem $LocalDistDir/$TapVersion -Filter tanzu-framework-$PlatformName-amd64-*.$archive
+if ($CliDist -eq $null) {
     Log-Error "Tanzu CLI dist not found: $CliDist"
     Log-Error "see https://github.com/steeltoeoss-incubator/tanzu-thingies#tanzu-cli"
     Die
 }
 
-Remove-Item "$TanzuCommand" -ErrorAction SilentlyContinue
-$CliDir = "$LocalToolDir/tanzu-framework-$TapVersion"
-Remove-Item "$CliDir" -Recurse -ErrorAction SilentlyContinue
-New-Item -Path "$CliDir" -ItemType Directory | Out-Null
-Extract -Archive "$CliDist" -OutDir "$CliDir"
-
-New-Item -Path $(Split-Path -parent "$TanzuCommand") -ItemType Directory -ErrorAction SilentlyContinue | Out-Null
-Copy-Item "$CliDir/cli/core/v*/tanzu-core-${PlatformName}_amd64${PlatformExe}" "$LocalBinDir/tanzu$PlatformExe"
-Make-Executable $TanzuCommand
+$ToolDir = "$LocalToolDir/$TapVersion"
+Remove-Item "$ToolDir" -Recurse -ErrorAction SilentlyContinue
+New-Item -Path "$ToolDir" -ItemType Directory | Out-Null
+Extract -Archive "$CliDist" -OutDir "$ToolDir"
 
 Log-Info "installing Tanzu CLI plugins"
-Run-Command $TanzuCommand plugin install --local "$CliDir/cli" all
+Run-Command $ToolDir/cli/core/v*/tanzu-core-${PlatformName}_amd64${PlatformExe} plugin install --local "$ToolDir/cli" all
+Run-Command $ToolDir/cli/core/v*/tanzu-core-${PlatformName}_amd64${PlatformExe} version
+Run-Command $ToolDir/cli/core/v*/tanzu-core-${PlatformName}_amd64${PlatformExe} apps version
 
 Log-Success "Tanzu CLI installed"
-Invoke-Expression "$TanzuCommand version"
