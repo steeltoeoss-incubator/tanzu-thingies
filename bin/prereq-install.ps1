@@ -5,13 +5,11 @@
 $PreReqList = "$ConfigDir/prereqs-$PlatformName.ps1"
 $PreReqScript = "$LibExecDir/prereq-install-$PlatformName.ps1"
 
-If (!(Test-Path "$PreReqList"))
-{
+if (!(Test-Path "$PreReqList")) {
     Die "no prereqs configured for platform: $PlatformName"
 }
 
-If (!(Test-Path "$PreReqScript"))
-{
+if (!(Test-Path "$PreReqScript")) {
     Die "no prereq installer for platform: $PlatformName"
 }
 

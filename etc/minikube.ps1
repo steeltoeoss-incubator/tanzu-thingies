@@ -1,5 +1,0 @@
-$MiniKubeCommand = "minikube"
-$MiniKubeDriver = "docker"
-$MiniKubeCpus = "8"
-$MiniKubeMemory = "12g"
-$MiniKubeDisk = "12g"

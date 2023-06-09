@@ -1,4 +1,3 @@
 $PreReqs = `
     "gettext", `
     "jq", `
-    "minikube"

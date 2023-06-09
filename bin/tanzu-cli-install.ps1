@@ -7,17 +7,13 @@ $ErrorActionPreference = "Stop"
 
 Log-Header "Installing Tanzu CLI ($TapVersion)"
 
-If ($IsWindows)
-{
+if ($IsWindows) {
     $archive = "zip"
-}
-Else
-{
+} else {
     $archive = "tar"
 }
 $CliDist = "$LocalDistDir/tanzu-framework-$PlatformName-amd64-$TapVersion.$archive"
-If (!(Test-Path "$CliDist"))
-{
+if (!(Test-Path "$CliDist")) {
     Log-Error "Tanzu CLI dist not found: $CliDist"
     Log-Error "see https://github.com/steeltoeoss-incubator/tanzu-thingies#tanzu-cli"
     Die

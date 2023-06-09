@@ -1,6 +1,5 @@
 #!/usr/bin/env pwsh
 
-ForEach ($PreReq in $PreReqs)
-{
+foreach ($PreReq in $PreReqs) {
     scoop install $PreReq
 }

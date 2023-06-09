@@ -17,16 +17,6 @@ The PowerShell that ships with Windows is too old for these scripts.
 
 For OS X, install using: `brew install powershell`
 
-=== WSL
-
-Windows users will need a WSL Linux instance to run some shell scripts that are part of the Tanzu Cluster Essentials installation.
-
-=== Docker for Desktop
-
-Install https://www.docker.com/products/docker-desktop/[Docker Desktop] for your platform
-
-If using a WSL backend and Minikube is complaining about not enough resources, check out https://docs.microsoft.com/en-us/windows/wsl/wsl-config#wslconfig[instructions for increasing WSL resource allocation].
-
 === 3rd Party Tools
 
 The prerequisite 3rd party tools for your platform are defined in one of:
@@ -48,14 +38,7 @@ Running the above script requires one of the below installers:
 | `scoop` | Windows | https://scoop.sh/
 |===
 
-=== Tanzu Tools
-
-The Tanzu CLI and Cluster Essentials are required.
-You only need to download the distributions; the tools will be installed as needed for you.
-
-Below are a scripted approach (using the `pivnet` CLI) and a manual approach to download the distributions.
-
-==== Scripted Using pivnet CLI
+=== Pivnet CLI
 
 Install `pivnet` from the https://github.com/pivotal-cf/pivnet-cli/[Pivnet CLI] project, either using a platform installer or downloading a release.
 
@@ -63,173 +46,9 @@ Ensure the file is executable and on your path. On Windows be sure to rename the
 
 After the CLI is installed, https://network.pivotal.io/docs/api#how-to-authenticate[login, window="_new"] to the https://network.pivotal.io/[Tanzu Network, window="_new"].
 
-Once logged in, fetch the distributions by running:
+== Configuration
 
-----
-PS> bin/tanzu-fetch.ps1
-----
-
-==== Manual Downloads
-
-===== Tanzu CLI
-
-Go to the the TanzuNet downloads for https://network.tanzu.vmware.com/products/tanzu-application-platform/[VMware Tanzu Application Platform, window="_new"].
-
-Select the release that matches `$TapVersion`.
-
-Select the `tanzu-cli-tap` distribution for your platform and download.
-
-Move/rename the downloaded file into `$LocalDistDir` with `$TapVersion` appended.
-
-Resultant file should be of the form: `tanzu-framework-$PlatformName-amd64-$TapVersion.{tar,zip}`
-
-Samples:
-
-|===
-| Platform | Path
-
-| Linux | `local/distfiles/tanzu-framework-linux-amd64-1.3.2.tar`
-| OS X | `local/distfiles/tanzu-framework-darwin-amd64-1.3.2.tar`
-| Windows |`local/distfiles/tanzu-framework-windows-amd64-1.3.2.zip`
-|===
-
-===== Tanzu Cluster Essentials
-
-Go to the the TanzuNet downloads for https://network.tanzu.vmware.com/products/tanzu-cluster-essentials[Cluster Essentials for VMware Tanzu, window="_new"].
-
-Select the release that matches `$TanzuClusterEssentialsVersion`.
-
-Select the distribution for your platform and download.
-If you're installing on Windows, select the `linux` distribution.
-
-Move the downloaded file into `$LocalDistDir`.
-
-Resultant file should be of the form: `tanzu-cluster-essentials-$PlatformName-amd64-$TanzuClusterEssentialsVersion.tgz`
-
-|===
-| Platform | Path
-
-| Linux | `local/distfiles/tanzu-cluster-essentials-linux-amd64-1.3.0.tgz`
-| OS X | `local/distfiles/tanzu-cluster-essentials-darwin-amd64-1.3.0.tgz`
-| Windows | `local/distfiles/tanzu-cluster-essentials-linux-amd64-1.3.0.tgz`
-|===
-
-== Minikube
-
-=== Minikube Cluster
-
-Running `minikube-up`:
-
-* creates a cluster if needed)
-* starts the cluster (if needed)
-* starts a cluster tunnel
-
-----
-PS> bin/minikube-up.ps1
-----
-
-== Credentials
-
-Credentials are defined in a configuration file that is ignored by Git: `etc/credentials.ps1`.
-
-Copy `link:share/templates/credentials.ps1[]` to `etc/`.
-
-----
-PS> Copy-Item share/templates/credentials.ps1 etc/
-----
-
-Configure credentials for your Docker registry and TanzuNet.
-
-.Sample
-----
-$RegistryHost = "harbor-repo.vmware.com"
-$RegistryUser = "joe"
-$RegistryPass = "joepass"
-$RegistryRepo = "joes_tap"
-
-$TanzuNetHost = "registry.tanzu.vmware.com"
-$TanzuNetUser = "joe@company.com"
-$TanzuNetPass = "joepassdeux"
-----
-
-== TAP
-
-=== TAP Configuration
-
-TAP is configuration is defined in the file `etc/tap-values.yaml`.
-
-Generate a TAP configuration based on your local settings by running:
-
-----
-PS> bin/tap-configure.ps1
-----
-
-You only need to do this once, or when you've changed settings.
-
-Review the generated file `etc/tap-values.yaml` before proceeding.
-
-=== TAP Install
-
-IMPORTANT: A network connection to corporate network must be open.
-
-IMPORTANT: The Minikube tunnel must be running.
-
-Install TAP into the current K8s context.
-
-----
-PS> bin/tap-install.ps1
-----
-
-The installation takes some time, 10-20 mins; YMMV.
-
-To check on the installation process, run:
-
-----
-PS> tanzu package installed list -A
-----
-
-When all packages are "Reconciled", TAP is fully installed.
-
-== Sample Workload Deployment
-
-Deploy the sample Steeltoe app.
-
-----
-PS> tanzu apps workload create weatherforecast --git-repo https://github.com/vmware-tanzu/application-accelerator-samples --sub-path weatherforecast-steeltoe --git-branch main --type web --label app.kubernetes.io/part-of=weatherforecast --label tanzu.app.live.view=true --label tanzu.app.live.view.application.name=weatherforecast --annotation autoscaling.knative.dev/minScale=1 --namespace default --yes
-----
-
-Follow progress.
-
-----
-PS> tanzu apps workload tail weatherforecast --timestamp
-----
-
-Check if ready, waiting for the status to transition to `Ready`.
-This takes 5-15 mins; YMMV.
-
-----
-PS> tanzu apps workload get weatherforecast
-...
-NAME              READY   URL
-weatherforecast   Ready   http://weatherforecast.default.lvh.me
-----
-
-Access the app.
-
-----
-PS> curl http://weatherforecast.default.lvh.me/
-----
-
-== Configuration Addenda
-
-Configuration defaults are loaded by scripts by sourcing `link:etc/config.ps1[]`.
-
-Defaults are defined in:
-
-* `link:etc/config.ps1[]`
-* `link:etc/kubernetes.ps1[]`
-* `link:etc/minikube.ps1[]`
-* `link:etc/tap.ps1[]`
+Configuration defaults are loaded by sourcing `link:etc/config.ps1[]`.
 
 === Loading into a Shell
 
@@ -245,9 +64,9 @@ To override defaults, copy `link:share/templates/overrides.ps1[]` to `etc/`.
 
 .Sample
 ----
-$MiniKubeMemory = "6g"
+$TapVersion = "1.6.0-build.39"
 ----
 
 == FAQ
 
-Did you get a message about credentials.ps1? Refer to <<Credentials>> for what to do next.
+_This section intentionally left blank._

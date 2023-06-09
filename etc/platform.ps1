@@ -1,15 +1,10 @@
-If ($IsMacOs)
-{
+if ($IsMacOs) {
     $PlatformName = "darwin"
     $PlatformExe = ""
-}
-ElseIf ($IsLinux)
-{
+} elseif ($IsLinux) {
     $PlatformName = "linux"
     $PlatformExe = ""
-}
-Else
-{
+} else {
     $PlatformName = "windows"
     $PlatformExe = ".exe"
 }

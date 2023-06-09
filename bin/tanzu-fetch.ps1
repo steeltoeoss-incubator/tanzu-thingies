@@ -11,10 +11,5 @@ $slug = $TapSlug
 $release = $TapVersion
 $archive = ($IsWindows) ? "zip" : "tar"
 Pivnet-Download -Slug $slug -Release $release -Platform $PlatformName
-Log-Crumb "renaming dist to include release version"
-Move-Item -Force "$LocalDistDir/tanzu-framework-$PlatformName-amd64-$TapCliVersion.$archive" $LocalDistDir/tanzu-framework-$PlatformName-amd64-$release.$archive
-
-# Tanzu Cluster Essentials
-$slug = $TanzuClusterEssentialsSlug
-$release = $TanzuClusterEssentialsVersion
-Pivnet-Download -Slug $slug -Release $release -Platform $PlatformName
+# Log-Crumb "renaming dist to include release version"
+# Move-Item -Force "$LocalDistDir/tanzu-framework-$PlatformName-amd64-$TapCliVersion.$archive" $LocalDistDir/tanzu-framework-$PlatformName-amd64-$release.$archive

@@ -1,39 +1,33 @@
-Function Pivnet-Download
-{
-    Param
+function Pivnet-Download {
+    param
     (
-        [Parameter (Mandatory = $True)]
+        [parameter (Mandatory = $True)]
         [string]$Slug,
-        [Parameter (Mandatory = $True)]
+        [parameter (Mandatory = $True)]
         [string]$Release,
-        [Parameter (Mandatory = $True)]
+        [parameter (Mandatory = $True)]
         [string]$Platform
     )
+
     Log-Crumb "downloading $Slug $Release ($Platform)"
-    If ($IsWindows)
-    {
+    if ($IsWindows) {
         $id = pivnet product-files `
             --product-slug=$Slug `
             --release-version=$Release `
             --format=json | ConvertFrom-Json | Where name -match $platform | Select id -ExpandProperty id
-    }
-    Else
-    {
+    } else {
         $id = pivnet product-files `
             --product-slug $Slug `
             --release-version $Release `
             --format=json | jq ".[] | select(.aws_object_key | test(""$Platform"")) | .id"
     }
-
-    If ($LastExitCode -ne 0)
-    {
-        Exit $LastExitCode
+    if ($LastExitCode -ne 0) {
+        exit $LastExitCode
     }
+
     New-Item -ItemType Directory $LocalDistDir -Force | Out-Null
     pivnet download-product-files --product-slug=$Slug --release-version=$Release --product-file-id=$id --download-dir=$LocalDistDir
-    If ($LastExitCode -ne 0)
-    {
-        Exit $LastExitCode
+    if ($LastExitCode -ne 0) {
+        exit $LastExitCode
     }
 }
-
