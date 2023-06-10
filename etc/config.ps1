@@ -15,7 +15,8 @@ $LocalToolDir = "$LocalDir/tools"
 . "$LibDir/pivnet.ps1"
 
 . "$ConfigDir/platform.ps1"
-. "$ConfigDir/tap.ps1"
+. "$ConfigDir/tanzu.ps1"
+. "$ConfigDir/products.ps1"
 . "$ConfigDir/xdg.ps1"
 
 

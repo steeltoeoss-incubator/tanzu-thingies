@@ -9,8 +9,7 @@ if (!(Test-Path "$PreReqList")) {
     Die "no prereqs configured for platform: $PlatformName"
 }
 
-if (!(Test-Path "$PreReqScript"))
-{
+if (!(Test-Path "$PreReqScript")) {
     Die "no prereq installer for platform: $PlatformName"
 }
 

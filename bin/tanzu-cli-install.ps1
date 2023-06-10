@@ -26,7 +26,9 @@ Extract -Archive "$CliDist" -OutDir "$ToolDir"
 
 Log-Info "installing Tanzu CLI plugins"
 Run-Command $ToolDir/cli/core/v*/tanzu-core-${PlatformName}_amd64${PlatformExe} plugin install --local "$ToolDir/cli" all
+Log-Info "Tanzu CLI version"
 Run-Command $ToolDir/cli/core/v*/tanzu-core-${PlatformName}_amd64${PlatformExe} version
+Log-Info "Tanzu CLI apps version"
 Run-Command $ToolDir/cli/core/v*/tanzu-core-${PlatformName}_amd64${PlatformExe} apps version
 
 Log-Success "Tanzu CLI installed"
