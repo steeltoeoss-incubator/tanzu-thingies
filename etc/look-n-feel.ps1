@@ -1,0 +1,6 @@
+$SuccessColor = "Green"
+$WarningColor = "Yellow"
+$ErrorColor = "Red"
+$HeaderColor = "Cyan"
+$InfoColor = "Cyan"
+$CrumbColor = "Magenta"

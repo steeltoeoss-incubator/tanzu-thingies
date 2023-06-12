@@ -1,0 +1,4 @@
+$PreReqs = `
+    "gettext", `
+    "jq", `
+    "unzip"

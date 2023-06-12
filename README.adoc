@@ -1,0 +1,119 @@
+:toc:
+:toclevels: 2
+:toc-placement!:
+:toc-title!:
+:linkattrs:
+
+= _Tanzu Thingies_ =
+
+toc::[]
+
+== Prerequisites
+
+=== PowerShell
+
+For Windows, install a recent version, >=7.2.  The PowerShell that ships with Windows is too old for these scripts.
+
+For installation instructions for all platforms, see https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell
+
+=== 3rd Party Tools
+
+The prerequisite 3rd party tools for your platform are defined in one of:
+
+* `link:etc/prereqs-darwin.ps1[]`
+* `link:etc/prereqs-windows.ps1[]`
+
+You can install the tools manually, or by running:
+
+[bash]
+----
+$> bin/prereq-install
+----
+
+[powershell]
+----
+PS> winbin\prereq-install
+----
+
+Running the above script requires one of the below installers:
+
+|===
+| Installer | Platform | Home
+
+| `brew` | OS X | https://brew.sh/
+| `scoop` | Windows | https://scoop.sh/
+|===
+
+=== Pivnet CLI
+
+Install `pivnet` from the https://github.com/pivotal-cf/pivnet-cli/[Pivnet CLI] project, either using a platform installer or downloading a release.
+
+Ensure the file is executable and on your path. On Windows be sure to rename the file to `pivnet.exe`.
+
+After the CLI is installed, https://network.pivotal.io/docs/api#how-to-authenticate[login, window="_new"] to the https://network.pivotal.io/[Tanzu Network, window="_new"].
+
+== Running
+
+General course of events:
+
+* fetch TAP artifacts
+* install `tanzu` CLI
+* run `tanzu` CLI
+
+=== Specifying TAP Version
+
+The default version is specified by the var `$TapVersion` in the file `etc/tap.ps1`.
+
+To override the version, redefine `$TapVersion` in the file `etc/overrides.ps1`.
+
+To override the version for a single command invocation, set the env var `TT_TAP_VERSION`.
+
+=== Fetching Artifacts
+
+[bash]
+----
+$> bin/tanzu-fetch
+=== fetching artifacts for TAP 1.5.1
+...
+----
+
+[powershell]
+----
+PS> winbin\tanzu-fetch
+=== fetching artifacts for TAP 1.5.1
+...
+----
+
+=== Installing CLI
+
+[bash]
+----
+$> bin/tanzu-cli-install
+=== Installing TAP 1.5.1 CLI
+...
+----
+
+[powershell]
+----
+PS> winbin\tanzu-cli-install
+=== Installing TAP 1.5.1 CLI
+...
+----
+
+=== Running CLI
+
+[bash]
+----
+$> bin/tanzu
+version: v0.28.1
+buildDate: 2023-03-07
+sha: 0e6704777-dirty
+----
+
+[powershell]
+----
+PS> winbin\tanzu
+version: v0.28.1
+buildDate: 2023-03-07
+sha: 0e6704777-dirty
+----
