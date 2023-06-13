@@ -52,6 +52,12 @@ Ensure the file is executable and on your path. On Windows be sure to rename the
 
 After the CLI is installed, https://network.pivotal.io/docs/api#how-to-authenticate[login, window="_new"] to the https://network.pivotal.io/[Tanzu Network, window="_new"].
 
+== Setup
+
+For Windows, add `<repo>\winbin` to your `PATH`.
+
+For other OSes, add `<repo>/bin` to your `PATH`.
+
 == Running
 
 General course of events:
@@ -72,14 +78,7 @@ To override the version for a single command invocation, set the env var `TT_TAP
 
 [bash]
 ----
-$> bin/tanzu-fetch
-=== fetching artifacts for TAP 1.5.1
-...
-----
-
-[powershell]
-----
-PS> winbin\tanzu-fetch
+$> tanzu-fetch
 === fetching artifacts for TAP 1.5.1
 ...
 ----
@@ -88,14 +87,7 @@ PS> winbin\tanzu-fetch
 
 [bash]
 ----
-$> bin/tanzu-cli-install
-=== Installing TAP 1.5.1 CLI
-...
-----
-
-[powershell]
-----
-PS> winbin\tanzu-cli-install
+$> tanzu-cli-install
 === Installing TAP 1.5.1 CLI
 ...
 ----
@@ -104,15 +96,7 @@ PS> winbin\tanzu-cli-install
 
 [bash]
 ----
-$> bin/tanzu
-version: v0.28.1
-buildDate: 2023-03-07
-sha: 0e6704777-dirty
-----
-
-[powershell]
-----
-PS> winbin\tanzu
+$> tanzu
 version: v0.28.1
 buildDate: 2023-03-07
 sha: 0e6704777-dirty
