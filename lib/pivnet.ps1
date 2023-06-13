@@ -11,10 +11,10 @@ function Pivnet-Download {
 
     Log-Crumb "getting file ID for TAP $Version $Product"
     if ($IsWindows) {
-        $fileId = pivnet product-files `
-            --product-slug=$TanzuSlug `
-            --release-version=$Version `
-            --format=json | ConvertFrom-Json | Where name -match $platform | Select id -ExpandProperty id
+        $fileId = Run-Command pivnet product-files `
+            --product-slug $TanzuSlug `
+            --release-version $Version `
+            --format=json | ConvertFrom-Json | Where name -match $Product | Select id -ExpandProperty id
     } else {
         $fileId = Run-Command pivnet product-files `
             --product-slug $TanzuSlug `
