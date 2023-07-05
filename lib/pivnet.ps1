@@ -28,10 +28,10 @@ function Pivnet-Download {
     }
 
     Log-Crumb "downloading file ID $fileId "
-    New-Item -ItemType Directory $LocalCacheDir -Force | Out-Null
+    New-Item -ItemType Directory $LocalDownloadDir -Force | Out-Null
     Run-Command pivnet download-product-files `
         --product-slug=$TanzuSlug `
         --release-version=$Version `
         --product-file-id=$fileId `
-        --download-dir=$LocalCacheDir
+        --download-dir=$LocalDownloadDir
 }
