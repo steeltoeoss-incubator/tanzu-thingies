@@ -40,6 +40,7 @@ if ($LegacyCli) {
 }
 else {
     Run-Command $Cli config eula accept
+    Run-Command $Cli config set env.TANZU_CLI_ADDITIONAL_PLUGIN_DISCOVERY_IMAGES_TEST_ONLY harbor-repo.vmware.com/tanzu_cli_stage/plugins/plugin-inventory:latest
     Run-Command $Cli plugin install --group vmware-tap/default:1.6.0-rc.1
 }
 
