@@ -13,4 +13,9 @@ if ($Cli -eq $null) {
     Die
 }
 
-Invoke-Expression "${Cli} ${Args}"
+$LocalEnv = @{
+    XDG_CONFIG_HOME = "$LocalConfigDir"
+    XDG_DATA_HOME = "$LocalDataDir"
+    XDG_CACHE_HOME = "$LocalCacheDir"
+}
+Start-Process "${Cli} ${Args}" -Environment $LocalEnv
